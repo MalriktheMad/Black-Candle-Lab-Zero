@@ -49,10 +49,6 @@
   background-image: url("../../assets/sprites/environment/map-layers/sand.png");
 }
 
-.map-landmarks {
-  z-index: 4;
-  background-image: url("../../assets/sprites/environment/map-layers/landmarks.png");
-}
 
 .world .player:not(.on-sand):not(.is-flying):not(.is-taking-off):not(.is-landing):not(.is-moving) .pixel-bird {
   left: -4px;

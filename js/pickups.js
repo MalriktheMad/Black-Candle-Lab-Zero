@@ -14,10 +14,10 @@ const PICKUPS = [
   makeSunflowerPickup("forest-sunflower-1", 895, 400),
   makeSunflowerPickup("forest-sunflower-2", 678, 738),
   makeSunflowerPickup("forest-sunflower-3", 292, 1032),
-  makeSunflowerPickup("forest-sunflower-4", 704, 1232),
-  makeSunflowerPickup("east-sunflower-1", 1654, 782),
+  makeSunflowerPickup("forest-sunflower-4", 656, 1184),
+  makeSunflowerPickup("east-sunflower-1", 1654, 814),
   makeSunflowerPickup("east-sunflower-2", 1834, 374),
-  makeSunflowerPickup("northeast-sunflower-1", 2028, 102)
+  makeSunflowerPickup("northeast-sunflower-1", 1804, 38)
 ];
 
 const pickupElements = new Map();
@@ -57,7 +57,7 @@ function installPickupStyles() {
     }
 
     .sunflower-pickup {
-      background-image: url("assets/sprites/pickups/sunflower-ground-pickup.svg");
+      background-image: url("assets/sprites/environment/plants/sunflower.svg");
     }
 
     .pickup.collected {
