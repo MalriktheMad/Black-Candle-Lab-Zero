@@ -29,7 +29,6 @@ function getOpeningBedroomIntroLines() {
     littleWingLine("Oh, I must have slept in..."),
     littleWingLine("Where is the wizard? He usually gets me up."),
     littleWingLine("The cage latch is loose. If I pull it just right, I can get out."),
-    littleWingLine("Tap the cage to break free."),
     {
       ...littleWingLine("Then I can find Wing-Master Cricket downstairs."),
       onShow: showBedroomCagePrompt
