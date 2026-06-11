@@ -16,16 +16,76 @@ const TRANSITION_COOLDOWN = 0.45;
 const FLIGHT_TAKEOFF_MS = 380;
 const FLIGHT_LAND_MS = 320;
 const BLOCKED_TERRAIN = [
-  { name: "old-dilly-roof", left: 225, top: 188, right: 413, bottom: 270 },
-  { name: "old-dilly-left-wall", left: 225, top: 270, right: 305, bottom: 334 },
-  { name: "old-dilly-right-wall", left: 351, top: 270, right: 413, bottom: 334 },
-  { name: "lab-zero-left-wall", left: 1982, top: 1242, right: 2061, bottom: 1430 },
-  { name: "lab-zero-right-wall", left: 2141, top: 1242, right: 2212, bottom: 1430 },
-  { name: "lab-zero-back-wall", left: 2062, top: 1242, right: 2140, bottom: 1380 },
-  { name: "north-river", left: 1250, top: 0, right: 1458, bottom: 1172, flightPassable: true },
-  { name: "river-mouth", left: 1164, top: 1128, right: 1638, bottom: 1700, flightPassable: true },
-  { name: "east-channel", left: 1492, top: 1488, right: 2256, bottom: 1598, flightPassable: true },
-  { name: "south-sea", left: 0, top: 1534, right: 2400, bottom: 1800, flightPassable: true }
+  { name: "old-dilly-house", left: 194, top: 108, right: 386, bottom: 308 },
+  { name: "lab-zero-building", left: 1952, top: 636, right: 2124, bottom: 754 },
+  { name: "end-of-road", left: 1850, top: 0, right: 2240, bottom: 352 },
+  { name: "water-000", left: 1024, top: 0, right: 1184, bottom: 32, flightPassable: true },
+  { name: "water-001", left: 1056, top: 32, right: 1216, bottom: 64, flightPassable: true },
+  { name: "water-002", left: 1056, top: 64, right: 1216, bottom: 96, flightPassable: true },
+  { name: "water-003", left: 1088, top: 96, right: 1248, bottom: 128, flightPassable: true },
+  { name: "water-004", left: 1120, top: 128, right: 1280, bottom: 160, flightPassable: true },
+  { name: "water-005", left: 1120, top: 160, right: 1312, bottom: 192, flightPassable: true },
+  { name: "water-006", left: 1152, top: 192, right: 1344, bottom: 224, flightPassable: true },
+  { name: "water-007", left: 1152, top: 224, right: 1408, bottom: 256, flightPassable: true },
+  { name: "water-008", left: 1216, top: 256, right: 1408, bottom: 288, flightPassable: true },
+  { name: "water-009", left: 1248, top: 288, right: 1440, bottom: 320, flightPassable: true },
+  { name: "water-010", left: 1280, top: 320, right: 1504, bottom: 352, flightPassable: true },
+  { name: "water-011", left: 1312, top: 352, right: 1504, bottom: 384, flightPassable: true },
+  { name: "water-012", left: 1344, top: 384, right: 1536, bottom: 416, flightPassable: true },
+  { name: "water-013", left: 1376, top: 416, right: 1536, bottom: 448, flightPassable: true },
+  { name: "water-014", left: 1408, top: 448, right: 1568, bottom: 480, flightPassable: true },
+  { name: "water-015", left: 1408, top: 480, right: 1600, bottom: 512, flightPassable: true },
+  { name: "water-016", left: 1472, top: 512, right: 1600, bottom: 544, flightPassable: true },
+  { name: "water-017", left: 1472, top: 544, right: 1600, bottom: 576, flightPassable: true },
+  { name: "water-018", left: 1472, top: 576, right: 1600, bottom: 608, flightPassable: true },
+  { name: "water-019", left: 1472, top: 608, right: 1600, bottom: 640, flightPassable: true },
+  { name: "water-020", left: 1472, top: 640, right: 1632, bottom: 672, flightPassable: true },
+  { name: "water-021", left: 1472, top: 672, right: 1600, bottom: 704, flightPassable: true },
+  { name: "water-022", left: 1472, top: 704, right: 1600, bottom: 736, flightPassable: true },
+  { name: "water-023", left: 1440, top: 736, right: 1600, bottom: 768, flightPassable: true },
+  { name: "water-024", left: 1408, top: 768, right: 1600, bottom: 800, flightPassable: true },
+  { name: "water-025", left: 1184, top: 800, right: 1568, bottom: 832, flightPassable: true },
+  { name: "water-026", left: 1120, top: 832, right: 1536, bottom: 864, flightPassable: true },
+  { name: "water-027", left: 1056, top: 864, right: 1504, bottom: 896, flightPassable: true },
+  { name: "water-028", left: 992, top: 896, right: 1440, bottom: 928, flightPassable: true },
+  { name: "water-029", left: 928, top: 928, right: 1248, bottom: 960, flightPassable: true },
+  { name: "water-030", left: 896, top: 960, right: 1152, bottom: 992, flightPassable: true },
+  { name: "water-031", left: 896, top: 992, right: 1088, bottom: 1024, flightPassable: true },
+  { name: "water-032", left: 864, top: 1024, right: 1056, bottom: 1056, flightPassable: true },
+  { name: "water-033", left: 832, top: 1056, right: 992, bottom: 1088, flightPassable: true },
+  { name: "water-034", left: 800, top: 1088, right: 960, bottom: 1120, flightPassable: true },
+  { name: "water-035", left: 800, top: 1120, right: 928, bottom: 1152, flightPassable: true },
+  { name: "water-036", left: 800, top: 1152, right: 896, bottom: 1184, flightPassable: true },
+  { name: "water-037", left: 768, top: 1184, right: 896, bottom: 1216, flightPassable: true },
+  { name: "water-038", left: 768, top: 1216, right: 896, bottom: 1248, flightPassable: true },
+  { name: "water-039", left: 768, top: 1248, right: 928, bottom: 1280, flightPassable: true },
+  { name: "water-040", left: 704, top: 1280, right: 928, bottom: 1312, flightPassable: true },
+  { name: "water-041", left: 640, top: 1312, right: 992, bottom: 1344, flightPassable: true },
+  { name: "water-042", left: 576, top: 1344, right: 1056, bottom: 1376, flightPassable: true },
+  { name: "water-043", left: 512, top: 1376, right: 768, bottom: 1408, flightPassable: true },
+  { name: "water-044", left: 800, top: 1376, right: 1120, bottom: 1408, flightPassable: true },
+  { name: "water-045", left: 480, top: 1408, right: 704, bottom: 1440, flightPassable: true },
+  { name: "water-046", left: 896, top: 1408, right: 1152, bottom: 1440, flightPassable: true },
+  { name: "water-047", left: 2240, top: 1408, right: 2400, bottom: 1440, flightPassable: true },
+  { name: "water-048", left: 448, top: 1440, right: 672, bottom: 1472, flightPassable: true },
+  { name: "water-049", left: 928, top: 1440, right: 1216, bottom: 1472, flightPassable: true },
+  { name: "water-050", left: 2176, top: 1440, right: 2400, bottom: 1472, flightPassable: true },
+  { name: "water-051", left: 64, top: 1472, right: 544, bottom: 1504, flightPassable: true },
+  { name: "water-052", left: 960, top: 1472, right: 1248, bottom: 1504, flightPassable: true },
+  { name: "water-053", left: 2016, top: 1472, right: 2400, bottom: 1504, flightPassable: true },
+  { name: "water-054", left: 0, top: 1504, right: 544, bottom: 1536, flightPassable: true },
+  { name: "water-055", left: 1024, top: 1504, right: 1248, bottom: 1536, flightPassable: true },
+  { name: "water-056", left: 1824, top: 1504, right: 2400, bottom: 1536, flightPassable: true },
+  { name: "water-057", left: 0, top: 1536, right: 608, bottom: 1568, flightPassable: true },
+  { name: "water-058", left: 1056, top: 1536, right: 2400, bottom: 1568, flightPassable: true },
+  { name: "water-059", left: 0, top: 1568, right: 832, bottom: 1600, flightPassable: true },
+  { name: "water-060", left: 1056, top: 1568, right: 2400, bottom: 1600, flightPassable: true },
+  { name: "water-061", left: 0, top: 1600, right: 2400, bottom: 1632, flightPassable: true },
+  { name: "water-062", left: 0, top: 1632, right: 2400, bottom: 1664, flightPassable: true },
+  { name: "water-063", left: 0, top: 1664, right: 2400, bottom: 1696, flightPassable: true },
+  { name: "water-064", left: 0, top: 1696, right: 2400, bottom: 1728, flightPassable: true },
+  { name: "water-065", left: 0, top: 1728, right: 2400, bottom: 1760, flightPassable: true },
+  { name: "water-066", left: 0, top: 1760, right: 2400, bottom: 1792, flightPassable: true }
 ];
 const LAB_BLOCKED_TERRAIN = [
   { name: "north-bench", left: 74, top: 66, right: 238, bottom: 154 },
@@ -83,8 +143,8 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
-      { left: 300, top: 300, right: 350, bottom: 362, to: "dilly", entryX: 748, entryY: 320 },
-      { left: 2062, top: 1378, right: 2140, bottom: 1460, to: "lab", entryX: 460, entryY: 526 }
+      { left: 246, top: 206, right: 362, bottom: 346, to: "dilly", entryX: 748, entryY: 320 },
+      { left: 1996, top: 724, right: 2106, bottom: 818, to: "lab", entryX: 460, entryY: 526 }
     ]
   },
   lab: {
@@ -95,7 +155,7 @@ const AREAS = {
     target: interiorTarget,
     blocked: LAB_BLOCKED_TERRAIN,
     transitions: [
-      { left: 426, top: 534, right: 494, bottom: 610, to: "outside", entryX: 2088, entryY: 1462 },
+      { left: 426, top: 534, right: 494, bottom: 610, to: "outside", entryX: 2052, entryY: 832 },
       { left: 92, top: 438, right: 224, bottom: 556, to: "bedroom", entryX: 548, entryY: 420 }
     ]
   },
@@ -118,7 +178,7 @@ const AREAS = {
     target: dillyTarget,
     blocked: DILLY_BLOCKED_TERRAIN,
     transitions: [
-      { left: 792, top: 252, right: 874, bottom: 404, to: "outside", entryX: 326, entryY: 372 }
+      { left: 792, top: 252, right: 874, bottom: 404, to: "outside", entryX: 304, entryY: 362 }
     ]
   }
 };
@@ -352,11 +412,11 @@ function isSandPoint(worldX, worldY) {
     return false;
   }
 
-  const southBeach = worldY >= 1430;
-  const labBeach = worldX >= 1320 && worldY >= 1190;
-  const mouthBar = worldX >= 1040 && worldX <= 1540 && worldY >= 1260 && worldY <= 1580;
+  const southBeach = worldY >= 1308;
+  const riverBank = worldX >= 690 && worldX <= 1720 && worldY <= 1440;
+  const riverMouth = worldX >= 560 && worldX <= 1160 && worldY >= 936;
 
-  return southBeach || labBeach || mouthBar;
+  return southBeach || riverBank || riverMouth;
 }
 
 function setPlayerMoving(isMoving) {
