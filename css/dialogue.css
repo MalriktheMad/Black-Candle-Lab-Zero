@@ -123,3 +123,22 @@
   cursor: not-allowed;
   opacity: 0.44;
 }
+.bedroom-cage-prompt {
+  position: fixed;
+  left: 50%;
+  top: 22%;
+  z-index: 90;
+  max-width: min(86vw, 360px);
+  border: 2px solid rgba(247, 244, 255, 0.68);
+  border-radius: 6px;
+  padding: 10px 14px;
+  background: rgba(5, 5, 8, 0.88);
+  box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.72), 0 0 18px rgba(124, 60, 255, 0.28);
+  color: #f7f4ff;
+  font-size: 0.74rem;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  pointer-events: none;
+}

@@ -1,4 +1,4 @@
-﻿const OPENING_BEDROOM_DIALOGUE_KEY = "lab-zero-opening-bedroom-dialogue";
+const OPENING_BEDROOM_DIALOGUE_KEY = "lab-zero-opening-bedroom-dialogue";
 const OPENING_BEDROOM_INTRO_KEY = "lab-zero-opening-bedroom-intro";
 const BEDROOM_CAGE_START_X = 138;
 const BEDROOM_CAGE_START_Y = 162;
@@ -29,7 +29,11 @@ function getOpeningBedroomIntroLines() {
     littleWingLine("Oh, I must have slept in..."),
     littleWingLine("Where is the wizard? He usually gets me up."),
     littleWingLine("The cage latch is loose. If I pull it just right, I can get out."),
-    littleWingLine("Then I can find Wing-Master Cricket downstairs.")
+    littleWingLine("Tap the cage to break free."),
+    {
+      ...littleWingLine("Then I can find Wing-Master Cricket downstairs."),
+      onShow: showBedroomCagePrompt
+    }
   ];
 }
 
@@ -61,6 +65,7 @@ function handleBedroomCageBreakoutPointer(event) {
   }
 
   sessionStorage.setItem(OPENING_BEDROOM_DIALOGUE_KEY, "true");
+  hideBedroomCagePrompt();
   startDialogue(getBedroomCageBreakoutLines());
   return true;
 }
@@ -115,4 +120,29 @@ function moveLittleWingOutOfBedroomCage() {
   placePlayer();
   placeTarget();
   placeCamera();
+}
+function showBedroomCagePrompt() {
+  const prompt = getBedroomCagePrompt();
+  prompt.hidden = false;
+}
+
+function hideBedroomCagePrompt() {
+  const prompt = document.querySelector(".bedroom-cage-prompt");
+
+  if (prompt) {
+    prompt.hidden = true;
+  }
+}
+
+function getBedroomCagePrompt() {
+  let prompt = document.querySelector(".bedroom-cage-prompt");
+
+  if (!prompt) {
+    prompt = document.createElement("div");
+    prompt.className = "bedroom-cage-prompt";
+    prompt.textContent = "Tap the cage to break free";
+    stage.append(prompt);
+  }
+
+  return prompt;
 }
