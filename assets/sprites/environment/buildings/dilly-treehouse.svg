@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 260" shape-rendering="crispEdges">
+  <title>Old Dilly and Liz treehouse exterior draft</title>
+  <ellipse cx="120" cy="224" rx="92" ry="28" fill="#06100b" opacity="0.42"/>
+  <path d="M104 100h38v118h-38z" fill="#06100b"/>
+  <path d="M112 108h22v102h-22z" fill="#5c3a21"/>
+  <path d="M112 108h6v102h-6zm17 0h5v102h-5z" fill="#2e1b10"/>
+  <path d="M66 38h26V18h52v18h29v27h22v55h-18v28H61v-24H40V68h26z" fill="#06100b"/>
+  <path d="M72 44h26V24h40v20h29v25h20v42h-18v27H69v-23H48V74h24z" fill="#2a7a3c"/>
+  <path d="M72 70h46V44h49v38h20v29h-18v27H87v-20H48V88h24z" fill="#74c365"/>
+  <path d="M39 128h158v18H39z" fill="#06100b"/>
+  <path d="M47 133h142v8H47z" fill="#6a4425"/>
+  <path d="M63 74h116v76H63z" fill="#06100b"/>
+  <path d="M72 82h98v60H72z" fill="#7a5230"/>
+  <path d="M72 82h14v60H72zm30 0h10v60h-10zm28 0h12v60h-12zm28 0h12v60h-12z" fill="#3b2414"/>
+  <path d="M52 44h138v32H52z" fill="#06100b"/>
+  <path d="M63 53h116v15H63z" fill="#2e1b10"/>
+  <path d="M66 53h22v15H66zm42 0h24v15h-24zm46 0h22v15h-22z" fill="#6a4425"/>
+  <path d="M110 106h32v44h-32z" fill="#06100b"/>
+  <path d="M117 113h18v37h-18z" fill="#25160d"/>
+  <circle cx="132" cy="132" r="3" fill="#e3c76d"/>
+  <path d="M149 104h26v23h-26z" fill="#06100b"/>
+  <path d="M156 110h13v11h-13z" fill="#e3c76d"/>
+  <path d="M64 164h112v30H64z" fill="#06100b" transform="rotate(-7 120 179)"/>
+  <path d="M71 170h98v18H71z" fill="#3b2414" transform="rotate(-7 120 179)"/>
+  <text x="120" y="184" text-anchor="middle" font-family="Trebuchet MS, Arial, sans-serif" font-size="11" font-weight="900" fill="#ece2bc" transform="rotate(-7 120 184)">Old Dilly + Liz</text>
+  <path d="M42 200h156v42H42z" fill="#0d331d" opacity="0.72"/>
+  <path d="M48 213h8v8h-8zm28-8h8v8h-8zm36 16h8v8h-8zm48-12h8v8h-8zm24 18h8v8h-8z" fill="#9ade7e"/>
+  <path d="M64 222h8v8h-8zm82-4h8v8h-8zm-44 12h8v8h-8z" fill="#d2b45c"/>
+</svg>

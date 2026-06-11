@@ -18,6 +18,27 @@
   background-image: url("../../assets/sprites/environment/map-layers/grass.png");
 }
 
+
+.forest-floor::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.72;
+  background-image: url("../../assets/sprites/environment/ground/Grass/grasscover1.png");
+  background-position: 0 0;
+  background-repeat: repeat;
+  background-size: 64px 64px;
+  image-rendering: pixelated;
+  animation: grass-sway 900ms steps(1, end) infinite;
+}
+
+@keyframes grass-sway {
+  0% { background-image: url("../../assets/sprites/environment/ground/Grass/grasscover1.png"); }
+  33% { background-image: url("../../assets/sprites/environment/ground/Grass/grasscover2.png"); }
+  66% { background-image: url("../../assets/sprites/environment/ground/Grass/grasscover3.png"); }
+}
+
 .map-water {
   z-index: 2;
   background-image: url("../../assets/sprites/environment/map-layers/water.png");
@@ -47,4 +68,29 @@
   background: url("../../assets/sprites/environment/trees/tree-small.png") center bottom / contain no-repeat;
   box-shadow: none;
   image-rendering: pixelated;
+}
+.map-building {
+  position: absolute;
+  pointer-events: none;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+  z-index: 6;
+}
+
+.dilly-building {
+  left: 184px;
+  top: 72px;
+  width: 240px;
+  height: 260px;
+  background-image: url("../../assets/sprites/environment/buildings/dilly-treehouse.svg");
+}
+
+.lab-zero-building {
+  left: 1924px;
+  top: 602px;
+  width: 240px;
+  height: 170px;
+  background-image: url("../../assets/sprites/environment/buildings/lab-zero.svg");
 }

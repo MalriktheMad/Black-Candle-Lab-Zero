@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 170" shape-rendering="crispEdges">
+  <title>Lab Zero exterior draft</title>
+  <ellipse cx="110" cy="138" rx="104" ry="26" fill="#2d1a10" opacity="0.72"/>
+  <path d="M28 45h184v38H28z" fill="#050508"/>
+  <path d="M42 14h156l28 36H14z" fill="#050508"/>
+  <path d="M48 22h140l18 22H30z" fill="#24150d"/>
+  <path d="M48 24h140v14H48z" fill="#49311d"/>
+  <path d="M45 52h150v98H45z" fill="#050508"/>
+  <path d="M53 60h134v82H53z" fill="#2f1e13"/>
+  <path d="M53 60h16v82H53zm34 0h18v82H87zm36 0h18v82h-18zm36 0h18v82h-18z" fill="#46301c"/>
+  <path d="M65 72h110v28H65z" fill="#050508"/>
+  <path d="M72 79h96v14H72z" fill="#2b1a10"/>
+  <text x="120" y="91" text-anchor="middle" font-family="Trebuchet MS, Arial, sans-serif" font-size="16" font-weight="900" fill="#d8d1f0">Lab Zero</text>
+  <path d="M93 107h42v43H93z" fill="#050508"/>
+  <path d="M101 113h26v37h-26z" fill="#17100b"/>
+  <path d="M112 113h5v37h-5z" fill="#7c3cff" opacity="0.62"/>
+  <path d="M67 108h30v26H67zm143 0h30v26h-30z" transform="translate(-16 0)" fill="#050508"/>
+  <path d="M58 115h18v14H58zm185 0h18v14h-18z" transform="translate(-16 0)" fill="#7c3cff"/>
+  <path d="M66 115h4v14h-4zm193 0h4v14h-4z" transform="translate(-16 0)" fill="#050508"/>
+  <path d="M58 121h18v4H58zm185 0h18v4h-18z" transform="translate(-16 0)" fill="#050508"/>
+  <path d="M166 0h24v46h-24z" fill="#050508"/>
+  <path d="M173 7h10v39h-10z" fill="#17100b"/>
+  <path d="M158 0h40v13h-40z" fill="#050508"/>
+  <path d="M166 4h24v5h-24z" fill="#2f1e13"/>
+  <path d="M83 150h64v10H83z" fill="#164823"/>
+  <path d="M88 144h8v8h-8zm22 8h8v8h-8zm37-4h8v8h-8z" fill="#2a7a3c"/>
+</svg>
