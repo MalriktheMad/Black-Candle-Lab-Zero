@@ -47,22 +47,22 @@
 
 .lab-floor {
   z-index: 1;
-  background-image: url("../assets/sprites/environment/map-layers/Lab Zero/Floor.png");
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/Floor.png");
 }
 
 .lab-furniture-layer {
   z-index: 2;
-  background-image: url("../assets/sprites/environment/map-layers/Lab Zero/furnature.png");
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/furnature.png");
 }
 
 .lab-npcs-layer {
   z-index: 3;
-  background-image: url("../assets/sprites/environment/map-layers/Lab Zero/NPCs.png");
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/NPCs.png");
 }
 
 .lab-transition-layer {
   z-index: 4;
-  background-image: url("../assets/sprites/environment/map-layers/Lab Zero/transitions.png");
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/transitions.png");
 }
 
 
@@ -404,6 +404,20 @@
     rgba(5, 5, 8, 0.72);
 }
 
+
+.lab-floor,
+.lab-furniture-layer,
+.lab-npcs-layer,
+.lab-transition-layer,
+.bedroom-floor,
+.bedroom-furniture-layer,
+.bedroom-cage-art,
+.bedroom-transition-layer {
+  display: block;
+  opacity: 1;
+  pointer-events: none;
+}
+
 .lab-interior .lab-rug,
 .lab-interior .lab-bench,
 .lab-interior .lab-core,
@@ -413,8 +427,23 @@
 .lab-interior .wizard-chair,
 .lab-interior .wing-master-cricket,
 .lab-interior .lab-wall-note,
-.lab-interior .lab-exit {
-  opacity: 0;
+.lab-interior .lab-exit,
+.bedroom-interior .bedroom-cage,
+.bedroom-interior .wizard-bed,
+.bedroom-interior .wizard-nightstand,
+.bedroom-interior .bedroom-rug,
+.bedroom-interior .bedroom-stairs {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 0 !important;
+}
+
+.lab-interior .codex-terminal,
+.lab-interior .wing-master-cricket,
+.bedroom-interior .bedroom-cage {
+  pointer-events: auto;
 }
 
 .lab-interior .lab-rug::before,
@@ -437,10 +466,23 @@
 .lab-interior .lab-wall-note::after,
 .lab-interior .lab-exit::before,
 .lab-interior .lab-exit::after,
+.bedroom-interior .bedroom-cage::before,
+.bedroom-interior .bedroom-cage::after,
+.bedroom-interior .wizard-bed::before,
+.bedroom-interior .wizard-bed::after,
+.bedroom-interior .wizard-nightstand::before,
+.bedroom-interior .wizard-nightstand::after,
+.bedroom-interior .bedroom-rug::before,
+.bedroom-interior .bedroom-rug::after,
+.bedroom-interior .bedroom-stairs::before,
+.bedroom-interior .bedroom-stairs::after,
 .lab-interior .lab-note,
-.lab-interior .lab-vial {
-  display: none;
+.lab-interior .lab-vial,
+.bedroom-interior .bedroom-cage-door,
+.bedroom-interior .bedroom-perch {
+  display: none !important;
 }
+
 
 .bedroom-interior {
   position: absolute;

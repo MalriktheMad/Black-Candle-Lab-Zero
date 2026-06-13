@@ -11,15 +11,15 @@ const dialogueProgressDefaults = {
 };
 const cricketTalkZone = {
   left: 650,
-  top: 286,
-  right: 830,
-  bottom: 448
+  top: 40,
+  right: 870,
+  bottom: 220
 };
 const codexTalkZone = {
-  left: 548,
-  top: 62,
-  right: 808,
-  bottom: 250
+  left: 280,
+  top: 36,
+  right: 632,
+  bottom: 220
 };
 const oldDillyTalkZone = {
   left: 190,
