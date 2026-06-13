@@ -1067,8 +1067,8 @@ const FLIGHT_LAND_MS = 320;
 const BLOCKED_TERRAIN = [
   { name: "old-dilly-house", left: 194, top: 108, right: 386, bottom: 308 },
   { name: "lab-zero-building", left: 1952, top: 636, right: 2124, bottom: 754 },
-  { name: "northeast-millet-1", left: 1988, top: 116, right: 2036, bottom: 164 },
-  { name: "northeast-millet-2", left: 2048, top: 236, right: 2096, bottom: 284 },
+  { name: "northeast-millet-1", left: 1988, top: 116, right: 2036, bottom: 164, flightPassable: true },
+  { name: "northeast-millet-2", left: 2048, top: 236, right: 2096, bottom: 284, flightPassable: true },
   { name: "water-000", left: 1024, top: 0, right: 1216, bottom: 32, flightPassable: true },
   { name: "water-001", left: 1024, top: 32, right: 1216, bottom: 64, flightPassable: true },
   { name: "water-002", left: 1056, top: 64, right: 1248, bottom: 96, flightPassable: true },

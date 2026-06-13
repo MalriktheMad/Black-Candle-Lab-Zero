@@ -223,7 +223,7 @@ a {
 .player.is-flying,
 .player.is-taking-off,
 .player.is-landing {
-  z-index: 8;
+  z-index: 16;
 }
 
 .player.facing-left {
