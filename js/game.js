@@ -1425,7 +1425,7 @@ function followPath(delta) {
     state.targetY = state.y;
     getActiveArea().target.classList.remove("visible");
   } else {
-    getActiveArea().player.classList.toggle("facing-left", dx < -1);
+    getActiveArea().player.classList.toggle("facing-left", dx > 1);
     state.x = nextX;
     state.y = nextY;
     placePlayer();
