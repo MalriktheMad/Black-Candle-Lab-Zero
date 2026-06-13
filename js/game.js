@@ -1147,9 +1147,9 @@ const LAB_BLOCKED_TERRAIN = [
 const BEDROOM_BLOCKED_TERRAIN = [];
 const DILLY_BLOCKED_TERRAIN = [
   { name: "kitchen", left: 48, top: 110, right: 232, bottom: 232 },
-  { name: "old-dilly", left: 226, top: 142, right: 288, bottom: 222 },
+  { name: "old-dilly", left: 90, top: 152, right: 213, bottom: 296 },
   { name: "liz-art-corner", left: 618, top: 116, right: 826, bottom: 274 },
-  { name: "liz", left: 560, top: 162, right: 624, bottom: 238 },
+  { name: "liz", left: 267, top: 158, right: 432, bottom: 314 },
   { name: "greenhouse-sofa", left: 332, top: 354, right: 524, bottom: 464 },
   { name: "left-plant-wall", left: 8, top: 224, right: 108, bottom: 604 },
   { name: "right-plant-wall", left: 764, top: 430, right: 862, bottom: 604 },

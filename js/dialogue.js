@@ -28,16 +28,16 @@ const codexTalkZone = {
   bottom: 220
 };
 const oldDillyTalkZone = {
-  left: 190,
-  top: 112,
-  right: 330,
-  bottom: 270
+  left: 70,
+  top: 132,
+  right: 233,
+  bottom: 316
 };
 const lizTalkZone = {
-  left: 520,
-  top: 126,
-  right: 672,
-  bottom: 276
+  left: 247,
+  top: 138,
+  right: 452,
+  bottom: 334
 };
 
 const dialogueState = {
