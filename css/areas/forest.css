@@ -1,0 +1,41 @@
+/* Forest area exported from the Forest map-layer artwork. */
+.forest-area {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3000px;
+  height: 3000px;
+  transform-origin: 0 0;
+  background: #102c1c;
+  will-change: transform;
+}
+
+.forest-base-layer,
+.forest-tree-layer,
+.forest-transition-marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3000px;
+  height: 3000px;
+  pointer-events: none;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 3000px 3000px;
+  image-rendering: pixelated;
+}
+
+.forest-base-layer {
+  z-index: 1;
+  background-image: url("../../assets/sprites/environment/map-layers/Forest/forestfloor.png");
+}
+
+.forest-tree-layer {
+  z-index: 2;
+  background-image: url("../../assets/sprites/environment/map-layers/Forest/forest.png");
+}
+
+.forest-transition-marker {
+  display: none;
+  background-image: url("../../assets/sprites/environment/map-layers/Forest/transition.png");
+}

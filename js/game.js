@@ -1,5 +1,7 @@
 const WORLD_WIDTH = 2400;
 const WORLD_HEIGHT = 1800;
+const FOREST_WIDTH = 3000;
+const FOREST_HEIGHT = 3000;
 const LAB_WIDTH = 920;
 const LAB_HEIGHT = 620;
 const DILLY_WIDTH = 880;
@@ -11,7 +13,7 @@ const MAX_ZOOM = 2;
 const ZOOM_STEP = 0.25;
 const DEFAULT_ZOOM = 0.85;
 const PATH_GRID_SIZE = 32;
-const PATH_SEARCH_LIMIT = 8000;
+const PATH_SEARCH_LIMIT = 14000;
 const SURFACE_GRID_SIZE = 32;
 const SAND_CELLS = new Set([
   "30,0",
@@ -1150,11 +1152,15 @@ const DILLY_BLOCKED_TERRAIN = [
   { name: "old-dilly", left: 90, top: 152, right: 213, bottom: 296 },
   { name: "liz", left: 267, top: 158, right: 432, bottom: 314 }
 ];
+const FOREST_BLOCKED_TERRAIN = [];
 
 const stage = document.getElementById("stage");
 const world = document.getElementById("world");
 const player = document.getElementById("player");
 const targetEl = document.getElementById("target");
+const forestArea = document.getElementById("forest-area");
+const forestPlayer = document.getElementById("forest-player");
+const forestTarget = document.getElementById("forest-target");
 const labInterior = document.getElementById("lab-interior");
 const interiorPlayer = document.getElementById("interior-player");
 const interiorTarget = document.getElementById("interior-target");
@@ -1182,7 +1188,19 @@ const AREAS = {
     blocked: BLOCKED_TERRAIN,
     transitions: [
       { left: 246, top: 206, right: 362, bottom: 346, to: "dilly", entryX: 748, entryY: 320 },
-      { left: 1996, top: 724, right: 2106, bottom: 818, to: "lab", entryX: 752, entryY: 456 }
+      { left: 1996, top: 724, right: 2106, bottom: 818, to: "lab", entryX: 752, entryY: 456 },
+      { left: 1254, top: 0, right: 1403, bottom: 95, to: "forest", entryX: 132, entryY: 2680 }
+    ]
+  },
+  forest: {
+    width: FOREST_WIDTH,
+    height: FOREST_HEIGHT,
+    element: forestArea,
+    player: forestPlayer,
+    target: forestTarget,
+    blocked: FOREST_BLOCKED_TERRAIN,
+    transitions: [
+      { left: 40, top: 2725, right: 226, bottom: 2861, to: "outside", entryX: 1328, entryY: 128 }
     ]
   },
   lab: {
