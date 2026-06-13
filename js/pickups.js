@@ -74,7 +74,7 @@ function installPickupStyles() {
     }
 
     .sunflower-pickup {
-      background-image: url("assets/sprites/environment/plants/sunflower.svg");
+      background-image: url("assets/sprites/environment/plants/sunflower.png");
     }
 
     .millet-pickup {
