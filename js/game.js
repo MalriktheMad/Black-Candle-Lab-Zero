@@ -1193,7 +1193,7 @@ const AREAS = {
     blocked: BLOCKED_TERRAIN,
     transitions: [
       { left: 246, top: 206, right: 362, bottom: 346, to: "dilly", entryX: 748, entryY: 320 },
-      { left: 1996, top: 724, right: 2106, bottom: 818, to: "lab", entryX: 460, entryY: 526 }
+      { left: 1996, top: 724, right: 2106, bottom: 818, to: "lab", entryX: 752, entryY: 456 }
     ]
   },
   lab: {
@@ -1204,8 +1204,8 @@ const AREAS = {
     target: interiorTarget,
     blocked: LAB_BLOCKED_TERRAIN,
     transitions: [
-      { left: 426, top: 534, right: 494, bottom: 610, to: "outside", entryX: 2052, entryY: 832 },
-      { left: 92, top: 438, right: 224, bottom: 556, to: "bedroom", entryX: 548, entryY: 420 }
+      { left: 792, top: 488, right: 862, bottom: 565, to: "outside", entryX: 2052, entryY: 832 },
+      { left: 62, top: 45, right: 191, bottom: 159, to: "bedroom", entryX: 536, entryY: 232 }
     ]
   },
   bedroom: {
@@ -1216,7 +1216,7 @@ const AREAS = {
     target: bedroomTarget,
     blocked: BEDROOM_BLOCKED_TERRAIN,
     transitions: [
-      { left: 568, top: 392, right: 790, bottom: 552, to: "lab", entryX: 258, entryY: 430 }
+      { left: 550, top: 16, right: 801, bottom: 197, to: "lab", entryX: 210, entryY: 184 }
     ]
   },
   dilly: {

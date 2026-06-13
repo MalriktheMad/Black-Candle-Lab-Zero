@@ -1,9 +1,6 @@
 .pixel-bird,
-.wing-master-cricket,
 .old-dilly-npc,
-.liz-npc,
-.codex-terminal,
-.candlewick-tower {
+.liz-npc {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -18,46 +15,6 @@
   background-image: url("../assets/sprites/characters/little-wing-motions/idle.png");
   box-shadow: none;
   z-index: 1;
-}
-
-.wing-master-cricket {
-  left: 682px;
-  top: 330px;
-  width: 96px;
-  height: 72px;
-  background-image: url("../assets/sprites/characters/wing-master-cricket.svg");
-  box-shadow: none;
-}
-
-.wing-master-cricket::before,
-.wing-master-cricket::after {
-  content: none;
-}
-
-.codex-terminal {
-  left: 628px;
-  top: 82px;
-  width: 142px;
-  height: 124px;
-  border: 0;
-  background-color: transparent;
-  background-image: url("../assets/sprites/characters/codex.svg");
-  box-shadow: none;
-}
-
-.codex-terminal::before,
-.codex-terminal::after {
-  content: none;
-}
-.candlewick-tower {
-  left: 568px;
-  top: 98px;
-  width: 58px;
-  height: 108px;
-  border: 0;
-  background-color: transparent;
-  background-image: url("../assets/sprites/characters/lumen.svg");
-  box-shadow: none;
 }
 
 .old-dilly-npc {

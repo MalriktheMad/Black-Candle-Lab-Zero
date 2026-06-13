@@ -1,572 +1,114 @@
-.lab-interior {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 920px;
-  height: 620px;
-  overflow: hidden;
-  transform-origin: 0 0;
-  background:
-    radial-gradient(circle at 50% 34%, rgba(124, 60, 255, 0.24), transparent 26%),
-    radial-gradient(circle at 72% 64%, rgba(27, 111, 214, 0.14), transparent 24%),
-    linear-gradient(180deg, #141014 0%, #09080c 100%);
-  border: 8px solid #050508;
-  box-shadow: inset 0 0 0 8px rgba(247, 244, 255, 0.06);
-  will-change: transform;
-}
-
-.lab-floor,
-.lab-furniture-layer,
-.lab-npcs-layer,
-.lab-transition-layer,
-.lab-rug,
-.lab-bench,
-.lab-core,
-.lab-exit,
-.lab-console,
-.codex-terminal,
-.candlewick-tower,
-.lab-candle,
-.wizard-chair,
-.wing-master-cricket,
-.lab-wall-note {
-  position: absolute;
-  pointer-events: none;
-}
-
-.lab-floor,
-.lab-furniture-layer,
-.lab-npcs-layer,
-.lab-transition-layer {
-  inset: 0;
-  background-position: 0 0;
-  background-repeat: no-repeat;
-  background-size: 920px 620px;
-  image-rendering: pixelated;
-}
-
-.lab-floor {
-  z-index: 1;
-  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/Floor.png");
-}
-
-.lab-furniture-layer {
-  z-index: 2;
-  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/furnature.png");
-}
-
-.lab-npcs-layer {
-  z-index: 3;
-  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/NPCs.png");
-}
-
-.lab-transition-layer {
-  z-index: 4;
-  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/transitions.png");
-}
-
-
-.lab-rug {
-  left: 352px;
-  top: 338px;
-  width: 192px;
-  height: 74px;
-  border: 4px solid #050508;
-  background:
-    linear-gradient(90deg, rgba(248, 213, 107, 0.4) 0 10px, transparent 10px 22px),
-    linear-gradient(135deg, rgba(124, 60, 255, 0.78), rgba(27, 111, 214, 0.62));
-  background-size: 32px 100%, auto;
-  box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.4);
-}
-
-.lab-bench {
-  width: 148px;
-  height: 58px;
-  border: 4px solid #050508;
-  background:
-    linear-gradient(90deg, rgba(247, 244, 255, 0.1), transparent 40%),
-    repeating-linear-gradient(90deg, #2e1b10 0 18px, #5c3a21 18px 34px);
-  box-shadow: 6px 7px 0 rgba(0, 0, 0, 0.48);
-}
-
-.lab-bench.one {
-  left: 82px;
-  top: 74px;
-}
-
-
-.lab-note,
-.lab-vial,
-.lab-jar {
-  position: absolute;
-  pointer-events: none;
-}
-
-.lab-note {
-  width: 32px;
-  height: 22px;
-  border: 3px solid #050508;
-  background:
-    linear-gradient(90deg, transparent 0 7px, rgba(5, 5, 8, 0.42) 7px 10px, transparent 10px),
-    linear-gradient(180deg, #ede3bd, #ba9f65);
-  transform: rotate(-7deg);
-}
-
-.lab-note.one {
-  left: 18px;
-  top: 14px;
-}
-
-.lab-note.two {
-  right: 18px;
-  top: 14px;
-  transform: rotate(8deg);
-}
-
-.lab-vial {
-  bottom: 11px;
-  width: 14px;
-  height: 26px;
-  border: 3px solid #050508;
-  border-top-width: 6px;
-  box-shadow: 0 0 12px rgba(124, 60, 255, 0.38);
-}
-
-.lab-vial.purple {
-  left: 74px;
-  background: linear-gradient(180deg, transparent 0 8px, #b65cff 8px 100%);
-}
-
-.lab-vial.blue {
-  left: 98px;
-  background: linear-gradient(180deg, transparent 0 10px, #42a5ff 10px 100%);
-}
-
-.lab-jar {
-  left: 58px;
-  bottom: 11px;
-  width: 24px;
-  height: 30px;
-  border: 3px solid #050508;
-  border-top-width: 7px;
-  background:
-    radial-gradient(circle at 50% 70%, rgba(248, 213, 107, 0.9) 0 5px, transparent 6px),
-    linear-gradient(180deg, rgba(247, 244, 255, 0.22), rgba(124, 60, 255, 0.32));
-  box-shadow: 0 0 14px rgba(248, 213, 107, 0.22);
-}
-
-.lab-core {
-  left: 354px;
-  top: 74px;
-  width: 76px;
-  height: 92px;
-  border: 4px solid #050508;
-  background:
-    radial-gradient(circle at 50% 38%, rgba(247, 244, 255, 0.85) 0 10px, rgba(124, 60, 255, 0.72) 11px 24px, transparent 25px),
-    linear-gradient(180deg, #28180f, #0d0806);
-  box-shadow: 0 0 26px rgba(124, 60, 255, 0.72), 8px 8px 0 rgba(0, 0, 0, 0.45);
-}
-
-.lab-core::after {
-  content: "";
-  position: absolute;
-  left: 18px;
-  bottom: 14px;
-  width: 32px;
-  height: 18px;
-  border: 3px solid #050508;
-  background:
-    linear-gradient(90deg, transparent 0 7px, #42a5ff 7px 12px, transparent 12px 20px, #b65cff 20px 25px, transparent 25px),
-    #151015;
-}
-
-.lab-console {
-  left: 396px;
-  top: 340px;
-  width: 128px;
-  height: 48px;
-  border: 4px solid #050508;
-  background:
-    radial-gradient(circle at 26px 18px, #f8d56b 0 5px, transparent 6px),
-    radial-gradient(circle at 52px 20px, #42a5ff 0 5px, transparent 6px),
-    radial-gradient(circle at 78px 18px, #b65cff 0 5px, transparent 6px),
-    linear-gradient(180deg, #2a2630, #0c0a10);
-  box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.48), 0 0 20px rgba(27, 111, 214, 0.2);
-}
-
-.lab-console::before {
-  content: "";
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  top: -28px;
-  height: 28px;
-  border: 3px solid #050508;
-  background:
-    linear-gradient(90deg, transparent 0 12px, rgba(248, 213, 107, 0.75) 12px 17px, transparent 17px),
-    linear-gradient(180deg, #19121e, #060508);
-}
-
-.codex-terminal {
-  left: 526px;
-  top: 132px;
-  width: 142px;
-  height: 82px;
-  border: 4px solid #050508;
-  background:
-    linear-gradient(90deg, transparent 0 15px, rgba(66, 165, 255, 0.7) 15px 20px, transparent 20px 38px, rgba(182, 92, 255, 0.7) 38px 43px, transparent 43px),
-    linear-gradient(180deg, #171b24, #07080c);
-  box-shadow: 7px 9px 0 rgba(0, 0, 0, 0.45), 0 0 22px rgba(66, 165, 255, 0.18);
-}
-
-.codex-terminal::before {
-  content: "";
-  position: absolute;
-  left: 18px;
-  top: -42px;
-  width: 78px;
-  height: 36px;
-  border: 4px solid #050508;
-  background:
-    linear-gradient(90deg, transparent 0 12px, #42a5ff 12px 17px, transparent 17px 32px, #b65cff 32px 37px, transparent 37px),
-    #0b1018;
-  box-shadow: 0 0 18px rgba(66, 165, 255, 0.28);
-}
-
-.codex-terminal::after {
-  content: "";
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
-  width: 34px;
-  height: 12px;
-  background:
-    linear-gradient(90deg, #050508 0 5px, transparent 5px 12px, #050508 12px 17px, transparent 17px 24px, #050508 24px 29px);
-}
-
-.lab-candle {
-  width: 18px;
-  height: 32px;
-  border: 3px solid #050508;
-  background: linear-gradient(180deg, #ede3bd, #947d54);
-  box-shadow: 0 0 20px rgba(248, 213, 107, 0.5);
-}
-
-.lab-candle::before {
-  content: "";
-  position: absolute;
-  left: 3px;
-  top: -16px;
-  width: 8px;
-  height: 14px;
-  background:
-    radial-gradient(circle at 50% 72%, #f8d56b 0 4px, #b65cff 5px 8px, transparent 9px);
-}
-
-.lab-candle.tall {
-  left: 546px;
-  top: 298px;
-}
-
-.lab-candle.small {
-  right: 62px;
-  top: -22px;
-  transform: scale(0.72);
-  transform-origin: bottom center;
-}
-
-
-.wizard-chair {
-  left: 762px;
-  top: 236px;
-  width: 58px;
-  height: 64px;
-  border: 4px solid #050508;
-  background:
-    linear-gradient(90deg, transparent 0 9px, rgba(248, 213, 107, 0.24) 9px 13px, transparent 13px 45px, rgba(248, 213, 107, 0.24) 45px 49px, transparent 49px),
-    linear-gradient(180deg, #3b2414, #1b100a);
-  box-shadow: 7px 8px 0 rgba(0, 0, 0, 0.48);
-}
-
-.wizard-chair::before {
-  content: "";
-  position: absolute;
-  left: 9px;
-  top: -24px;
-  width: 32px;
-  height: 24px;
-  border: 4px solid #050508;
-  border-bottom: 0;
-  background:
-    radial-gradient(circle at 50% 8px, rgba(124, 60, 255, 0.7) 0 5px, transparent 6px),
-    #24130c;
-}
-
-.wizard-chair::after {
-  content: "";
-  position: absolute;
-  left: 9px;
-  right: 9px;
-  bottom: -18px;
-  height: 18px;
-  background:
-    linear-gradient(90deg, #050508 0 8px, transparent 8px 32px, #050508 32px 40px);
-}
-
-.wing-master-cricket {
-  left: 760px;
-  top: 96px;
-  width: 46px;
-  height: 56px;
-  background: transparent;
-  image-rendering: pixelated;
-  filter: drop-shadow(6px 8px 0 rgba(0, 0, 0, 0.42));
-  box-shadow:
-    16px 0 #050508, 24px 0 #050508,
-    8px 8px #050508, 16px 8px #55605a, 24px 8px #8f9a85, 32px 8px #050508,
-    0 16px #050508, 8px 16px #2f5f36, 16px 16px #71a84a, 24px 16px #86bd55, 32px 16px #2f5f36, 40px 16px #050508,
-    8px 24px #050508, 16px 24px #2e7b3a, 24px 24px #4d9345, 32px 24px #050508,
-    12px 32px #050508, 20px 32px #1b6fd6, 28px 32px #050508,
-    8px 40px #050508, 16px 40px #2f8a3e, 24px 40px #2f8a3e, 32px 40px #050508,
-    0 48px #050508, 12px 48px #8b2f3f, 28px 48px #a63e4e, 40px 48px #050508;
-}
-
-.wing-master-cricket::before {
-  content: "";
-  position: absolute;
-  left: 8px;
-  top: -18px;
-  width: 36px;
-  height: 14px;
-  border: 3px solid #050508;
-  background:
-    linear-gradient(90deg, #2f8a3e 0 9px, #050508 9px 13px, #d8d1f0 13px 25px, #050508 25px 29px, #1b6fd6 29px 100%);
-}
-
-.wing-master-cricket::after {
-  content: "";
-  position: absolute;
-  left: -96px;
-  top: -30px;
-  width: 82px;
-  height: 24px;
-  border: 3px solid #050508;
-  background: rgba(247, 244, 255, 0.9);
-  box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.38);
-}
-
-.lab-wall-note {
-  left: 316px;
-  top: 26px;
-  width: 168px;
-  height: 20px;
-  border: 3px solid #050508;
-  background:
-    linear-gradient(90deg, transparent 0 18px, rgba(124, 60, 255, 0.42) 18px 24px, transparent 24px 42px),
-    linear-gradient(180deg, #ece2bc, #8f764a);
-  box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.38);
-}
-
-.lab-exit {
-  left: 432px;
-  bottom: 0;
-  width: 56px;
-  height: 46px;
-  border: 4px solid #050508;
-  border-bottom: 0;
-  background:
-    linear-gradient(90deg, transparent 0 22px, rgba(248, 213, 107, 0.52) 22px 30px, transparent 30px),
-    linear-gradient(180deg, #2b1a10, #0d0806);
-  box-shadow: 0 0 18px rgba(248, 213, 107, 0.22);
-}
-
-.lab-stairs {
-  position: absolute;
-  left: 92px;
-  top: 438px;
-  width: 132px;
-  height: 118px;
-  border: 4px solid #050508;
-  background:
-    linear-gradient(135deg, rgba(124, 60, 255, 0.22), transparent 42%),
-    repeating-linear-gradient(180deg, #2b1a10 0 14px, #0d0806 14px 22px);
-  box-shadow: 0 0 18px rgba(124, 60, 255, 0.2);
-  pointer-events: none;
-}
-
-.lab-stairs::before {
-  content: "";
-  position: absolute;
-  inset: 12px;
-  border: 3px solid #050508;
-  background:
-    linear-gradient(90deg, transparent 0 18px, rgba(248, 213, 107, 0.34) 18px 24px, transparent 24px 42px),
-    rgba(5, 5, 8, 0.72);
-}
-
-
-.lab-floor,
-.lab-furniture-layer,
-.lab-npcs-layer,
-.lab-transition-layer,
-.bedroom-floor,
-.bedroom-furniture-layer,
-.bedroom-cage-art,
-.bedroom-transition-layer {
-  display: block;
-  opacity: 1;
-  pointer-events: none;
-}
-
-.lab-interior .lab-rug,
-.lab-interior .lab-bench,
-.lab-interior .lab-core,
-.lab-interior .candlewick-tower,
-.lab-interior .codex-terminal,
-.lab-interior .lab-stairs,
-.lab-interior .wizard-chair,
-.lab-interior .wing-master-cricket,
-.lab-interior .lab-wall-note,
-.lab-interior .lab-exit,
-.bedroom-interior .bedroom-cage,
-.bedroom-interior .wizard-bed,
-.bedroom-interior .wizard-nightstand,
-.bedroom-interior .bedroom-rug,
-.bedroom-interior .bedroom-stairs {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  filter: none !important;
-  opacity: 0 !important;
-}
-
-.lab-interior .codex-terminal,
-.lab-interior .wing-master-cricket,
-.bedroom-interior .bedroom-cage {
-  pointer-events: auto;
-}
-
-.lab-interior .lab-rug::before,
-.lab-interior .lab-rug::after,
-.lab-interior .lab-bench::before,
-.lab-interior .lab-bench::after,
-.lab-interior .lab-core::before,
-.lab-interior .lab-core::after,
-.lab-interior .candlewick-tower::before,
-.lab-interior .candlewick-tower::after,
-.lab-interior .codex-terminal::before,
-.lab-interior .codex-terminal::after,
-.lab-interior .lab-stairs::before,
-.lab-interior .lab-stairs::after,
-.lab-interior .wizard-chair::before,
-.lab-interior .wizard-chair::after,
-.lab-interior .wing-master-cricket::before,
-.lab-interior .wing-master-cricket::after,
-.lab-interior .lab-wall-note::before,
-.lab-interior .lab-wall-note::after,
-.lab-interior .lab-exit::before,
-.lab-interior .lab-exit::after,
-.bedroom-interior .bedroom-cage::before,
-.bedroom-interior .bedroom-cage::after,
-.bedroom-interior .wizard-bed::before,
-.bedroom-interior .wizard-bed::after,
-.bedroom-interior .wizard-nightstand::before,
-.bedroom-interior .wizard-nightstand::after,
-.bedroom-interior .bedroom-rug::before,
-.bedroom-interior .bedroom-rug::after,
-.bedroom-interior .bedroom-stairs::before,
-.bedroom-interior .bedroom-stairs::after,
-.lab-interior .lab-note,
-.lab-interior .lab-vial,
-.bedroom-interior .bedroom-cage-door,
-.bedroom-interior .bedroom-perch {
-  display: none !important;
-}
-
-
+.lab-interior,
 .bedroom-interior {
   position: absolute;
   left: 0;
   top: 0;
-  width: 820px;
-  height: 560px;
   overflow: hidden;
   transform-origin: 0 0;
   border: 8px solid #050508;
-  background:
-    radial-gradient(circle at 23% 30%, rgba(248, 213, 107, 0.12), transparent 24%),
-    radial-gradient(circle at 73% 22%, rgba(124, 60, 255, 0.18), transparent 28%),
-    linear-gradient(180deg, #151018 0%, #09070c 100%);
+  background: #09080c;
   box-shadow: inset 0 0 0 8px rgba(247, 244, 255, 0.06);
   will-change: transform;
 }
 
+.lab-interior {
+  width: 920px;
+  height: 620px;
+}
+
+.bedroom-interior {
+  width: 820px;
+  height: 560px;
+}
+
+.lab-floor,
+.lab-furniture-layer,
+.lab-npcs-layer,
+.lab-transition-layer,
 .bedroom-floor,
 .bedroom-furniture-layer,
 .bedroom-cage-art,
-.bedroom-transition-layer,
-.bedroom-cage,
-.bedroom-cage-door,
-.bedroom-perch,
-.wizard-bed,
-.wizard-nightstand,
-.bedroom-rug,
-.bedroom-stairs {
+.bedroom-transition-layer {
   position: absolute;
+  inset: 0;
   pointer-events: none;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+.lab-floor,
+.lab-furniture-layer,
+.lab-npcs-layer,
+.lab-transition-layer {
+  background-size: 920px 620px;
 }
 
 .bedroom-floor,
 .bedroom-furniture-layer,
 .bedroom-cage-art,
 .bedroom-transition-layer {
-  inset: 0;
-  background-position: 0 0;
-  background-repeat: no-repeat;
   background-size: 820px 560px;
-  image-rendering: pixelated;
+}
+
+.lab-floor,
+.bedroom-floor {
+  z-index: 1;
+}
+
+.lab-furniture-layer,
+.bedroom-furniture-layer {
+  z-index: 2;
+}
+
+.lab-npcs-layer,
+.bedroom-cage-art {
+  z-index: 3;
+}
+
+.lab-transition-layer,
+.bedroom-transition-layer {
+  z-index: 4;
+}
+
+.lab-floor {
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/Floor.png");
+}
+
+.lab-furniture-layer {
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/furnature.png");
+}
+
+.lab-npcs-layer {
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/NPCs.png");
+}
+
+.lab-transition-layer {
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/transitions.png");
 }
 
 .bedroom-floor {
-  z-index: 1;
   background-image: url("../assets/sprites/environment/map-layers/Bedroom/floor.png");
 }
 
 .bedroom-furniture-layer {
-  z-index: 2;
   background-image: url("../assets/sprites/environment/map-layers/Bedroom/furnature.png");
 }
 
 .bedroom-cage-art {
-  z-index: 3;
   background-image: url("../assets/sprites/environment/map-layers/Bedroom/cage.png");
 }
 
 .bedroom-transition-layer {
-  z-index: 4;
   background-image: url("../assets/sprites/environment/map-layers/Bedroom/transition.png");
 }
 
-.bedroom-cage {
-  left: 52px;
-  top: 54px;
-  width: 170px;
-  height: 178px;
-  opacity: 0;
+.lab-interior .target,
+.bedroom-interior .target {
+  z-index: 6;
 }
 
-.bedroom-cage::before,
-.bedroom-cage-door,
-.bedroom-perch,
-.wizard-bed,
-.wizard-nightstand,
-.bedroom-rug,
-.bedroom-stairs {
-  display: none;
-}
-
-
-.bedroom-cage.is-open .bedroom-cage-door {
-  transform: translate(28px, 10px) rotate(18deg) skewY(-6deg);
-  box-shadow: 0 0 16px rgba(248, 213, 107, 0.26);
+.lab-interior .player,
+.bedroom-interior .player {
+  z-index: 7;
 }
