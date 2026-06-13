@@ -76,7 +76,7 @@
 }
 
 .lab-furniture-layer {
-  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/furnature.png");
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/furniture.png");
 }
 
 .lab-npcs-layer {
@@ -92,7 +92,7 @@
 }
 
 .bedroom-furniture-layer {
-  background-image: url("../assets/sprites/environment/map-layers/Bedroom/furnature.png");
+  background-image: url("../assets/sprites/environment/map-layers/Bedroom/furniture.png");
 }
 
 .bedroom-cage-art {
@@ -133,7 +133,7 @@
 
 .lab-pc-monitor,
 .wing-master-cricket,
-.codex-terminal,
+.candlewick-terminal,
 .lab-stairs-up,
 .lab-exit-door,
 .bedroom-ladder {
@@ -162,12 +162,12 @@
   background-image: url("../assets/sprites/characters/wing-master-cricket.png");
 }
 
-.codex-terminal {
+.candlewick-terminal {
   left: 672px;
   top: 52px;
   width: 175px;
   height: 135px;
-  background-image: url("../assets/sprites/characters/codex.svg");
+  background-image: url("../assets/sprites/characters/candlewick.svg");
 }
 
 .lab-stairs-up {
@@ -176,7 +176,7 @@
   width: 60px;
   height: 100px;
   z-index: 4;
-  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/tranistions/ladder.png");
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/transitions/ladder.png");
 }
 
 .lab-exit-door {
@@ -184,7 +184,7 @@
   top: 470px;
   width: 100px;
   height: 100px;
-  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/tranistions/Lab%20Zero%20Door.png");
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/transitions/Lab%20Zero%20Door.png");
 }
 
 .bedroom-ladder {
@@ -193,5 +193,5 @@
   width: 60px;
   height: 100px;
   z-index: 4;
-  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/tranistions/ladder.png");
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/transitions/ladder.png");
 }

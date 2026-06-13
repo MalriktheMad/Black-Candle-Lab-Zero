@@ -21,7 +21,7 @@ const labCoreTalkZone = {
   right: 425,
   bottom: 190
 };
-const codexTalkZone = {
+const candlewickTalkZone = {
   left: 650,
   top: 36,
   right: 870,
@@ -106,7 +106,7 @@ function handleDialoguePointer(event) {
   if (state.area === "lab") {
     const labCore = event.target.closest(".lab-pc-monitor");
     const cricket = event.target.closest(".wing-master-cricket");
-    const codex = event.target.closest(".codex-terminal");
+    const candlewick = event.target.closest(".candlewick-terminal");
 
     if (labCore || isLabCoreTalkPoint(event)) {
       swallowDialoguePointer(event);
@@ -120,7 +120,7 @@ function handleDialoguePointer(event) {
       return;
     }
 
-    if (codex || isCodexTalkPoint(event)) {
+    if (candlewick || isCandlewickTalkPoint(event)) {
       swallowDialoguePointer(event);
       startDialogue(getCandlewickDialogueLines());
     }
@@ -149,8 +149,8 @@ function isCricketTalkPoint(event) {
   return isPointInTalkZone(event, cricketTalkZone);
 }
 
-function isCodexTalkPoint(event) {
-  return isPointInTalkZone(event, codexTalkZone);
+function isCandlewickTalkPoint(event) {
+  return isPointInTalkZone(event, candlewickTalkZone);
 }
 
 function isLabCoreTalkPoint(event) {
@@ -252,10 +252,10 @@ function littleWingLine(text) {
   };
 }
 
-function codexLine(text) {
+function candlewickLine(text) {
   return {
     speaker: "Candlewick",
-    portrait: "assets/portraits/codex.png",
+    portrait: "assets/portraits/candlewick.png",
     text
   };
 }

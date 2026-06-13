@@ -7,6 +7,24 @@
   image-rendering: pixelated;
 }
 
+.player {
+  filter: none;
+}
+
+.player::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 1px;
+  z-index: 0;
+  width: 30px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.36);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
 .pixel-bird {
   left: 0;
   top: 0;
@@ -15,6 +33,7 @@
   background-image: url("../assets/sprites/characters/little-wing/idle.png");
   box-shadow: none;
   z-index: 1;
+  background-position: center bottom;
 }
 
 .old-dilly-npc {

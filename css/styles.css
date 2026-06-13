@@ -320,7 +320,7 @@ a {
 
 .start-menu-art {
   min-height: 0;
-  background-image: url("../assets/portraits/MenuDisplay/paintpalletanimationt1.png");
+  background-image: url("../assets/portraits/menu-display/paint-palette-animation-1.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -337,7 +337,7 @@ a {
   border-top: 3px solid rgba(247, 244, 255, 0.68);
   background:
     linear-gradient(180deg, rgba(5, 5, 8, 0.14), rgba(5, 5, 8, 0.7)),
-    url("../assets/portraits/MenuDisplay/Button%20Color.png") 0 0 / 73px 29px repeat;
+    url("../assets/portraits/menu-display/button-color.png") 0 0 / 73px 29px repeat;
   box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.58), inset 0 1px 0 rgba(247, 244, 255, 0.18);
   text-transform: uppercase;
 }
@@ -404,11 +404,11 @@ a {
 }
 
 @keyframes start-menu-painting {
-  0% { background-image: url("../assets/portraits/MenuDisplay/paintpalletanimationt1.png"); }
-  20% { background-image: url("../assets/portraits/MenuDisplay/paintpalletanimationt2.png"); }
-  40% { background-image: url("../assets/portraits/MenuDisplay/paintpalletanimationt3.png"); }
-  60% { background-image: url("../assets/portraits/MenuDisplay/paintpalletanimationt4.png"); }
-  80%, 100% { background-image: url("../assets/portraits/MenuDisplay/paintpalletanimationt5.png"); }
+  0% { background-image: url("../assets/portraits/menu-display/paint-palette-animation-1.png"); }
+  20% { background-image: url("../assets/portraits/menu-display/paint-palette-animation-2.png"); }
+  40% { background-image: url("../assets/portraits/menu-display/paint-palette-animation-3.png"); }
+  60% { background-image: url("../assets/portraits/menu-display/paint-palette-animation-4.png"); }
+  80%, 100% { background-image: url("../assets/portraits/menu-display/paint-palette-animation-5.png"); }
 }
 
 @media (max-width: 760px) {
