@@ -855,12 +855,9 @@ a {
   inset: 0;
   z-index: 60;
   display: grid;
-  place-items: center;
-  padding: 24px;
-  background:
-    radial-gradient(circle at 50% 34%, rgba(124, 60, 255, 0.24), transparent 28%),
-    radial-gradient(circle at 68% 58%, rgba(27, 111, 214, 0.18), transparent 30%),
-    rgba(3, 3, 6, 0.94);
+  grid-template-rows: minmax(0, 1fr) auto;
+  overflow: hidden;
+  background: #030306;
   color: var(--text);
   pointer-events: auto;
 }
@@ -869,61 +866,70 @@ a {
   display: none;
 }
 
-.start-menu-panel {
-  width: min(440px, 100%);
-  border: 3px solid rgba(247, 244, 255, 0.72);
-  border-radius: 6px;
-  padding: 24px;
+.start-menu-art {
+  min-height: 0;
+  background-image: url("../assets/portraits/MenuDisplay/paintpalletanimationt1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+  animation: start-menu-painting 1100ms steps(1, end) infinite;
+}
+
+.start-menu-bar {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.72fr) minmax(220px, 1fr) minmax(220px, 0.82fr);
+  align-items: center;
+  gap: 16px;
+  padding: 14px clamp(14px, 3vw, 32px);
+  border-top: 3px solid rgba(247, 244, 255, 0.68);
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent 42%),
-    rgba(5, 5, 8, 0.88);
-  box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.68), 0 0 28px rgba(124, 60, 255, 0.28);
-  text-align: center;
+    linear-gradient(180deg, rgba(5, 5, 8, 0.14), rgba(5, 5, 8, 0.7)),
+    url("../assets/portraits/MenuDisplay/Button%20Color.png") 0 0 / 73px 29px repeat;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.58), inset 0 1px 0 rgba(247, 244, 255, 0.18);
   text-transform: uppercase;
 }
 
-.start-menu-kicker {
-  margin-bottom: 8px;
+.start-menu-title span {
+  display: block;
+  margin-bottom: 5px;
   color: var(--candle);
-  font-size: 0.68rem;
+  font-size: 0.58rem;
   font-weight: 900;
 }
 
 .start-menu h2 {
   margin: 0;
   color: var(--text);
-  font-size: 2rem;
+  font-size: 1.48rem;
   line-height: 1;
   text-shadow: 0 0 18px rgba(124, 60, 255, 0.7), 3px 3px 0 #000;
 }
 
 .start-menu p {
-  margin: 10px 0 22px;
-  color: var(--muted);
-  font-size: 0.72rem;
+  margin: 0;
+  color: #f7f4ff;
+  font-size: 0.62rem;
   font-weight: 900;
 }
 
 .start-menu-tutorial {
-  max-width: 320px;
-  margin: 16px auto 22px;
-  color: #f7f4ff;
-  font-size: 0.7rem;
-  line-height: 1.45;
+  line-height: 1.5;
+  text-shadow: 2px 2px 0 #000;
 }
 
 .start-menu-actions {
-  display: grid;
+  display: flex;
+  justify-content: flex-end;
   gap: 10px;
 }
 
 .clear-save-button {
-  width: 100%;
-  margin-top: 22px;
   opacity: 0.82;
 }
 
 .start-menu button {
+  min-width: 104px;
   min-height: 42px;
   border: 2px solid rgba(247, 244, 255, 0.7);
   border-radius: 6px;
@@ -943,6 +949,56 @@ a {
 .start-menu button:focus-visible {
   background: linear-gradient(135deg, rgba(124, 60, 255, 0.92), rgba(27, 111, 214, 0.9));
   outline: none;
+}
+
+@keyframes start-menu-painting {
+  0% { background-image: url("../assets/portraits/MenuDisplay/paintpalletanimationt1.png"); }
+  20% { background-image: url("../assets/portraits/MenuDisplay/paintpalletanimationt2.png"); }
+  40% { background-image: url("../assets/portraits/MenuDisplay/paintpalletanimationt3.png"); }
+  60% { background-image: url("../assets/portraits/MenuDisplay/paintpalletanimationt4.png"); }
+  80%, 100% { background-image: url("../assets/portraits/MenuDisplay/paintpalletanimationt5.png"); }
+}
+
+@media (max-width: 760px) {
+  .start-menu {
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .start-menu-art {
+    background-size: cover;
+  }
+
+  .start-menu-bar {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .start-menu-title span {
+    font-size: 0.52rem;
+  }
+
+  .start-menu h2 {
+    font-size: 1.25rem;
+  }
+
+  .start-menu-tutorial {
+    font-size: 0.56rem;
+  }
+
+  .start-menu-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .start-menu button {
+    min-width: 0;
+    min-height: 38px;
+    padding: 0 6px;
+    font-size: 0.58rem;
+  }
 }
 
 
