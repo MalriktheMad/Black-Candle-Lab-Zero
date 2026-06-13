@@ -94,7 +94,7 @@ function placeLittleWingInBedroomCage() {
 }
 
 function closeBedroomCageDoor() {
-  const cage = document.querySelector(".bedroom-cage");
+  const cage = document.querySelector(".bedroom-cage-art");
 
   if (cage) {
     cage.classList.remove("is-open");
@@ -102,7 +102,7 @@ function closeBedroomCageDoor() {
 }
 
 function openBedroomCageDoor() {
-  const cage = document.querySelector(".bedroom-cage");
+  const cage = document.querySelector(".bedroom-cage-art");
 
   if (cage) {
     cage.classList.add("is-open");

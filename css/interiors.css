@@ -84,7 +84,7 @@
 }
 
 .lab-transition-layer {
-  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/transitions.png");
+  background-image: none;
 }
 
 .bedroom-floor {
@@ -96,11 +96,21 @@
 }
 
 .bedroom-cage-art {
-  background-image: url("../assets/sprites/environment/map-layers/Bedroom/cage.png");
+  inset: auto;
+  left: 27px;
+  top: 18px;
+  width: 200px;
+  height: 200px;
+  background-size: 200px 200px;
+  background-image: url("../assets/sprites/environment/map-layers/Bedroom/cage/cage1.png");
+}
+
+.bedroom-cage-art.is-open {
+  background-image: url("../assets/sprites/environment/map-layers/Bedroom/cage/cage2.png");
 }
 
 .bedroom-transition-layer {
-  background-image: url("../assets/sprites/environment/map-layers/Bedroom/transition.png");
+  background-image: url("../assets/sprites/environment/map-layers/Bedroom/transition/transition.png");
 }
 
 .lab-interior .target,
@@ -154,4 +164,17 @@
   width: 175px;
   height: 135px;
   background-image: url("../assets/sprites/characters/codex.svg");
+}
+
+
+.bedroom-ladder {
+  position: absolute;
+  left: 606px;
+  top: 60px;
+  width: 60px;
+  height: 100px;
+  z-index: 4;
+  pointer-events: none;
+  background: url("../assets/sprites/environment/map-layers/Bedroom/transition/ladder.png") center / contain no-repeat;
+  image-rendering: pixelated;
 }

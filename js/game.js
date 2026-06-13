@@ -1212,7 +1212,7 @@ const AREAS = {
     target: bedroomTarget,
     blocked: BEDROOM_BLOCKED_TERRAIN,
     transitions: [
-      { left: 550, top: 16, right: 801, bottom: 197, to: "lab", entryX: 210, entryY: 184 }
+      { left: 570, top: 32, right: 740, bottom: 204, to: "lab", entryX: 210, entryY: 184 }
     ]
   },
   dilly: {
