@@ -1067,7 +1067,8 @@ const FLIGHT_LAND_MS = 320;
 const BLOCKED_TERRAIN = [
   { name: "old-dilly-house", left: 194, top: 108, right: 386, bottom: 308 },
   { name: "lab-zero-building", left: 1952, top: 636, right: 2124, bottom: 754 },
-  { name: "end-of-road", left: 1850, top: 0, right: 2240, bottom: 352 },
+  { name: "northeast-millet-1", left: 1988, top: 116, right: 2036, bottom: 164 },
+  { name: "northeast-millet-2", left: 2048, top: 236, right: 2096, bottom: 284 },
   { name: "water-000", left: 1024, top: 0, right: 1216, bottom: 32, flightPassable: true },
   { name: "water-001", left: 1024, top: 32, right: 1216, bottom: 64, flightPassable: true },
   { name: "water-002", left: 1056, top: 64, right: 1248, bottom: 96, flightPassable: true },
@@ -1146,16 +1147,8 @@ const LAB_BLOCKED_TERRAIN = [
 ];
 const BEDROOM_BLOCKED_TERRAIN = [];
 const DILLY_BLOCKED_TERRAIN = [
-  { name: "kitchen", left: 48, top: 110, right: 232, bottom: 232 },
   { name: "old-dilly", left: 90, top: 152, right: 213, bottom: 296 },
-  { name: "liz-art-corner", left: 618, top: 116, right: 826, bottom: 274 },
-  { name: "liz", left: 267, top: 158, right: 432, bottom: 314 },
-  { name: "greenhouse-sofa", left: 332, top: 354, right: 524, bottom: 464 },
-  { name: "left-plant-wall", left: 8, top: 224, right: 108, bottom: 604 },
-  { name: "right-plant-wall", left: 764, top: 430, right: 862, bottom: 604 },
-  { name: "plant-cluster-one", left: 302, top: 108, right: 394, bottom: 214 },
-  { name: "plant-cluster-two", left: 560, top: 382, right: 660, bottom: 488 },
-  { name: "plant-cluster-three", left: 132, top: 432, right: 230, bottom: 536 }
+  { name: "liz", left: 267, top: 158, right: 432, bottom: 314 }
 ];
 
 const stage = document.getElementById("stage");

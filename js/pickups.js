@@ -17,7 +17,9 @@ const PICKUPS = [
   makeSunflowerPickup("forest-sunflower-4", 656, 1184),
   makeSunflowerPickup("east-sunflower-1", 1654, 814),
   makeSunflowerPickup("east-sunflower-2", 1834, 374),
-  makeSunflowerPickup("northeast-sunflower-1", 1804, 38)
+  makeSunflowerPickup("northeast-sunflower-1", 1804, 38),
+  makeMilletPickup("northeast-millet-1", 2012, 140),
+  makeMilletPickup("northeast-millet-2", 2072, 260)
 ];
 
 const pickupElements = new Map();
@@ -40,6 +42,19 @@ function makeSunflowerPickup(id, x, y) {
   };
 }
 
+function makeMilletPickup(id, x, y) {
+  return {
+    id,
+    area: "outside",
+    x,
+    y,
+    itemId: "milletSeeds",
+    amount: 1,
+    label: "Millet Seeds",
+    className: "millet-pickup"
+  };
+}
+
 function installPickupStyles() {
   const style = document.createElement("style");
   style.textContent = `
@@ -58,6 +73,10 @@ function installPickupStyles() {
 
     .sunflower-pickup {
       background-image: url("assets/sprites/environment/plants/sunflower.svg");
+    }
+
+    .millet-pickup {
+      background-image: url("assets/sprites/environment/plants/millet.png");
     }
 
     .pickup.collected {
