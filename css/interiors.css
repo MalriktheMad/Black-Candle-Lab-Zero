@@ -151,7 +151,7 @@
   top: 50px;
   width: 103px;
   height: 123px;
-  background: transparent;
+  background-image: url("../assets/sprites/characters/terminal%20core.png");
 }
 
 .wing-master-cricket {
