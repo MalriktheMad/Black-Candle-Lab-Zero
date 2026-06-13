@@ -263,7 +263,7 @@ function codexLine(text) {
 function labCoreLine(text, choices) {
   return {
     speaker: "Lab Core",
-    portrait: "assets/sprites/characters/terminal core.png",
+    portrait: "assets/portraits/lab-core.png",
     text,
     choices
   };
