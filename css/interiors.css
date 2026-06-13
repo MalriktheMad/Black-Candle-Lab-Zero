@@ -16,6 +16,9 @@
 }
 
 .lab-floor,
+.lab-furniture-layer,
+.lab-npcs-layer,
+.lab-transition-layer,
 .lab-rug,
 .lab-bench,
 .lab-core,
@@ -31,14 +34,37 @@
   pointer-events: none;
 }
 
-.lab-floor {
+.lab-floor,
+.lab-furniture-layer,
+.lab-npcs-layer,
+.lab-transition-layer {
   inset: 0;
-  background-image:
-    linear-gradient(rgba(247, 244, 255, 0.08) 2px, transparent 2px),
-    linear-gradient(90deg, rgba(247, 244, 255, 0.08) 2px, transparent 2px),
-    linear-gradient(135deg, rgba(124, 60, 255, 0.08), transparent 42%);
-  background-size: 48px 48px, 48px 48px, auto;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 920px 620px;
+  image-rendering: pixelated;
 }
+
+.lab-floor {
+  z-index: 1;
+  background-image: url("../assets/sprites/environment/map-layers/Lab Zero/Floor.png");
+}
+
+.lab-furniture-layer {
+  z-index: 2;
+  background-image: url("../assets/sprites/environment/map-layers/Lab Zero/furnature.png");
+}
+
+.lab-npcs-layer {
+  z-index: 3;
+  background-image: url("../assets/sprites/environment/map-layers/Lab Zero/NPCs.png");
+}
+
+.lab-transition-layer {
+  z-index: 4;
+  background-image: url("../assets/sprites/environment/map-layers/Lab Zero/transitions.png");
+}
+
 
 .lab-rug {
   left: 352px;
@@ -378,6 +404,44 @@
     rgba(5, 5, 8, 0.72);
 }
 
+.lab-interior .lab-rug,
+.lab-interior .lab-bench,
+.lab-interior .lab-core,
+.lab-interior .candlewick-tower,
+.lab-interior .codex-terminal,
+.lab-interior .lab-stairs,
+.lab-interior .wizard-chair,
+.lab-interior .wing-master-cricket,
+.lab-interior .lab-wall-note,
+.lab-interior .lab-exit {
+  opacity: 0;
+}
+
+.lab-interior .lab-rug::before,
+.lab-interior .lab-rug::after,
+.lab-interior .lab-bench::before,
+.lab-interior .lab-bench::after,
+.lab-interior .lab-core::before,
+.lab-interior .lab-core::after,
+.lab-interior .candlewick-tower::before,
+.lab-interior .candlewick-tower::after,
+.lab-interior .codex-terminal::before,
+.lab-interior .codex-terminal::after,
+.lab-interior .lab-stairs::before,
+.lab-interior .lab-stairs::after,
+.lab-interior .wizard-chair::before,
+.lab-interior .wizard-chair::after,
+.lab-interior .wing-master-cricket::before,
+.lab-interior .wing-master-cricket::after,
+.lab-interior .lab-wall-note::before,
+.lab-interior .lab-wall-note::after,
+.lab-interior .lab-exit::before,
+.lab-interior .lab-exit::after,
+.lab-interior .lab-note,
+.lab-interior .lab-vial {
+  display: none;
+}
+
 .bedroom-interior {
   position: absolute;
   left: 0;
@@ -396,6 +460,9 @@
 }
 
 .bedroom-floor,
+.bedroom-furniture-layer,
+.bedroom-cage-art,
+.bedroom-transition-layer,
 .bedroom-cage,
 .bedroom-cage-door,
 .bedroom-perch,
@@ -407,13 +474,35 @@
   pointer-events: none;
 }
 
-.bedroom-floor {
+.bedroom-floor,
+.bedroom-furniture-layer,
+.bedroom-cage-art,
+.bedroom-transition-layer {
   inset: 0;
-  background-image:
-    linear-gradient(rgba(247, 244, 255, 0.07) 2px, transparent 2px),
-    linear-gradient(90deg, rgba(247, 244, 255, 0.07) 2px, transparent 2px),
-    linear-gradient(135deg, rgba(91, 56, 35, 0.18), transparent 48%);
-  background-size: 46px 46px, 46px 46px, auto;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 820px 560px;
+  image-rendering: pixelated;
+}
+
+.bedroom-floor {
+  z-index: 1;
+  background-image: url("../assets/sprites/environment/map-layers/Bedroom/floor.png");
+}
+
+.bedroom-furniture-layer {
+  z-index: 2;
+  background-image: url("../assets/sprites/environment/map-layers/Bedroom/furnature.png");
+}
+
+.bedroom-cage-art {
+  z-index: 3;
+  background-image: url("../assets/sprites/environment/map-layers/Bedroom/cage.png");
+}
+
+.bedroom-transition-layer {
+  z-index: 4;
+  background-image: url("../assets/sprites/environment/map-layers/Bedroom/transition.png");
 }
 
 .bedroom-cage {
@@ -421,94 +510,17 @@
   top: 54px;
   width: 170px;
   height: 178px;
-  border: 5px solid #050508;
-  border-radius: 30px 30px 8px 8px;
-  background:
-    repeating-linear-gradient(90deg, transparent 0 26px, rgba(216, 209, 240, 0.55) 26px 31px),
-    repeating-linear-gradient(180deg, transparent 0 54px, rgba(216, 209, 240, 0.38) 54px 59px),
-    linear-gradient(180deg, rgba(124, 60, 255, 0.18), rgba(5, 5, 8, 0.16));
-  box-shadow: 0 0 22px rgba(124, 60, 255, 0.18), inset 0 -16px 0 rgba(5, 5, 8, 0.28);
+  opacity: 0;
 }
 
-.bedroom-cage::before {
-  content: "";
-  position: absolute;
-  left: 68px;
-  top: -24px;
-  width: 26px;
-  height: 28px;
-  border: 5px solid #050508;
-  border-bottom: 0;
-  border-radius: 14px 14px 0 0;
-}
-
-.bedroom-cage-door {
-  left: 96px;
-  bottom: -5px;
-  width: 48px;
-  height: 78px;
-  border: 5px solid #050508;
-  border-bottom: 0;
-  background: rgba(5, 5, 8, 0.32);
-  transform: skewY(-6deg);
-  transform-origin: bottom left;
-}
-
-.bedroom-perch {
-  left: 28px;
-  top: 104px;
-  width: 104px;
-  height: 8px;
-  border: 3px solid #050508;
-  background: #7a5230;
-  box-shadow: 0 28px 0 #3b2414;
-}
-
-.wizard-bed {
-  right: 44px;
-  top: 82px;
-  width: 214px;
-  height: 104px;
-  border: 5px solid #050508;
-  background:
-    linear-gradient(90deg, rgba(248, 213, 107, 0.28) 0 22px, transparent 22px 48px),
-    linear-gradient(180deg, #7c3cff 0 34px, #2b1a10 34px 100%);
-  box-shadow: 8px 9px 0 rgba(0, 0, 0, 0.42);
-}
-
-.wizard-nightstand {
-  right: 274px;
-  top: 134px;
-  width: 48px;
-  height: 46px;
-  border: 4px solid #050508;
-  background: linear-gradient(180deg, #6a4425, #2e1b10);
-  box-shadow: 6px 7px 0 rgba(0, 0, 0, 0.38);
-}
-
-.bedroom-rug {
-  left: 352px;
-  bottom: 72px;
-  width: 184px;
-  height: 84px;
-  border: 4px solid #050508;
-  background:
-    linear-gradient(90deg, rgba(248, 213, 107, 0.42) 0 10px, transparent 10px 24px),
-    linear-gradient(135deg, rgba(124, 60, 255, 0.75), rgba(27, 111, 214, 0.58));
-  background-size: 34px 100%, auto;
-  box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.38);
-}
-
+.bedroom-cage::before,
+.bedroom-cage-door,
+.bedroom-perch,
+.wizard-bed,
+.wizard-nightstand,
+.bedroom-rug,
 .bedroom-stairs {
-  right: 74px;
-  bottom: 34px;
-  width: 142px;
-  height: 96px;
-  border: 5px solid #050508;
-  background:
-    linear-gradient(135deg, rgba(124, 60, 255, 0.2), transparent 42%),
-    repeating-linear-gradient(180deg, #2b1a10 0 13px, #0d0806 13px 21px);
-  box-shadow: 0 0 18px rgba(124, 60, 255, 0.24);
+  display: none;
 }
 
 
