@@ -126,7 +126,7 @@
 .bedroom-cage-prompt {
   position: fixed;
   left: 50%;
-  top: 22%;
+  top: 50%;
   z-index: 90;
   max-width: min(86vw, 360px);
   border: 2px solid rgba(247, 244, 255, 0.68);
@@ -139,6 +139,6 @@
   font-weight: 900;
   text-align: center;
   text-transform: uppercase;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   pointer-events: none;
 }

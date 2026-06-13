@@ -1295,10 +1295,19 @@ function isGamePausedForDialogue() {
   return typeof isDialogueActive === "function" && isDialogueActive();
 }
 
+function isMovementLockedForBedroomCage() {
+  return typeof isBedroomCageBreakoutPending === "function" && isBedroomCageBreakoutPending();
+}
+
 function setTarget(event) {
   if (isGamePausedForDialogue()) {
     return;
   }
+
+  if (isMovementLockedForBedroomCage()) {
+    return;
+  }
+
   if (event.target.closest(".readout, .quick-nav, .zoom-controls, .flight-controls, .start-menu")) {
     return;
   }
