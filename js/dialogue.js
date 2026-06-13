@@ -37,7 +37,8 @@ const lizTalkZone = {
 const dialogueState = {
   active: false,
   index: 0,
-  lines: []
+  lines: [],
+  onComplete: null
 };
 
 const dialogueBox = document.createElement("div");
@@ -166,6 +167,7 @@ function startDialogue(lines) {
   dialogueState.active = true;
   dialogueState.index = 0;
   dialogueState.lines = lines;
+  dialogueState.onComplete = typeof lines.onComplete === "function" ? lines.onComplete : null;
   dialogueBox.hidden = false;
   showDialogueLine();
 }
@@ -275,8 +277,15 @@ function advanceDialogue() {
 }
 
 function closeDialogue() {
+  const onComplete = dialogueState.onComplete;
+
   dialogueState.active = false;
+  dialogueState.onComplete = null;
   dialogueBox.hidden = true;
+
+  if (onComplete) {
+    onComplete();
+  }
 }
 
 function showDialogueLine() {
