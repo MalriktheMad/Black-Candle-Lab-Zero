@@ -1,6 +1,7 @@
 const PLAYER_PROGRESS_STORAGE_KEY = "lab-zero-player-progress";
 const BASE_PLAYER_HP = 100;
 const HP_PER_LEVEL = 50;
+let levelUpNoticeTimeout;
 
 const STARTING_PLAYER_PROGRESS = {
   level: 1,
@@ -56,6 +57,8 @@ function setPlayerLevel(level) {
 function levelUpPlayer(amount = 1) {
   const progress = getPlayerProgress();
   setPlayerLevel(progress.level + amount);
+  const updatedProgress = getPlayerProgress();
+  showLevelUpNotice(updatedProgress.level, updatedProgress.hp);
 }
 
 function completeQuest(questId) {
@@ -96,6 +99,44 @@ function findReadoutStat(statName) {
     const label = row.querySelector("span");
     return label && label.textContent.trim().toLowerCase() === statName;
   })?.querySelector("strong") || null;
+}
+
+function showLevelUpNotice(level, hp) {
+  let notice = document.querySelector(".level-up-notice");
+
+  if (!notice) {
+    notice = document.createElement("div");
+    notice.className = "level-up-notice";
+    document.body.append(notice);
+  }
+
+  notice.innerHTML = `
+    <span>Level Up</span>
+    <strong>Level ${level}</strong>
+    <em>HP ${hp}</em>
+  `;
+  notice.hidden = false;
+  notice.classList.remove("is-showing");
+  void notice.offsetWidth;
+  notice.classList.add("is-showing");
+
+  const readout = document.getElementById("readout");
+
+  if (readout) {
+    readout.classList.remove("is-leveling-up");
+    void readout.offsetWidth;
+    readout.classList.add("is-leveling-up");
+  }
+
+  clearTimeout(levelUpNoticeTimeout);
+  levelUpNoticeTimeout = setTimeout(() => {
+    notice.hidden = true;
+    notice.classList.remove("is-showing");
+
+    if (readout) {
+      readout.classList.remove("is-leveling-up");
+    }
+  }, 1800);
 }
 
 syncPlayerProgressReadout();

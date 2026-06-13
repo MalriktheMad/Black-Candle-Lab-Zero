@@ -38,6 +38,7 @@ function makeSunflowerPickup(id, x, y) {
     itemId: "sunflowerSeeds",
     amount: 1,
     label: "Sunflower Seeds",
+    collectRadius: 34,
     className: "sunflower-pickup"
   };
 }
@@ -51,6 +52,7 @@ function makeMilletPickup(id, x, y) {
     itemId: "milletSeeds",
     amount: 1,
     label: "Millet Seeds",
+    collectRadius: 58,
     className: "millet-pickup"
   };
 }
@@ -141,7 +143,7 @@ function checkPickups() {
 
     const distance = Math.hypot(state.x - pickup.x, state.y - pickup.y);
 
-    if (distance <= 34) {
+    if (distance <= pickup.collectRadius) {
       collectPickup(pickup, collected);
     }
   });
