@@ -1,32 +1,8 @@
-.dilly-door::after,
 .dilly-exit::after {
   content: "";
   position: absolute;
   pointer-events: none;
   image-rendering: pixelated;
-}
-
-.dilly-door::after {
-  left: -20px;
-  bottom: -16px;
-  width: 66px;
-  height: 16px;
-  border-top: 3px solid #06100b;
-  background:
-    linear-gradient(90deg, transparent 0 6px, rgba(154, 222, 126, 0.78) 6px 14px, transparent 14px 24px),
-    linear-gradient(90deg, rgba(116, 195, 101, 0.24), rgba(248, 213, 107, 0.28));
-  background-size: 24px 100%, auto;
-}
-
-.dilly-door::before {
-  content: "";
-  position: absolute;
-  right: 4px;
-  top: 14px;
-  width: 7px;
-  height: 7px;
-  background: #e3c76d;
-  box-shadow: 0 0 10px rgba(248, 213, 107, 0.68);
 }
 
 .dilly-exit::after {
