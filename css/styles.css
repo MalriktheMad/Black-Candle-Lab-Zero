@@ -210,8 +210,8 @@ a {
   position: absolute;
   left: 0;
   top: 0;
-  width: 40px;
-  height: 40px;
+  width: 64px;
+  height: 64px;
   filter: drop-shadow(0 0 10px rgba(248, 213, 107, 0.38)) drop-shadow(5px 5px 0 rgba(0, 0, 0, 0.72));
   transform: translate(-50%, -50%);
   transform-origin: center;
@@ -234,8 +234,8 @@ a {
   position: absolute;
   left: 0;
   top: 0;
-  width: 40px;
-  height: 40px;
+  width: 64px;
+  height: 64px;
   background: transparent;
   image-rendering: pixelated;
 }

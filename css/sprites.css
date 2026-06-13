@@ -28,12 +28,16 @@
 .pixel-bird {
   left: 0;
   top: 0;
-  width: 40px;
-  height: 40px;
-  background-image: url("../assets/sprites/characters/little-wing/idle.png");
+  width: 64px;
+  height: 64px;
+  background-image: url("../assets/sprites/characters/LittlewingV2/Idle/idle.png");
   box-shadow: none;
   z-index: 1;
   background-position: center bottom;
+}
+
+.player:not(.is-moving):not(.is-flying):not(.is-taking-off):not(.is-landing) .pixel-bird {
+  animation: little-wing-idle 900ms steps(1, end) infinite;
 }
 
 .old-dilly-npc {
@@ -63,39 +67,37 @@
 }
 
 @keyframes little-wing-hop {
-  0% { background-image: url("../assets/sprites/characters/little-wing/hop/hop-0.png"); }
-  16% { background-image: url("../assets/sprites/characters/little-wing/hop/hop-1.png"); }
-  32% { background-image: url("../assets/sprites/characters/little-wing/hop/hop-2.png"); }
-  48% { background-image: url("../assets/sprites/characters/little-wing/hop/hop-3.png"); }
-  64% { background-image: url("../assets/sprites/characters/little-wing/hop/hop-4.png"); }
-  80%, 100% { background-image: url("../assets/sprites/characters/little-wing/hop/hop-5.png"); }
+  0% { background-image: url("../assets/sprites/characters/LittlewingV2/walk/walk1.png"); }
+  25% { background-image: url("../assets/sprites/characters/LittlewingV2/walk/walk2.png"); }
+  50% { background-image: url("../assets/sprites/characters/LittlewingV2/walk/walk3.png"); }
+  75%, 100% { background-image: url("../assets/sprites/characters/LittlewingV2/walk/walk4.png"); }
 }
 
 @keyframes little-wing-takeoff {
-  0% { background-image: url("../assets/sprites/characters/little-wing/takeoff/takeoff-0.png"); }
-  25% { background-image: url("../assets/sprites/characters/little-wing/takeoff/takeoff-1.png"); }
-  50% { background-image: url("../assets/sprites/characters/little-wing/takeoff/takeoff-2.png"); }
-  75%, 100% { background-image: url("../assets/sprites/characters/little-wing/takeoff/takeoff-3.png"); }
+  0% { background-image: url("../assets/sprites/characters/LittlewingV2/Takeoff/takeoff1.png"); }
+  25% { background-image: url("../assets/sprites/characters/LittlewingV2/Takeoff/takeoff2.png"); }
+  50% { background-image: url("../assets/sprites/characters/LittlewingV2/Takeoff/takeoff3.png"); }
+  75%, 100% { background-image: url("../assets/sprites/characters/LittlewingV2/Takeoff/takeoff4.png"); }
 }
 
 @keyframes little-wing-fly {
-  0% { background-image: url("../assets/sprites/characters/little-wing/fly/fly-0.png"); }
-  8.33% { background-image: url("../assets/sprites/characters/little-wing/fly/fly-1.png"); }
-  16.66% { background-image: url("../assets/sprites/characters/little-wing/fly/fly-2.png"); }
-  25% { background-image: url("../assets/sprites/characters/little-wing/fly/fly-3.png"); }
-  33.33% { background-image: url("../assets/sprites/characters/little-wing/fly/fly-4.png"); }
-  41.66% { background-image: url("../assets/sprites/characters/little-wing/fly/fly-5.png"); }
-  50% { background-image: url("../assets/sprites/characters/little-wing/fly/fly-6.png"); }
-  58.33% { background-image: url("../assets/sprites/characters/little-wing/fly/fly-7.png"); }
-  66.66% { background-image: url("../assets/sprites/characters/little-wing/fly/fly-8.png"); }
-  75% { background-image: url("../assets/sprites/characters/little-wing/fly/fly-9.png"); }
-  83.33% { background-image: url("../assets/sprites/characters/little-wing/fly/fly-10.png"); }
-  91.66%, 100% { background-image: url("../assets/sprites/characters/little-wing/fly/fly-11.png"); }
+  0% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight.png"); }
+  20% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight1.png"); }
+  40% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight2.png"); }
+  60% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight3.png"); }
+  80%, 100% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight4.png"); }
 }
 @keyframes little-wing-land {
-  0% { background-image: url("../assets/sprites/characters/little-wing/land/land-0.png"); }
-  50% { background-image: url("../assets/sprites/characters/little-wing/land/land-1.png"); }
-  100% { background-image: url("../assets/sprites/characters/little-wing/land/land-2.png"); }
+  0% { background-image: url("../assets/sprites/characters/LittlewingV2/Landing/landing1.png"); }
+  33% { background-image: url("../assets/sprites/characters/LittlewingV2/Landing/landing2.png"); }
+  66% { background-image: url("../assets/sprites/characters/LittlewingV2/Landing/landing3.png"); }
+  100% { background-image: url("../assets/sprites/characters/LittlewingV2/Landing/landing4.png"); }
+}
+
+@keyframes little-wing-idle {
+  0% { background-image: url("../assets/sprites/characters/LittlewingV2/Idle/idle.png"); }
+  33% { background-image: url("../assets/sprites/characters/LittlewingV2/Idle/idle1.png"); }
+  66%, 100% { background-image: url("../assets/sprites/characters/LittlewingV2/Idle/idle2.png"); }
 }
 
 

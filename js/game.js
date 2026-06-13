@@ -1809,11 +1809,11 @@ function getPlayerRadius() {
 }
 
 function clampWorldX(value) {
-  return clamp(value, 24, getActiveArea().width - 24);
+  return clamp(value, 32, getActiveArea().width - 32);
 }
 
 function clampWorldY(value) {
-  return clamp(value, 24, getActiveArea().height - 24);
+  return clamp(value, 32, getActiveArea().height - 32);
 }
 
 function roundZoom(value) {

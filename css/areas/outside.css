@@ -59,11 +59,11 @@
 
 
 .world .player:not(.on-sand):not(.is-flying):not(.is-taking-off):not(.is-landing):not(.is-moving) .pixel-bird {
-  left: -4px;
-  top: -4px;
-  width: 48px;
-  height: 48px;
-  background-image: url("../../assets/sprites/characters/little-wing/hop/little-wing-grass64x64.png");
+  left: 0;
+  top: 0;
+  width: 64px;
+  height: 64px;
+  background-image: url("../../assets/sprites/characters/LittlewingV2/Idle/idle.png");
 }
 
 .tree {
