@@ -112,3 +112,46 @@
 .bedroom-interior .player {
   z-index: 7;
 }
+
+
+/* Planning layers are kept in the repo for coordinates, but hidden in-game. */
+.lab-npcs-layer,
+.lab-transition-layer,
+.bedroom-transition-layer {
+  display: none;
+}
+
+.lab-pc-monitor,
+.wing-master-cricket,
+.codex-terminal {
+  position: absolute;
+  z-index: 5;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+}
+
+.lab-pc-monitor {
+  left: 310px;
+  top: 50px;
+  width: 103px;
+  height: 123px;
+  background: transparent;
+}
+
+.wing-master-cricket {
+  left: 492px;
+  top: 74px;
+  width: 117px;
+  height: 103px;
+  background-image: url("../assets/sprites/characters/wing-master-cricket.svg");
+}
+
+.codex-terminal {
+  left: 672px;
+  top: 52px;
+  width: 175px;
+  height: 135px;
+  background-image: url("../assets/sprites/characters/codex.svg");
+}

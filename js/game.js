@@ -1140,15 +1140,11 @@ const BLOCKED_TERRAIN = [
 ];
 const LAB_BLOCKED_TERRAIN = [
   { name: "lab-furniture", left: 42, top: 361, right: 300, bottom: 594 },
-  { name: "candlewick-left", left: 310, top: 50, right: 413, bottom: 173 },
-  { name: "candlewick-workstation", left: 492, top: 74, right: 609, bottom: 177 },
-  { name: "wing-master-cricket", left: 672, top: 52, right: 847, bottom: 187 }
+  { name: "lab-pc-monitor", left: 310, top: 50, right: 413, bottom: 173 },
+  { name: "wing-master-cricket", left: 492, top: 74, right: 609, bottom: 177 },
+  { name: "candlewick-workstation", left: 672, top: 52, right: 847, bottom: 187 }
 ];
-const BEDROOM_BLOCKED_TERRAIN = [
-  { name: "cage-back-wall", left: 52, top: 54, right: 222, bottom: 104 },
-  { name: "wizard-bed", left: 554, top: 72, right: 812, bottom: 214 },
-  { name: "nightstand", left: 490, top: 124, right: 556, bottom: 206 }
-];
+const BEDROOM_BLOCKED_TERRAIN = [];
 const DILLY_BLOCKED_TERRAIN = [
   { name: "kitchen", left: 48, top: 110, right: 232, bottom: 232 },
   { name: "old-dilly", left: 226, top: 142, right: 288, bottom: 222 },
