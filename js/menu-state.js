@@ -14,6 +14,8 @@ const START_X = 138;
 const START_Y = 162;
 
 const startMenu = document.getElementById("start-menu");
+const introCard = document.getElementById("intro-card");
+const introStartButton = document.getElementById("intro-start");
 const newGameButton = document.getElementById("new-game");
 const continueGameButton = document.getElementById("continue-game");
 const clearSaveButton = document.getElementById("clear-save");
@@ -36,7 +38,7 @@ if (quickNav) {
 window.addEventListener("pagehide", saveGameState);
 
 function setupStartMenu() {
-  if (!startMenu || !newGameButton || !continueGameButton || !clearSaveButton) {
+  if (!startMenu || !introCard || !introStartButton || !newGameButton || !continueGameButton || !clearSaveButton) {
     startGame();
     return;
   }
@@ -53,13 +55,21 @@ function setupStartMenu() {
   newGameButton.addEventListener("click", () => {
     clearSavedGame();
     movePlayerToStart();
-    startGame();
+    showIntroCard();
   });
 
   continueGameButton.addEventListener("click", () => startGame({ playOpening: false }));
 
+  introStartButton.addEventListener("click", () => startGame());
+
   clearSaveButton.addEventListener("pointerup", handleClearSave);
   clearSaveButton.addEventListener("click", handleClearSave);
+}
+
+function showIntroCard() {
+  startMenu.hidden = true;
+  introCard.hidden = false;
+  introStartButton.focus();
 }
 
 function hasSavedGame() {
@@ -85,6 +95,10 @@ function clearSavedGame() {
 function startGame(options = {}) {
   if (startMenu) {
     startMenu.hidden = true;
+  }
+
+  if (introCard) {
+    introCard.hidden = true;
   }
 
   const shouldPlayOpening = options.playOpening !== false;
@@ -117,7 +131,7 @@ function movePlayerToStart() {
 }
 
 function saveGameState() {
-  if (startMenu && !startMenu.hidden) {
+  if ((startMenu && !startMenu.hidden) || (introCard && !introCard.hidden)) {
     return;
   }
 

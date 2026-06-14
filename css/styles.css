@@ -302,6 +302,67 @@ a {
   display: none;
 }
 
+.intro-card {
+  position: fixed;
+  inset: 0;
+  z-index: 62;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.intro-card[hidden] {
+  display: none;
+}
+
+.intro-card-copy {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+}
+
+.intro-card h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.25rem, 6vw, 2.6rem);
+  font-weight: 900;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.intro-card p {
+  margin: 0 0 10px;
+  color: #fff;
+  font-size: clamp(0.8rem, 3.4vw, 1.2rem);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.intro-card button {
+  min-width: 112px;
+  min-height: 42px;
+  border: 2px solid #fff;
+  border-radius: 6px;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.intro-card button:hover,
+.intro-card button:focus-visible {
+  background: #fff;
+  color: #000;
+  outline: none;
+}
+
 .start-menu-art {
   min-height: 0;
   background-image: url("../assets/portraits/menu-display/paint-palette-animation-1.png");
