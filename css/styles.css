@@ -78,6 +78,8 @@ a {
   position: absolute;
   left: 14px;
   top: 14px;
+  right: auto;
+  bottom: auto;
   width: 132px;
   border: 2px solid rgba(247, 244, 255, 0.58);
   border-radius: 6px;
@@ -117,7 +119,9 @@ a {
 .quick-nav {
   position: absolute;
   left: 14px;
+  right: auto;
   bottom: 14px;
+  top: auto;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 69px));
   gap: 6px;
@@ -157,7 +161,9 @@ a {
 
 .flight-controls {
   position: absolute;
+  left: auto;
   right: 14px;
+  top: auto;
   bottom: 14px;
   pointer-events: auto;
 }
@@ -241,12 +247,16 @@ a {
   .readout {
     left: 10px;
     top: 10px;
+    right: auto;
+    bottom: auto;
     width: 126px;
   }
 
   .quick-nav {
     left: 10px;
+    right: auto;
     bottom: 10px;
+    top: auto;
     grid-template-columns: repeat(2, minmax(0, 52px));
     gap: 4px;
   }
@@ -439,7 +449,9 @@ a {
 }
 @media (max-width: 620px) {
   .flight-controls {
+    left: auto;
     right: 10px;
+    top: auto;
     bottom: 10px;
   }
 
