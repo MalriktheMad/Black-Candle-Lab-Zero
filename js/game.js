@@ -1286,7 +1286,7 @@ const AREAS = {
     blocked: BLOCKED_TERRAIN,
     transitions: [
       { left: 1996, top: 724, right: 2106, bottom: 818, to: "lab", entryX: 752, entryY: 456 },
-      { left: 1254, top: 0, right: 1403, bottom: 95, to: "forest", entryX: 2095, entryY: 2910 }
+      { left: 1254, top: 0, right: 1403, bottom: 95, to: "forest", entryX: 2095, entryY: 2825 }
     ]
   },
   forest: {
@@ -1298,7 +1298,7 @@ const AREAS = {
     blocked: FOREST_BLOCKED_TERRAIN,
     canopyRows: FOREST_CANOPY_ROW_MAP,
     transitions: [
-      { left: 2024, top: 2930, right: 2166, bottom: 2963, to: "outside", entryX: 1328, entryY: 128 },
+      { left: 1980, top: 2865, right: 2195, bottom: 2976, to: "outside", entryX: 1328, entryY: 128 },
       { left: 2320, top: 2490, right: 2490, bottom: 2560, to: "dilly", entryX: 748, entryY: 320 }
     ]
   },
