@@ -1067,7 +1067,6 @@ const TRANSITION_COOLDOWN = 0.45;
 const FLIGHT_TAKEOFF_MS = 380;
 const FLIGHT_LAND_MS = 320;
 const BLOCKED_TERRAIN = [
-  { name: "old-dilly-house", left: 194, top: 108, right: 386, bottom: 308 },
   { name: "lab-zero-building", left: 1952, top: 636, right: 2124, bottom: 754 },
   { name: "northeast-millet-1", left: 1988, top: 116, right: 2036, bottom: 164, flightPassable: true },
   { name: "northeast-millet-2", left: 2048, top: 236, right: 2096, bottom: 284, flightPassable: true },
@@ -1152,7 +1151,9 @@ const DILLY_BLOCKED_TERRAIN = [
   { name: "old-dilly", left: 90, top: 152, right: 213, bottom: 296 },
   { name: "liz", left: 267, top: 158, right: 432, bottom: 314 }
 ];
-const FOREST_BLOCKED_TERRAIN = [];
+const FOREST_BLOCKED_TERRAIN = [
+  { name: "old-dilly-house", left: 2314, top: 2282, right: 2498, bottom: 2490 }
+];
 const FOREST_CANOPY_ROWS = [
   [0, [[0, 93]]],
   [1, [[0, 93]]],
@@ -1284,7 +1285,6 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
-      { left: 246, top: 206, right: 362, bottom: 346, to: "dilly", entryX: 748, entryY: 320 },
       { left: 1996, top: 724, right: 2106, bottom: 818, to: "lab", entryX: 752, entryY: 456 },
       { left: 1254, top: 0, right: 1403, bottom: 95, to: "forest", entryX: 132, entryY: 2680 }
     ]
@@ -1298,7 +1298,8 @@ const AREAS = {
     blocked: FOREST_BLOCKED_TERRAIN,
     canopyRows: FOREST_CANOPY_ROW_MAP,
     transitions: [
-      { left: 40, top: 2725, right: 226, bottom: 2861, to: "outside", entryX: 1328, entryY: 128 }
+      { left: 40, top: 2725, right: 226, bottom: 2861, to: "outside", entryX: 1328, entryY: 128 },
+      { left: 2320, top: 2490, right: 2490, bottom: 2560, to: "dilly", entryX: 748, entryY: 320 }
     ]
   },
   lab: {
@@ -1332,7 +1333,7 @@ const AREAS = {
     target: dillyTarget,
     blocked: DILLY_BLOCKED_TERRAIN,
     transitions: [
-      { left: 792, top: 252, right: 874, bottom: 404, to: "outside", entryX: 304, entryY: 362 }
+      { left: 792, top: 252, right: 874, bottom: 404, to: "forest", entryX: 2405, entryY: 2588 }
     ]
   }
 };

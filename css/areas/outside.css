@@ -84,20 +84,12 @@
   z-index: 6;
 }
 
-.dilly-building {
-  left: 184px;
-  top: 72px;
-  width: 240px;
-  height: 260px;
-  background-image: url("../../assets/sprites/environment/buildings/dilly-treehouse.png");
-}
-
 .lab-zero-building {
   left: 1924px;
   top: 602px;
   width: 240px;
   height: 170px;
-  background-image: url("../../assets/sprites/environment/buildings/LabZerov2.png");
+  background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Transitions/LabZerov2.png");
 }
 
 .map-sign {
