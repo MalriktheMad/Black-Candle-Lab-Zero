@@ -67,7 +67,7 @@ function setupStartMenu() {
 
   continueGameButton.addEventListener("click", () => startGame({ playOpening: false }));
 
-  introStartButton.addEventListener("click", advanceIntroCard);
+  introCard.addEventListener("click", advanceIntroCard);
 
   clearSaveButton.addEventListener("pointerup", handleClearSave);
   clearSaveButton.addEventListener("click", handleClearSave);
@@ -82,6 +82,10 @@ function showIntroCard() {
 }
 
 function advanceIntroCard() {
+  if (introCard.hidden) {
+    return;
+  }
+
   if (introSlideIndex < INTRO_SLIDES.length - 1) {
     introSlideIndex += 1;
     renderIntroCard();
@@ -93,7 +97,8 @@ function advanceIntroCard() {
 
 function renderIntroCard() {
   introTitle.textContent = INTRO_SLIDES[introSlideIndex];
-  introStartButton.textContent = introSlideIndex < INTRO_SLIDES.length - 1 ? "Next" : "Start";
+  introStartButton.hidden = introSlideIndex < INTRO_SLIDES.length - 1;
+  introStartButton.textContent = "Start";
 }
 
 function hasSavedGame() {

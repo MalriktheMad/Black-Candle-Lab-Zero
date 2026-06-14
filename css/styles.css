@@ -348,6 +348,10 @@ a {
   text-transform: uppercase;
 }
 
+.intro-card button[hidden] {
+  display: none;
+}
+
 .intro-card button:hover,
 .intro-card button:focus-visible {
   background: #fff;

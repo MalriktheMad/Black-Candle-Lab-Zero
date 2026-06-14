@@ -10,6 +10,14 @@ const BEDROOM_CAGE_BREAKOUT_ZONE = {
   right: 224,
   bottom: 248
 };
+const BEDROOM_CAGE_BREAKOUT_TAPS = 4;
+const BEDROOM_CAGE_BREAKOUT_PROMPTS = [
+  "Tap the cage to break free",
+  "Again. The latch rattles.",
+  "One more good peck.",
+  "Almost out."
+];
+let bedroomCageBreakoutTaps = 0;
 
 function playOpeningBedroomDialogue() {
   if (dialogueState.active || state.area !== "bedroom" || sessionStorage.getItem(OPENING_BEDROOM_DIALOGUE_KEY)) {
@@ -62,6 +70,13 @@ function handleBedroomCageBreakoutPointer(event) {
     return false;
   }
 
+  bedroomCageBreakoutTaps += 1;
+
+  if (bedroomCageBreakoutTaps < BEDROOM_CAGE_BREAKOUT_TAPS) {
+    updateBedroomCagePrompt();
+    return true;
+  }
+
   sessionStorage.setItem(OPENING_BEDROOM_DIALOGUE_KEY, "true");
   hideBedroomCagePrompt();
   startDialogue(getBedroomCageBreakoutLines());
@@ -84,6 +99,7 @@ function placeLittleWingInBedroomCage() {
   state.targetX = BEDROOM_CAGE_START_X;
   state.targetY = BEDROOM_CAGE_START_Y;
   state.path = [];
+  bedroomCageBreakoutTaps = 0;
   closeBedroomCageDoor();
 
   initializeAreaVisibility();
@@ -121,6 +137,8 @@ function moveLittleWingOutOfBedroomCage() {
 }
 function showBedroomCagePrompt() {
   const prompt = getBedroomCagePrompt();
+  bedroomCageBreakoutTaps = 0;
+  updateBedroomCagePrompt();
   prompt.hidden = false;
 }
 
@@ -143,4 +161,9 @@ function getBedroomCagePrompt() {
   }
 
   return prompt;
+}
+
+function updateBedroomCagePrompt() {
+  const prompt = getBedroomCagePrompt();
+  prompt.textContent = BEDROOM_CAGE_BREAKOUT_PROMPTS[Math.min(bedroomCageBreakoutTaps, BEDROOM_CAGE_BREAKOUT_PROMPTS.length - 1)];
 }
