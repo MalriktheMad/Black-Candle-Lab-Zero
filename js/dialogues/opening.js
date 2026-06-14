@@ -14,7 +14,6 @@ const BEDROOM_CAGE_BREAKOUT_TAPS = 4;
 const BEDROOM_CAGE_BREAKOUT_PROMPTS = [
   "Tap the cage to break free",
   "Again. The latch rattles.",
-  "One more good peck.",
   "Almost out."
 ];
 let bedroomCageBreakoutTaps = 0;
