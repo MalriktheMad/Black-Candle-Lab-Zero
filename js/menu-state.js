@@ -15,10 +15,17 @@ const START_Y = 162;
 
 const startMenu = document.getElementById("start-menu");
 const introCard = document.getElementById("intro-card");
+const introTitle = document.getElementById("intro-title");
 const introStartButton = document.getElementById("intro-start");
 const newGameButton = document.getElementById("new-game");
 const continueGameButton = document.getElementById("continue-game");
 const clearSaveButton = document.getElementById("clear-save");
+const INTRO_SLIDES = [
+  "Black Candle Labs",
+  "Lab Zero",
+  "A Budgie RPG"
+];
+let introSlideIndex = 0;
 
 restoreGameState();
 setupStartMenu();
@@ -38,7 +45,7 @@ if (quickNav) {
 window.addEventListener("pagehide", saveGameState);
 
 function setupStartMenu() {
-  if (!startMenu || !introCard || !introStartButton || !newGameButton || !continueGameButton || !clearSaveButton) {
+  if (!startMenu || !introCard || !introTitle || !introStartButton || !newGameButton || !continueGameButton || !clearSaveButton) {
     startGame();
     return;
   }
@@ -60,7 +67,7 @@ function setupStartMenu() {
 
   continueGameButton.addEventListener("click", () => startGame({ playOpening: false }));
 
-  introStartButton.addEventListener("click", () => startGame());
+  introStartButton.addEventListener("click", advanceIntroCard);
 
   clearSaveButton.addEventListener("pointerup", handleClearSave);
   clearSaveButton.addEventListener("click", handleClearSave);
@@ -68,8 +75,25 @@ function setupStartMenu() {
 
 function showIntroCard() {
   startMenu.hidden = true;
+  introSlideIndex = 0;
+  renderIntroCard();
   introCard.hidden = false;
   introStartButton.focus();
+}
+
+function advanceIntroCard() {
+  if (introSlideIndex < INTRO_SLIDES.length - 1) {
+    introSlideIndex += 1;
+    renderIntroCard();
+    return;
+  }
+
+  startGame();
+}
+
+function renderIntroCard() {
+  introTitle.textContent = INTRO_SLIDES[introSlideIndex];
+  introStartButton.textContent = introSlideIndex < INTRO_SLIDES.length - 1 ? "Next" : "Start";
 }
 
 function hasSavedGame() {

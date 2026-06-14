@@ -322,23 +322,15 @@ a {
 .intro-card-copy {
   display: grid;
   justify-items: center;
-  gap: 18px;
+  gap: 28px;
 }
 
 .intro-card h1 {
   margin: 0;
   color: #fff;
-  font-size: clamp(1.25rem, 6vw, 2.6rem);
+  font-size: clamp(1.35rem, 7vw, 3rem);
   font-weight: 900;
   line-height: 1.08;
-  text-transform: uppercase;
-}
-
-.intro-card p {
-  margin: 0 0 10px;
-  color: #fff;
-  font-size: clamp(0.8rem, 3.4vw, 1.2rem);
-  font-weight: 800;
   text-transform: uppercase;
 }
 
