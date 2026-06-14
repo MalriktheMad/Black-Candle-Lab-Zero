@@ -16,14 +16,16 @@ const START_Y = 162;
 const startMenu = document.getElementById("start-menu");
 const introCard = document.getElementById("intro-card");
 const introTitle = document.getElementById("intro-title");
+const introCredit = document.getElementById("intro-credit");
+const introSubtitle = document.getElementById("intro-subtitle");
 const introStartButton = document.getElementById("intro-start");
 const newGameButton = document.getElementById("new-game");
 const continueGameButton = document.getElementById("continue-game");
 const clearSaveButton = document.getElementById("clear-save");
 const INTRO_SLIDES = [
-  "Black Candle Labs",
-  "Lab Zero",
-  "A Budgie RPG"
+  { title: "Black Candle Labs", credit: "Lead Developer, Writer, Animater Kevin Klinkert", subtitle: "presents" },
+  { title: "Lab Zero", credit: "", subtitle: "" },
+  { title: "A Budgie RPG", credit: "", subtitle: "" }
 ];
 let introSlideIndex = 0;
 
@@ -45,7 +47,7 @@ if (quickNav) {
 window.addEventListener("pagehide", saveGameState);
 
 function setupStartMenu() {
-  if (!startMenu || !introCard || !introTitle || !introStartButton || !newGameButton || !continueGameButton || !clearSaveButton) {
+  if (!startMenu || !introCard || !introTitle || !introCredit || !introSubtitle || !introStartButton || !newGameButton || !continueGameButton || !clearSaveButton) {
     startGame();
     return;
   }
@@ -96,7 +98,10 @@ function advanceIntroCard() {
 }
 
 function renderIntroCard() {
-  introTitle.textContent = INTRO_SLIDES[introSlideIndex];
+  const slide = INTRO_SLIDES[introSlideIndex];
+  introTitle.textContent = slide.title;
+  introCredit.textContent = slide.credit;
+  introSubtitle.textContent = slide.subtitle;
   introStartButton.hidden = introSlideIndex < INTRO_SLIDES.length - 1;
   introStartButton.textContent = "Start";
 }

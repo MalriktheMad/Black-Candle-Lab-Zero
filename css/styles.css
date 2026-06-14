@@ -322,7 +322,7 @@ a {
 .intro-card-copy {
   display: grid;
   justify-items: center;
-  gap: 28px;
+  gap: 14px;
 }
 
 .intro-card h1 {
@@ -332,6 +332,27 @@ a {
   font-weight: 900;
   line-height: 1.08;
   text-transform: uppercase;
+}
+
+.intro-subtitle {
+  margin: 0 0 14px;
+  color: #fff;
+  font-size: clamp(0.72rem, 3vw, 1rem);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.intro-credit {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(0.58rem, 2.6vw, 0.84rem);
+  font-weight: 800;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.intro-subtitle:empty {
+  display: none;
 }
 
 .intro-card button {
