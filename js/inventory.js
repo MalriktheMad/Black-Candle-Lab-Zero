@@ -1,17 +1,20 @@
 const INVENTORY_STORAGE_KEY = "lab-zero-inventory";
 
 const ITEM_DEFINITIONS = {
+
+  milletSeeds: {
+    name: "Millet Seeds",
+    description: "A classic bird snack with excellent negotiation potential.",
+    emptyDescription: "None yet.",
+    usable: false
+
   sunflowerSeeds: {
     name: "Sunflower Seeds",
     description: "Tiny treasures for hungry birds and future trades.",
     emptyDescription: "None yet.",
     usable: false
   },
-  milletSeeds: {
-    name: "Millet Seeds",
-    description: "A classic bird snack with excellent negotiation potential.",
-    emptyDescription: "None yet.",
-    usable: false
+
   },
   cig: {
     name: "Cig",
