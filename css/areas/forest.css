@@ -35,6 +35,15 @@
   background-image: url("../../assets/sprites/environment/map-layers/Forest/forest.png");
 }
 
+.forest-area .player:not(.is-flying):not(.is-taking-off):not(.is-landing):not(.is-moving) .pixel-bird {
+  left: 0;
+  top: 0;
+  width: 64px;
+  height: 64px;
+  background-image: url("../../assets/sprites/environment/map-layers/Forest/forestcover.png");
+  animation: none;
+}
+
 .forest-transition-marker {
   display: none;
   background-image: url("../../assets/sprites/environment/map-layers/Forest/transition/transition.png");
