@@ -7,14 +7,12 @@ const ITEM_DEFINITIONS = {
     description: "A classic bird snack with excellent negotiation potential.",
     emptyDescription: "None yet.",
     usable: false
-
+  },
   sunflowerSeeds: {
     name: "Sunflower Seeds",
     description: "Tiny treasures for hungry birds and future trades.",
     emptyDescription: "None yet.",
     usable: false
-  },
-
   },
   cig: {
     name: "Cig",
@@ -25,8 +23,8 @@ const ITEM_DEFINITIONS = {
 };
 
 const STARTING_INVENTORY = {
-  sunflowerSeeds: 0,
   milletSeeds: 0,
+  sunflowerSeeds: 0,
   cig: 1
 };
 
