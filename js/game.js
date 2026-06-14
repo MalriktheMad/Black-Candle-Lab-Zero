@@ -1927,7 +1927,7 @@ function getCellKey(cellX, cellY) {
 function getBlockedRects() {
   return [readout, quickNav, zoomControls, flightControls].filter(Boolean).map((element) => {
     const rect = element.getBoundingClientRect();
-    const padding = getPlayerRadius() * state.zoom + 8;
+    const padding = window.innerWidth <= 620 ? 2 : getPlayerRadius() * state.zoom + 8;
     return {
       left: rect.left - padding,
       right: rect.right + padding,
