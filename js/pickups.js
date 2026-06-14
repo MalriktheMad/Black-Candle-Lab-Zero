@@ -19,7 +19,16 @@ const PICKUPS = [
   makeSunflowerPickup("east-sunflower-2", 1834, 374),
   makeSunflowerPickup("northeast-sunflower-1", 1804, 38),
   makeMilletPickup("northeast-millet-1", 2012, 140),
-  makeMilletPickup("northeast-millet-2", 2072, 260)
+  makeMilletPickup("northeast-millet-2", 2072, 260),
+  makeMilletPickup("crickthicket-millet-1", 240, 890),
+  makeMilletPickup("crickthicket-millet-2", 550, 968),
+  makeMilletPickup("crickthicket-millet-3", 1856, 398),
+  makeMilletPickup("crickthicket-millet-4", 812, 596),
+  makeMilletPickup("crickthicket-millet-5", 2086, 1152),
+  makeMilletPickup("crickthicket-millet-6", 936, 442),
+  makeMilletPickup("crickthicket-millet-7", 158, 1186),
+  makeMilletPickup("crickthicket-millet-8", 316, 574),
+  makeMilletPickup("crickthicket-millet-9", 1586, 1160)
 ];
 
 const pickupElements = new Map();
