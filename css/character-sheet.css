@@ -1,5 +1,5 @@
 .readout {
-  width: 170px;
+  width: 150px;
 }
 
 .sheet-header {
@@ -120,17 +120,17 @@
 
 @media (max-width: 620px) {
   .readout {
-    width: 136px;
+    width: 126px;
   }
 
   .sheet-header {
-    grid-template-columns: 36px minmax(0, 1fr);
+    grid-template-columns: 34px minmax(0, 1fr);
     gap: 6px;
   }
 
   .sheet-portrait {
-    width: 36px;
-    height: 44px;
+    width: 34px;
+    height: 40px;
   }
 
   .sheet-name {
