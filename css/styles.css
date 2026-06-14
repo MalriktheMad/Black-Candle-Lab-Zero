@@ -322,7 +322,7 @@ a {
 .intro-card-copy {
   display: grid;
   justify-items: center;
-  gap: 14px;
+  gap: 24px;
 }
 
 .intro-card h1 {
@@ -335,7 +335,7 @@ a {
 }
 
 .intro-subtitle {
-  margin: 0 0 14px;
+  margin: 8px 0 18px;
   color: #fff;
   font-size: clamp(0.72rem, 3vw, 1rem);
   font-weight: 800;
@@ -343,7 +343,7 @@ a {
 }
 
 .intro-credit {
-  margin: 0;
+  margin: 2px 0;
   color: #fff;
   font-size: clamp(0.58rem, 2.6vw, 0.84rem);
   font-weight: 800;
