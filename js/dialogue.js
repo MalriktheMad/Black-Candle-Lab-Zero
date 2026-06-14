@@ -44,8 +44,13 @@ const dialogueState = {
   active: false,
   index: 0,
   lines: [],
-  onComplete: null
+  onComplete: null,
+  typingTimer: null,
+  typingText: "",
+  typingIndex: 0,
+  typingComplete: true
 };
+const DIALOGUE_TYPE_SPEED = 28;
 
 const dialogueBox = document.createElement("div");
 dialogueBox.id = "dialogue-box";
@@ -288,6 +293,11 @@ function lizLine(text) {
 function advanceDialogue() {
   const line = dialogueState.lines[dialogueState.index];
 
+  if (!dialogueState.typingComplete) {
+    finishTypingDialogueLine();
+    return;
+  }
+
   if (line && line.choices) {
     return;
   }
@@ -305,6 +315,7 @@ function advanceDialogue() {
 function closeDialogue() {
   const onComplete = dialogueState.onComplete;
 
+  stopTypingDialogueLine();
   dialogueState.active = false;
   dialogueState.onComplete = null;
   dialogueBox.hidden = true;
@@ -319,11 +330,44 @@ function showDialogueLine() {
   dialoguePortrait.src = line.portrait;
   dialoguePortrait.alt = `${line.speaker} portrait`;
   dialogueSpeaker.textContent = line.speaker;
-  dialogueText.textContent = line.text;
-  renderDialogueChoices(line.choices || []);
+  dialogueChoices.innerHTML = "";
+  dialogueChoices.hidden = true;
+  startTypingDialogueLine(line.text, line.choices || []);
 
   if (line.onShow) {
     line.onShow();
+  }
+}
+
+function startTypingDialogueLine(text, choices) {
+  stopTypingDialogueLine();
+  dialogueState.typingText = text;
+  dialogueState.typingIndex = 0;
+  dialogueState.typingComplete = false;
+  dialogueText.textContent = "";
+
+  dialogueState.typingTimer = window.setInterval(() => {
+    dialogueState.typingIndex += 1;
+    dialogueText.textContent = dialogueState.typingText.slice(0, dialogueState.typingIndex);
+
+    if (dialogueState.typingIndex >= dialogueState.typingText.length) {
+      finishTypingDialogueLine(choices);
+    }
+  }, DIALOGUE_TYPE_SPEED);
+}
+
+function finishTypingDialogueLine(choices) {
+  const line = dialogueState.lines[dialogueState.index];
+  stopTypingDialogueLine();
+  dialogueState.typingComplete = true;
+  dialogueText.textContent = dialogueState.typingText;
+  renderDialogueChoices(choices || (line && line.choices) || []);
+}
+
+function stopTypingDialogueLine() {
+  if (dialogueState.typingTimer) {
+    window.clearInterval(dialogueState.typingTimer);
+    dialogueState.typingTimer = null;
   }
 }
 
