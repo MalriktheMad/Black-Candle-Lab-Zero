@@ -37,5 +37,23 @@
 
 .forest-transition-marker {
   display: none;
-  background-image: url("../../assets/sprites/environment/map-layers/Forest/transition.png");
+  background-image: url("../../assets/sprites/environment/map-layers/Forest/transition/transition.png");
+}
+
+.forest-map-sign {
+  position: absolute;
+  pointer-events: none;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+  z-index: 6;
+}
+
+.cricket-thicket-sign {
+  left: 113px;
+  top: 2625px;
+  width: 40px;
+  height: 100px;
+  background-image: url("../../assets/sprites/environment/map-layers/Forest/transition/cricketsthicketsign.png");
 }
