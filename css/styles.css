@@ -412,11 +412,11 @@ a {
 }
 
 .start-menu.is-zooming-out .start-menu-art {
-  animation: start-menu-painting 1100ms steps(1, end) infinite, intro-menu-zoom-to-black 920ms ease-in forwards;
+  animation: start-menu-painting 1100ms steps(1, end) infinite, intro-menu-zoom-to-black 3200ms ease-in forwards;
 }
 
 .start-menu.is-zooming-out .start-menu-bar {
-  animation: intro-menu-bar-fade 520ms ease forwards;
+  animation: intro-menu-bar-fade 1400ms ease forwards;
 }
 
 .start-menu-bar {
@@ -508,7 +508,13 @@ a {
     filter: brightness(1);
   }
 
-  65% {
+  42% {
+    transform: scale(1.18);
+    filter: brightness(0.86);
+  }
+
+  76% {
+    transform: scale(2.35);
     filter: brightness(0.42);
   }
 

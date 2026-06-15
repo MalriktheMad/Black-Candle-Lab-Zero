@@ -27,7 +27,7 @@ const INTRO_SLIDES = [
   { title: "Lab Zero", credit: "", subtitle: "" },
   { title: "A Budgie RPG", credit: "", subtitle: "" }
 ];
-const INTRO_MENU_ZOOM_DURATION = 920;
+const INTRO_MENU_ZOOM_DURATION = 3200;
 let introSlideIndex = 0;
 let introEnding = false;
 let introStarting = false;
