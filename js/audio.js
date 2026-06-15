@@ -9,6 +9,7 @@ const introThunderSound = new Audio(INTRO_THUNDER_SOUND_SRC);
 const introRainSound = new Audio(INTRO_RAIN_SOUND_SRC);
 const introRainEndSound = new Audio(INTRO_RAIN_END_SOUND_SRC);
 const INTRO_RAIN_VOLUME = 0.46;
+let introAudioPrimed = false;
 buttonSound.volume = 0.55;
 menuCampfireSound.volume = 0.7;
 menuCampfireSound.loop = true;
@@ -27,6 +28,7 @@ introRainEndSound.volume = 0.58;
   sound.load();
 });
 
+document.addEventListener("pointerdown", unlockIntroAudioForPhone, { capture: true });
 document.addEventListener("pointerdown", playButtonSoundForControl, { capture: true });
 document.addEventListener("pointerdown", unlockMenuCampfireSound, { capture: true });
 window.addEventListener("pageshow", syncMenuCampfireSound);
@@ -66,6 +68,10 @@ function syncMenuCampfireSound() {
     return;
   }
 
+  stopMenuCampfireSound();
+}
+
+function stopMenuCampfireSound() {
   menuCampfireSound.pause();
   menuCampfireSound.currentTime = 0;
 }
@@ -75,9 +81,31 @@ function playIntroThunderSound() {
 }
 
 function primeIntroRainSound() {
-  introRainSound.volume = 0;
-  introRainSound.currentTime = 0;
-  introRainSound.play().catch(() => {});
+  if (introAudioPrimed) {
+    return;
+  }
+
+  introAudioPrimed = true;
+  unlockMutedSound(introRainSound, INTRO_RAIN_VOLUME);
+  unlockMutedSound(introRainEndSound, introRainEndSound.volume);
+}
+
+function unlockIntroAudioForPhone() {
+  primeIntroRainSound();
+}
+
+function unlockMutedSound(sound, restoredVolume) {
+  sound.volume = 0;
+  sound.currentTime = 0;
+  sound.play()
+    .then(() => {
+      sound.pause();
+      sound.currentTime = 0;
+      sound.volume = restoredVolume;
+    })
+    .catch(() => {
+      sound.volume = restoredVolume;
+    });
 }
 
 function unlockMenuCampfireSound() {
