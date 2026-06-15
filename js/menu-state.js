@@ -27,7 +27,10 @@ const INTRO_SLIDES = [
   { title: "Lab Zero", credit: "", subtitle: "" },
   { title: "A Budgie RPG", credit: "", subtitle: "" }
 ];
+const INTRO_MENU_ZOOM_DURATION = 920;
 let introSlideIndex = 0;
+let introEnding = false;
+let introStarting = false;
 
 restoreGameState();
 setupStartMenu();
@@ -61,11 +64,7 @@ function setupStartMenu() {
   continueGameButton.hidden = !hasSavedGame();
   startMenu.hidden = false;
 
-  newGameButton.addEventListener("click", () => {
-    clearSavedGame();
-    movePlayerToStart();
-    showIntroCard();
-  });
+  newGameButton.addEventListener("click", beginNewGameIntro);
 
   continueGameButton.addEventListener("click", () => startGame({ playOpening: false }));
 
@@ -75,16 +74,41 @@ function setupStartMenu() {
   clearSaveButton.addEventListener("click", handleClearSave);
 }
 
-function showIntroCard() {
+function beginNewGameIntro() {
+  if (introStarting) {
+    return;
+  }
+
+  introStarting = true;
+  clearSavedGame();
+  movePlayerToStart();
+  playIntroThunderSound();
+  startMenu.classList.add("is-zooming-out");
+
+  window.setTimeout(() => {
+    showIntroCard({ playThunder: false });
+    startMenu.classList.remove("is-zooming-out");
+    introStarting = false;
+  }, INTRO_MENU_ZOOM_DURATION);
+}
+
+function showIntroCard(options = {}) {
   startMenu.hidden = true;
   introSlideIndex = 0;
+  introEnding = false;
+  introCard.classList.remove("is-ending", "is-thunder-zoom");
   renderIntroCard();
   introCard.hidden = false;
+  window.setTimeout(() => introCard.classList.add("is-thunder-zoom"), 20);
+  if (options.playThunder !== false) {
+    playIntroThunderSound();
+  }
+  playIntroRainSound();
   introStartButton.focus();
 }
 
-function advanceIntroCard() {
-  if (introCard.hidden) {
+async function advanceIntroCard() {
+  if (introCard.hidden || introEnding) {
     return;
   }
 
@@ -94,6 +118,11 @@ function advanceIntroCard() {
     return;
   }
 
+  introEnding = true;
+  introStartButton.disabled = true;
+  introCard.classList.add("is-ending");
+  await playIntroRainEndSound();
+  introStartButton.disabled = false;
   startGame();
 }
 
@@ -129,10 +158,16 @@ function clearSavedGame() {
 function startGame(options = {}) {
   if (startMenu) {
     startMenu.hidden = true;
+    startMenu.classList.remove("is-zooming-out");
   }
 
   if (introCard) {
     introCard.hidden = true;
+    introCard.classList.remove("is-ending", "is-thunder-zoom");
+  }
+
+  if (typeof stopIntroRainSound === "function") {
+    stopIntroRainSound();
   }
 
   const shouldPlayOpening = options.playOpening !== false;
