@@ -1295,7 +1295,7 @@ const AREAS = {
     blocked: BLOCKED_TERRAIN,
     transitions: [
       { left: 1940, top: 820, right: 2180, bottom: 900, to: "lab", entryX: 752, entryY: 456 },
-      { left: 1254, top: 0, right: 1403, bottom: 95, to: "forest", entryX: 2095, entryY: 2825 }
+      { left: 1434, top: 0, right: 1583, bottom: 112, to: "forest", entryX: 2095, entryY: 2825 }
     ]
   },
   forest: {
