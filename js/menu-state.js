@@ -89,6 +89,7 @@ function beginNewGameIntro(event) {
   introStarting = true;
   clearSavedGame();
   movePlayerToStart();
+  primeIntroRainSound();
   playIntroThunderSound();
   startMenu.classList.add("is-zooming-out");
 
