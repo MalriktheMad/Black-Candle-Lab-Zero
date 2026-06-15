@@ -78,6 +78,8 @@ function setupStartMenu() {
 function beginNewGameIntro(event) {
   if (event) {
     event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
   }
 
   if (introStarting) {

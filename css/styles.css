@@ -303,7 +303,7 @@ a {
 }
 
 .start-menu.is-zooming-out {
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .intro-card {
