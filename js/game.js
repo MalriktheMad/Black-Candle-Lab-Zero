@@ -1308,7 +1308,7 @@ const AREAS = {
     canopyRows: FOREST_CANOPY_ROW_MAP,
     transitions: [
       { left: 1980, top: 2865, right: 2195, bottom: 2976, to: "outside", entryX: 1328, entryY: 128 },
-      { left: 2260, top: 2640, right: 2550, bottom: 2735, to: "dilly", entryX: 748, entryY: 320 }
+      { left: 2325, top: 2640, right: 2485, bottom: 2715, to: "dilly", entryX: 748, entryY: 320 }
     ]
   },
   lab: {
@@ -1342,7 +1342,7 @@ const AREAS = {
     target: dillyTarget,
     blocked: DILLY_BLOCKED_TERRAIN,
     transitions: [
-      { left: 792, top: 252, right: 874, bottom: 404, to: "forest", entryX: 2405, entryY: 2760 }
+      { left: 792, top: 252, right: 874, bottom: 404, to: "forest", entryX: 2180, entryY: 2790 }
     ]
   }
 };
