@@ -39,6 +39,12 @@ const lizTalkZone = {
   right: 452,
   bottom: 334
 };
+const majiraTalkZone = {
+  left: 1138,
+  top: 885,
+  right: 1318,
+  bottom: 1095
+};
 
 const dialogueState = {
   active: false,
@@ -148,6 +154,15 @@ function handleDialoguePointer(event) {
       startDialogue(getLizDialogueLines());
     }
   }
+
+  if (state.area === "forest") {
+    const majira = event.target.closest(".majira-npc");
+
+    if (majira || isMajiraTalkPoint(event)) {
+      swallowDialoguePointer(event);
+      startDialogue(getMajiraDialogueLines());
+    }
+  }
 }
 
 function isCricketTalkPoint(event) {
@@ -168,6 +183,10 @@ function isOldDillyTalkPoint(event) {
 
 function isLizTalkPoint(event) {
   return isPointInTalkZone(event, lizTalkZone);
+}
+
+function isMajiraTalkPoint(event) {
+  return isPointInTalkZone(event, majiraTalkZone);
 }
 
 function isPointInTalkZone(event, zone) {
@@ -286,6 +305,14 @@ function lizLine(text) {
   return {
     speaker: "Liz",
     portrait: "assets/portraits/liz.png",
+    text
+  };
+}
+
+function majiraLine(text) {
+  return {
+    speaker: "Majira",
+    portrait: "assets/portraits/majiraportrait.png",
     text
   };
 }

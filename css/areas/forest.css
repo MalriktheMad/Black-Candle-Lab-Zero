@@ -78,3 +78,15 @@
   image-rendering: pixelated;
   z-index: 6;
 }
+
+.majira-npc {
+  position: absolute;
+  left: 1193px;
+  top: 925px;
+  width: 69px;
+  height: 120px;
+  background: url("../../assets/sprites/environment/map-layers/Forest/WizardBrush.png") center bottom / contain no-repeat;
+  image-rendering: pixelated;
+  pointer-events: auto;
+  z-index: 7;
+}

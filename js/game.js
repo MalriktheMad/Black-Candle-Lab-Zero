@@ -1161,6 +1161,7 @@ const DILLY_BLOCKED_TERRAIN = [
   { name: "liz", left: 267, top: 158, right: 432, bottom: 314 }
 ];
 const FOREST_BLOCKED_TERRAIN = [
+  { name: "majira", left: 1193, top: 925, right: 1262, bottom: 1045 },
   { name: "old-dilly-house", left: 2220, top: 2170, right: 2590, bottom: 2640 }
 ];
 const FOREST_CANOPY_ROWS = [
