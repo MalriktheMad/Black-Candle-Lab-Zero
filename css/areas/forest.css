@@ -69,10 +69,10 @@
 
 .forest-dilly-building {
   position: absolute;
-  left: 2286px;
-  top: 2265px;
-  width: 240px;
-  height: 260px;
+  left: 2166px;
+  top: 2135px;
+  width: 480px;
+  height: 520px;
   pointer-events: none;
   background: url("../../assets/sprites/environment/map-layers/Forest/transition/dilly-treehouse.png") center bottom / contain no-repeat;
   image-rendering: pixelated;
