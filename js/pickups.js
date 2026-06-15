@@ -143,12 +143,12 @@ function placePickups() {
 }
 
 function checkPickups() {
-  const collected = getCollectedPickups();
-
   if (state.flightPhase !== "ground") {
     requestAnimationFrame(checkPickups);
     return;
   }
+
+  const collected = getCollectedPickups();
 
   PICKUPS.forEach((pickup) => {
     if (pickup.area !== state.area || collected.includes(pickup.id)) {

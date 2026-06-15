@@ -45,6 +45,11 @@
   animation: water-current 1200ms steps(1, end) infinite;
 }
 
+.flight-animation-active .forest-floor::after,
+.flight-animation-active .map-water {
+  animation-play-state: paused;
+}
+
 @keyframes water-current {
   0% { background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Water/water.png"); }
   33% { background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Water/water1.png"); }

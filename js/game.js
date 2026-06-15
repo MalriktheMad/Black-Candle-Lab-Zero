@@ -1598,6 +1598,8 @@ function setPlayerMoving(isMoving) {
 }
 
 function syncPlayerAnimationState() {
+  document.body.classList.toggle("flight-animation-active", state.flightPhase !== "ground");
+
   Object.values(AREAS).forEach((area) => {
     const isActive = area === getActiveArea();
     area.player.classList.toggle("is-taking-off", isActive && state.flightPhase === "taking-off");
