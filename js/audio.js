@@ -9,15 +9,25 @@ const introThunderSound = new Audio(INTRO_THUNDER_SOUND_SRC);
 const introRainSound = new Audio(INTRO_RAIN_SOUND_SRC);
 const introRainEndSound = new Audio(INTRO_RAIN_END_SOUND_SRC);
 buttonSound.volume = 0.55;
-menuCampfireSound.volume = 0.32;
+menuCampfireSound.volume = 0.5;
 menuCampfireSound.loop = true;
 introThunderSound.volume = 0.82;
 introRainSound.volume = 0.46;
 introRainSound.loop = true;
 introRainEndSound.volume = 0.58;
+[
+  buttonSound,
+  menuCampfireSound,
+  introThunderSound,
+  introRainSound,
+  introRainEndSound
+].forEach((sound) => {
+  sound.preload = "auto";
+  sound.load();
+});
 
 document.addEventListener("pointerdown", playButtonSoundForControl, { capture: true });
-document.addEventListener("pointerdown", syncMenuCampfireSound, { once: true });
+document.addEventListener("pointerdown", unlockMenuCampfireSound, { capture: true });
 window.addEventListener("pageshow", syncMenuCampfireSound);
 watchStartMenuSoundState();
 syncMenuCampfireSound();
@@ -61,6 +71,10 @@ function syncMenuCampfireSound() {
 
 function playIntroThunderSound() {
   restartSound(introThunderSound);
+}
+
+function unlockMenuCampfireSound() {
+  syncMenuCampfireSound();
 }
 
 function playIntroRainSound() {

@@ -64,6 +64,7 @@ function setupStartMenu() {
   continueGameButton.hidden = !hasSavedGame();
   startMenu.hidden = false;
 
+  newGameButton.addEventListener("pointerdown", beginNewGameIntro);
   newGameButton.addEventListener("click", beginNewGameIntro);
 
   continueGameButton.addEventListener("click", () => startGame({ playOpening: false }));
@@ -74,7 +75,11 @@ function setupStartMenu() {
   clearSaveButton.addEventListener("click", handleClearSave);
 }
 
-function beginNewGameIntro() {
+function beginNewGameIntro(event) {
+  if (event) {
+    event.preventDefault();
+  }
+
   if (introStarting) {
     return;
   }
