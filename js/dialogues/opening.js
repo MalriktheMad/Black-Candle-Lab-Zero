@@ -34,7 +34,7 @@ function playOpeningBedroomDialogue() {
 function getOpeningBedroomIntroLines() {
   const lines = [
     littleWingLine("Oh, I must have slept in..."),
-    littleWingLine("Where is the wizard? He usually gets me up."),
+    littleWingLine("Where is everyone? They usually get me up."),
     littleWingLine("The cage latch is loose. If I pull it just right, I can get out."),
   ];
 
