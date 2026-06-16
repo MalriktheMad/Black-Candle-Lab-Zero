@@ -52,7 +52,7 @@ function getBedroomCageBreakoutLines() {
       ...littleWingLine("Yes! Freedom!"),
       onShow: moveLittleWingOutOfBedroomCage
     },
-    littleWingLine("I bet Wing-Master Cricket knows where the wizard went.")
+    littleWingLine("I wonder if everyone is downstairs?")
   ];
 }
 
