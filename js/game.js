@@ -1602,22 +1602,7 @@ function setPlayerMoving(isMoving) {
   Object.values(AREAS).forEach((area) => {
     area.player.classList.toggle("is-moving", area === getActiveArea() && isMoving);
   });
-  if (typeof syncMovementSound === "function") {
-    syncMovementSound(isMoving && state.flightPhase === "ground", state.area, getCurrentSurfaceName());
-  }
   syncPlayerAnimationState();
-}
-
-function getCurrentSurfaceName() {
-  if (state.area === "outside" && isSandPoint(state.x, state.y)) {
-    return "sand";
-  }
-
-  if (state.area === "outside" || state.area === "forest") {
-    return "grass";
-  }
-
-  return "floor";
 }
 
 function syncPlayerAnimationState() {

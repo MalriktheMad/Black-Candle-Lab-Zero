@@ -1,7 +1,7 @@
 const BUTTON_MOVE_SOUND_SRC = new URL("../assets/audio/sfx/button-move.wav", document.currentScript.src).href;
 const BUTTON_CONFIRM_RETURN_SOUND_SRC = BUTTON_MOVE_SOUND_SRC;
-const BIRD_RUN_SOUND_SRC = new URL("../assets/audio/sfx/bird-run.wav", document.currentScript.src).href;
 const LEVEL_UP_SOUND_SRC = new URL("../assets/audio/sfx/level-up.wav", document.currentScript.src).href;
+const LITTLE_WING_MEEP_SOUND_SRC = new URL("../assets/audio/sfx/Meep.wav", document.currentScript.src).href;
 const TAKEOFF_SOUND_SRC = new URL("../assets/audio/sfx/takeoff.wav", document.currentScript.src).href;
 const MENU_CAMPFIRE_SOUND_SRC = new URL("../assets/audio/sfx/campfire.wav", document.currentScript.src).href;
 const INTRO_STORM_SOUND_SRC = new URL("../assets/audio/ambience/intro-storm.wav", document.currentScript.src).href;
@@ -9,7 +9,6 @@ const INTRO_RAIN_END_SOUND_SRC = new URL("../assets/audio/ambience/rain-end.wav"
 const menuCampfireSound = new Audio(MENU_CAMPFIRE_SOUND_SRC);
 const introStormSound = new Audio(INTRO_STORM_SOUND_SRC);
 const introRainEndSound = new Audio(INTRO_RAIN_END_SOUND_SRC);
-const birdRunSound = new Audio(BIRD_RUN_SOUND_SRC);
 const levelUpSound = new Audio(LEVEL_UP_SOUND_SRC);
 const takeoffSound = new Audio(TAKEOFF_SOUND_SRC);
 const INTRO_THUNDER_DURATION = 18.95;
@@ -17,20 +16,20 @@ const INTRO_STORM_VOLUME = 0.95;
 const INTRO_RAIN_VOLUME = 0.32;
 const buttonMoveSoundPool = makeSoundPool(BUTTON_MOVE_SOUND_SRC, 4, 0.55);
 const buttonConfirmReturnSoundPool = makeSoundPool(BUTTON_CONFIRM_RETURN_SOUND_SRC, 4, 0.58);
+const littleWingMeepSoundPool = makeSoundPool(LITTLE_WING_MEEP_SOUND_SRC, 3, 0.62);
 let buttonMoveSoundIndex = 0;
 let buttonConfirmReturnSoundIndex = 0;
-let activeMovementSound = null;
+let littleWingMeepSoundIndex = 0;
 menuCampfireSound.volume = 0.7;
 menuCampfireSound.loop = true;
 introStormSound.volume = INTRO_STORM_VOLUME;
 introRainEndSound.volume = 0.58;
-birdRunSound.volume = 0.42;
-birdRunSound.loop = true;
 levelUpSound.volume = 0.72;
 takeoffSound.volume = 0.72;
 [
   ...buttonMoveSoundPool,
   ...buttonConfirmReturnSoundPool,
+  ...littleWingMeepSoundPool,
   levelUpSound,
   takeoffSound
 ].forEach((sound) => {
@@ -41,8 +40,7 @@ takeoffSound.volume = 0.72;
 [
   menuCampfireSound,
   introStormSound,
-  introRainEndSound,
-  birdRunSound
+  introRainEndSound
 ].forEach((sound) => {
   sound.preload = "metadata";
 });
@@ -84,44 +82,11 @@ function playTakeoffSound() {
   restartSound(takeoffSound);
 }
 
-function syncMovementSound(isMoving, areaName, surfaceName) {
-  const nextSound = getMovementSound(isMoving, areaName, surfaceName);
-
-  if (nextSound === activeMovementSound) {
-    return;
-  }
-
-  stopMovementSound();
-
-  if (!nextSound) {
-    return;
-  }
-
-  activeMovementSound = nextSound;
-  activeMovementSound.currentTime = 0;
-  activeMovementSound.play().catch(() => {});
+function playLittleWingMeepSound() {
+  littleWingMeepSoundIndex = playFromPool(littleWingMeepSoundPool, littleWingMeepSoundIndex);
 }
 
 function stopMovementSound() {
-  if (!activeMovementSound) {
-    return;
-  }
-
-  activeMovementSound.pause();
-  activeMovementSound.currentTime = 0;
-  activeMovementSound = null;
-}
-
-function getMovementSound(isMoving, areaName, surfaceName) {
-  if (!isMoving) {
-    return null;
-  }
-
-  if (["lab", "bedroom", "dilly"].includes(areaName)) {
-    return birdRunSound;
-  }
-
-  return null;
 }
 
 function makeSoundPool(src, size, volume) {

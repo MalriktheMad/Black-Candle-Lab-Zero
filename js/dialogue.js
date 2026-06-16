@@ -361,6 +361,10 @@ function showDialogueLine() {
   dialogueChoices.hidden = true;
   startTypingDialogueLine(line.text, line.choices || []);
 
+  if (line.speaker === "Little Wing" && typeof playLittleWingMeepSound === "function") {
+    playLittleWingMeepSound();
+  }
+
   if (line.onShow) {
     line.onShow();
   }
