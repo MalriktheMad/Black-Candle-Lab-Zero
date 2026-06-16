@@ -88,6 +88,7 @@ function warmFireAndShowMenu(event) {
 
   startMenu.classList.add("is-warmed");
   syncMenuCampfireSound();
+  prepareIntroStormSound();
 
   const firstButton = hasSavedGame() ? continueGameButton : newGameButton;
   firstButton.focus();

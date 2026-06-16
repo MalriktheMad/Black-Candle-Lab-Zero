@@ -1,6 +1,5 @@
 const BUTTON_MOVE_SOUND_SRC = new URL("../assets/audio/sfx/button-move.wav", document.currentScript.src).href;
 const BUTTON_CONFIRM_RETURN_SOUND_SRC = BUTTON_MOVE_SOUND_SRC;
-const GRASS_MOVEMENT_SOUND_SRC = new URL("../assets/audio/sfx/grass-movement.wav", document.currentScript.src).href;
 const BIRD_RUN_SOUND_SRC = new URL("../assets/audio/sfx/bird-run.wav", document.currentScript.src).href;
 const LEVEL_UP_SOUND_SRC = new URL("../assets/audio/sfx/level-up.wav", document.currentScript.src).href;
 const TAKEOFF_SOUND_SRC = new URL("../assets/audio/sfx/takeoff.wav", document.currentScript.src).href;
@@ -10,7 +9,6 @@ const INTRO_RAIN_END_SOUND_SRC = new URL("../assets/audio/ambience/rain-end.wav"
 const menuCampfireSound = new Audio(MENU_CAMPFIRE_SOUND_SRC);
 const introStormSound = new Audio(INTRO_STORM_SOUND_SRC);
 const introRainEndSound = new Audio(INTRO_RAIN_END_SOUND_SRC);
-const grassMovementSound = new Audio(GRASS_MOVEMENT_SOUND_SRC);
 const birdRunSound = new Audio(BIRD_RUN_SOUND_SRC);
 const levelUpSound = new Audio(LEVEL_UP_SOUND_SRC);
 const takeoffSound = new Audio(TAKEOFF_SOUND_SRC);
@@ -26,8 +24,6 @@ menuCampfireSound.volume = 0.7;
 menuCampfireSound.loop = true;
 introStormSound.volume = INTRO_STORM_VOLUME;
 introRainEndSound.volume = 0.58;
-grassMovementSound.volume = 0.38;
-grassMovementSound.loop = true;
 birdRunSound.volume = 0.42;
 birdRunSound.loop = true;
 levelUpSound.volume = 0.72;
@@ -35,16 +31,20 @@ takeoffSound.volume = 0.72;
 [
   ...buttonMoveSoundPool,
   ...buttonConfirmReturnSoundPool,
-  menuCampfireSound,
-  introStormSound,
-  introRainEndSound,
-  grassMovementSound,
-  birdRunSound,
   levelUpSound,
   takeoffSound
 ].forEach((sound) => {
   sound.preload = "auto";
   sound.load();
+});
+
+[
+  menuCampfireSound,
+  introStormSound,
+  introRainEndSound,
+  birdRunSound
+].forEach((sound) => {
+  sound.preload = "metadata";
 });
 
 document.addEventListener("pointerdown", playButtonSoundForControl, { capture: true });
@@ -121,10 +121,6 @@ function getMovementSound(isMoving, areaName, surfaceName) {
     return birdRunSound;
   }
 
-  if ((areaName === "outside" || areaName === "forest") && surfaceName !== "sand") {
-    return grassMovementSound;
-  }
-
   return null;
 }
 
@@ -176,6 +172,11 @@ function stopMenuCampfireSound() {
 function playIntroStormSound() {
   introStormSound.volume = INTRO_STORM_VOLUME;
   restartSound(introStormSound);
+}
+
+function prepareIntroStormSound() {
+  introStormSound.load();
+  introRainEndSound.load();
 }
 
 function unlockMenuCampfireSound() {
