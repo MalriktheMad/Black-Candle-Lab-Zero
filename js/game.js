@@ -1706,9 +1706,6 @@ function enterArea(areaName, x, y) {
   const currentArea = getActiveArea();
   currentArea.target.classList.remove("visible");
   currentArea.element.hidden = true;
-  if (typeof stopMovementSound === "function") {
-    stopMovementSound();
-  }
 
   state.area = areaName;
   state.x = x;
