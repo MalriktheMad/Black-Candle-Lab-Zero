@@ -19,6 +19,7 @@ const introTitle = document.getElementById("intro-title");
 const introCredit = document.getElementById("intro-credit");
 const introSubtitle = document.getElementById("intro-subtitle");
 const introStartButton = document.getElementById("intro-start");
+const warmFireButton = document.getElementById("warm-fire");
 const newGameButton = document.getElementById("new-game");
 const continueGameButton = document.getElementById("continue-game");
 const clearSaveButton = document.getElementById("clear-save");
@@ -50,7 +51,7 @@ if (quickNav) {
 window.addEventListener("pagehide", saveGameState);
 
 function setupStartMenu() {
-  if (!startMenu || !introCard || !introTitle || !introCredit || !introSubtitle || !introStartButton || !newGameButton || !continueGameButton || !clearSaveButton) {
+  if (!startMenu || !introCard || !introTitle || !introCredit || !introSubtitle || !introStartButton || !warmFireButton || !newGameButton || !continueGameButton || !clearSaveButton) {
     startGame();
     return;
   }
@@ -63,7 +64,10 @@ function setupStartMenu() {
 
   continueGameButton.hidden = !hasSavedGame();
   startMenu.hidden = false;
+  startMenu.classList.remove("is-warmed");
 
+  warmFireButton.addEventListener("pointerdown", warmFireAndShowMenu);
+  warmFireButton.addEventListener("click", warmFireAndShowMenu);
   newGameButton.addEventListener("pointerdown", beginNewGameIntro);
   newGameButton.addEventListener("click", beginNewGameIntro);
 
@@ -73,6 +77,19 @@ function setupStartMenu() {
 
   clearSaveButton.addEventListener("pointerup", handleClearSave);
   clearSaveButton.addEventListener("click", handleClearSave);
+}
+
+function warmFireAndShowMenu(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  startMenu.classList.add("is-warmed");
+  syncMenuCampfireSound();
+
+  const firstButton = hasSavedGame() ? continueGameButton : newGameButton;
+  firstButton.focus();
 }
 
 function beginNewGameIntro(event) {
@@ -89,6 +106,7 @@ function beginNewGameIntro(event) {
   introStarting = true;
   clearSavedGame();
   movePlayerToStart();
+  startMenu.classList.remove("is-warmed");
   stopMenuCampfireSound();
   playIntroStormSound();
   startMenu.classList.add("is-zooming-out");
@@ -151,6 +169,7 @@ function handleClearSave(event) {
   movePlayerToStart();
   continueGameButton.hidden = true;
   startMenu.hidden = false;
+  startMenu.classList.remove("is-warmed");
 }
 
 function clearSavedGame() {

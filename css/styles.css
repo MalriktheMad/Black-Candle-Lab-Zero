@@ -467,6 +467,19 @@ a {
   gap: 10px;
 }
 
+.warm-fire-button {
+  justify-self: center;
+  min-width: 220px;
+}
+
+.start-menu:not(.is-warmed) .start-menu-actions {
+  display: none;
+}
+
+.start-menu.is-warmed .warm-fire-button {
+  display: none;
+}
+
 .clear-save-button {
   opacity: 0.82;
 }
@@ -584,6 +597,11 @@ a {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
+  }
+
+  .warm-fire-button {
+    width: 100%;
+    min-width: 0;
   }
 
   .start-menu button {
