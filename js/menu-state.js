@@ -90,8 +90,7 @@ function beginNewGameIntro(event) {
   clearSavedGame();
   movePlayerToStart();
   stopMenuCampfireSound();
-  primeIntroRainSound();
-  playIntroThunderSound();
+  playIntroStormSound();
   startMenu.classList.add("is-zooming-out");
 
   window.setTimeout(() => {
@@ -109,10 +108,7 @@ function showIntroCard(options = {}) {
   renderIntroCard();
   introCard.hidden = false;
   window.setTimeout(() => introCard.classList.add("is-thunder-zoom"), 20);
-  if (options.playThunder !== false) {
-    playIntroThunderSound();
-  }
-  playIntroRainSound();
+  markIntroRainSection();
   introStartButton.focus();
 }
 
@@ -175,8 +171,8 @@ function startGame(options = {}) {
     introCard.classList.remove("is-ending", "is-thunder-zoom");
   }
 
-  if (typeof stopIntroRainSound === "function") {
-    stopIntroRainSound();
+  if (typeof stopIntroStormSound === "function") {
+    stopIntroStormSound();
   }
 
   const shouldPlayOpening = options.playOpening !== false;
