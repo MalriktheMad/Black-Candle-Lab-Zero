@@ -9,13 +9,19 @@ const introRainEndSound = new Audio(INTRO_RAIN_END_SOUND_SRC);
 const INTRO_THUNDER_DURATION = 18.95;
 const INTRO_STORM_VOLUME = 0.82;
 const INTRO_RAIN_VOLUME = 0.46;
+const buttonSoundPool = Array.from({ length: 4 }, () => new Audio(BUTTON_SOUND_SRC));
+let buttonSoundIndex = 0;
 buttonSound.volume = 0.55;
+buttonSoundPool.forEach((sound) => {
+  sound.volume = 0.55;
+});
 menuCampfireSound.volume = 0.7;
 menuCampfireSound.loop = true;
 introStormSound.volume = INTRO_STORM_VOLUME;
 introRainEndSound.volume = 0.58;
 [
   buttonSound,
+  ...buttonSoundPool,
   menuCampfireSound,
   introStormSound,
   introRainEndSound
@@ -38,8 +44,14 @@ function playButtonSoundForControl(event) {
     return;
   }
 
-  buttonSound.currentTime = 0;
-  buttonSound.play().catch(() => {});
+  playPooledButtonSound();
+}
+
+function playPooledButtonSound() {
+  const sound = buttonSoundPool[buttonSoundIndex];
+  buttonSoundIndex = (buttonSoundIndex + 1) % buttonSoundPool.length;
+  sound.currentTime = 0;
+  sound.play().catch(() => {});
 }
 
 function watchStartMenuSoundState() {
