@@ -1450,6 +1450,10 @@ function setTarget(event) {
   state.path = findPath(state.x, state.y, destination.x, destination.y);
   getActiveArea().target.classList.add("visible");
   placeTarget();
+
+  if (typeof playMoveClickSound === "function") {
+    playMoveClickSound();
+  }
 }
 
 function changeZoom(amount) {
@@ -1473,6 +1477,9 @@ function startTakeoff() {
   state.flightMode = true;
   state.flightPhase = "taking-off";
   clearTimeout(state.flightTimer);
+  if (typeof playTakeoffSound === "function") {
+    playTakeoffSound();
+  }
   syncPlayerAnimationState();
 
   state.flightTimer = setTimeout(() => {
@@ -1595,7 +1602,22 @@ function setPlayerMoving(isMoving) {
   Object.values(AREAS).forEach((area) => {
     area.player.classList.toggle("is-moving", area === getActiveArea() && isMoving);
   });
+  if (typeof syncMovementSound === "function") {
+    syncMovementSound(isMoving && state.flightPhase === "ground", state.area, getCurrentSurfaceName());
+  }
   syncPlayerAnimationState();
+}
+
+function getCurrentSurfaceName() {
+  if (state.area === "outside" && isSandPoint(state.x, state.y)) {
+    return "sand";
+  }
+
+  if (state.area === "outside" || state.area === "forest") {
+    return "grass";
+  }
+
+  return "floor";
 }
 
 function syncPlayerAnimationState() {
@@ -1699,6 +1721,9 @@ function enterArea(areaName, x, y) {
   const currentArea = getActiveArea();
   currentArea.target.classList.remove("visible");
   currentArea.element.hidden = true;
+  if (typeof stopMovementSound === "function") {
+    stopMovementSound();
+  }
 
   state.area = areaName;
   state.x = x;

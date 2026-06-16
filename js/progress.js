@@ -102,6 +102,10 @@ function findReadoutStat(statName) {
 }
 
 function showLevelUpNotice(level, hp) {
+  if (typeof playLevelUpSound === "function") {
+    playLevelUpSound();
+  }
+
   let notice = document.querySelector(".level-up-notice");
 
   if (!notice) {
