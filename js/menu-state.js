@@ -128,7 +128,7 @@ function showIntroCard(options = {}) {
   renderIntroCard();
   introCard.hidden = false;
   window.setTimeout(() => introCard.classList.add("is-thunder-zoom"), 20);
-  markIntroRainSection();
+  endIntroThunderSound();
   introStartButton.focus();
 }
 
@@ -155,7 +155,7 @@ async function advanceIntroCard(event) {
   introEnding = true;
   introStartButton.disabled = true;
   introCard.classList.add("is-ending");
-  await playIntroRainEndSound();
+  finishIntroSound();
   introStartButton.disabled = false;
   startGame();
 }

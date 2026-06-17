@@ -4,15 +4,11 @@ const LITTLE_WING_MEEP_SOUND_SRC = new URL("../assets/audio/sfx/Meep.wav", docum
 const TAKEOFF_SOUND_SRC = new URL("../assets/audio/sfx/takeoff.wav", document.currentScript.src).href;
 const MENU_CAMPFIRE_SOUND_SRC = new URL("../assets/audio/sfx/campfire.wav", document.currentScript.src).href;
 const INTRO_STORM_SOUND_SRC = new URL("../assets/audio/ambience/intro-storm.wav", document.currentScript.src).href;
-const INTRO_RAIN_END_SOUND_SRC = new URL("../assets/audio/ambience/rain-end.wav", document.currentScript.src).href;
 const menuCampfireSound = new Audio(MENU_CAMPFIRE_SOUND_SRC);
 const introStormSound = new Audio(INTRO_STORM_SOUND_SRC);
-const introRainEndSound = new Audio(INTRO_RAIN_END_SOUND_SRC);
 const levelUpSound = new Audio(LEVEL_UP_SOUND_SRC);
 const takeoffSound = new Audio(TAKEOFF_SOUND_SRC);
-const INTRO_THUNDER_DURATION = 18.95;
 const INTRO_STORM_VOLUME = 0.95;
-const INTRO_RAIN_VOLUME = 0.16;
 const buttonMoveSoundPool = makeSoundPool(BUTTON_MOVE_SOUND_SRC, 6, 0.55);
 const littleWingMeepSoundPool = makeSoundPool(LITTLE_WING_MEEP_SOUND_SRC, 3, 0.62);
 let buttonMoveSoundIndex = 0;
@@ -20,7 +16,6 @@ let littleWingMeepSoundIndex = 0;
 menuCampfireSound.volume = 0.7;
 menuCampfireSound.loop = true;
 introStormSound.volume = INTRO_STORM_VOLUME;
-introRainEndSound.volume = 0.58;
 levelUpSound.volume = 0.72;
 takeoffSound.volume = 0.72;
 [
@@ -35,8 +30,7 @@ takeoffSound.volume = 0.72;
 
 [
   menuCampfireSound,
-  introStormSound,
-  introRainEndSound
+  introStormSound
 ].forEach((sound) => {
   sound.preload = "metadata";
 });
@@ -46,7 +40,7 @@ document.addEventListener("pointerdown", unlockMenuCampfireSound, { capture: tru
 window.addEventListener("pageshow", syncMenuCampfireSound);
 watchStartMenuSoundState();
 syncMenuCampfireSound();
-introStormSound.addEventListener("ended", loopIntroStormRain);
+introStormSound.addEventListener("ended", stopIntroStormSound);
 
 function playButtonSoundForControl(event) {
   const control = event.target.closest("button, a");
@@ -134,16 +128,14 @@ function playIntroStormSound() {
 
 function prepareIntroStormSound() {
   introStormSound.load();
-  introRainEndSound.load();
 }
 
 function unlockMenuCampfireSound() {
   syncMenuCampfireSound();
 }
 
-function markIntroRainSection() {
-  introStormSound.volume = INTRO_RAIN_VOLUME;
-  introStormSound.currentTime = INTRO_THUNDER_DURATION;
+function endIntroThunderSound() {
+  stopIntroStormSound();
 }
 
 function stopIntroStormSound() {
@@ -152,23 +144,12 @@ function stopIntroStormSound() {
   introStormSound.volume = INTRO_STORM_VOLUME;
 }
 
-function playIntroRainEndSound() {
+function finishIntroSound() {
   stopIntroStormSound();
-  introRainEndSound.currentTime = 0;
-
-  return new Promise((resolve) => {
-    introRainEndSound.onended = resolve;
-    introRainEndSound.play().catch(resolve);
-  });
+  stopMenuCampfireSound();
 }
 
 function restartSound(sound) {
   sound.currentTime = 0;
   sound.play().catch(() => {});
-}
-
-function loopIntroStormRain() {
-  introStormSound.volume = INTRO_RAIN_VOLUME;
-  introStormSound.currentTime = INTRO_THUNDER_DURATION;
-  introStormSound.play().catch(() => {});
 }
