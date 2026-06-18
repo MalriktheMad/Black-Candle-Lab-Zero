@@ -9,11 +9,14 @@ const introStormSound = new Audio(INTRO_STORM_SOUND_SRC);
 const levelUpSound = new Audio(LEVEL_UP_SOUND_SRC);
 const takeoffSound = new Audio(TAKEOFF_SOUND_SRC);
 const INTRO_STORM_VOLUME = 0.95;
+const CAMPFIRE_VOLUME = 0.7;
+const CAMPFIRE_FADE_MS = 1400;
 const buttonMoveSoundPool = makeSoundPool(BUTTON_MOVE_SOUND_SRC, 6, 0.55);
 const littleWingMeepSoundPool = makeSoundPool(LITTLE_WING_MEEP_SOUND_SRC, 3, 0.62);
 let buttonMoveSoundIndex = 0;
 let littleWingMeepSoundIndex = 0;
-menuCampfireSound.volume = 0.7;
+let campfireFadeFrame = 0;
+menuCampfireSound.volume = CAMPFIRE_VOLUME;
 menuCampfireSound.loop = true;
 introStormSound.volume = INTRO_STORM_VOLUME;
 levelUpSound.volume = 0.72;
@@ -109,6 +112,7 @@ function syncMenuCampfireSound() {
   const shouldPlay = startMenu && !startMenu.hidden;
 
   if (shouldPlay) {
+    restoreCampfireSound();
     menuCampfireSound.play().catch(() => {});
     return;
   }
@@ -117,8 +121,54 @@ function syncMenuCampfireSound() {
 }
 
 function stopMenuCampfireSound() {
+  cancelCampfireFade();
   menuCampfireSound.pause();
   menuCampfireSound.currentTime = 0;
+  menuCampfireSound.volume = CAMPFIRE_VOLUME;
+}
+
+function restoreCampfireSound() {
+  cancelCampfireFade();
+  menuCampfireSound.volume = CAMPFIRE_VOLUME;
+}
+
+function fadeOutCampfireSound(duration = CAMPFIRE_FADE_MS) {
+  cancelCampfireFade();
+
+  if (menuCampfireSound.paused) {
+    stopMenuCampfireSound();
+    return Promise.resolve();
+  }
+
+  const startVolume = menuCampfireSound.volume;
+  const startTime = performance.now();
+
+  return new Promise((resolve) => {
+    function step(now) {
+      const progress = Math.min(1, (now - startTime) / duration);
+      menuCampfireSound.volume = startVolume * (1 - progress);
+
+      if (progress < 1) {
+        campfireFadeFrame = requestAnimationFrame(step);
+        return;
+      }
+
+      campfireFadeFrame = 0;
+      stopMenuCampfireSound();
+      resolve();
+    }
+
+    campfireFadeFrame = requestAnimationFrame(step);
+  });
+}
+
+function cancelCampfireFade() {
+  if (!campfireFadeFrame) {
+    return;
+  }
+
+  cancelAnimationFrame(campfireFadeFrame);
+  campfireFadeFrame = 0;
 }
 
 function playIntroStormSound() {
@@ -146,7 +196,7 @@ function stopIntroStormSound() {
 
 function finishIntroSound() {
   stopIntroStormSound();
-  stopMenuCampfireSound();
+  return fadeOutCampfireSound();
 }
 
 function restartSound(sound) {

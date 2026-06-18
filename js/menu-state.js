@@ -28,7 +28,7 @@ const INTRO_SLIDES = [
   { title: "Lab Zero", credit: "", subtitle: "" },
   { title: "A Budgie RPG", credit: "", subtitle: "" }
 ];
-const INTRO_MENU_ZOOM_DURATION = 18950;
+const INTRO_MENU_ZOOM_DURATION = 13270;
 let introSlideIndex = 0;
 let introEnding = false;
 let introStarting = false;
@@ -109,7 +109,7 @@ function beginNewGameIntro(event) {
   clearSavedGame();
   movePlayerToStart();
   startMenu.classList.remove("is-warmed");
-  stopMenuCampfireSound();
+  restoreCampfireSound();
   playIntroStormSound();
   startMenu.classList.add("is-zooming-out");
 
@@ -155,7 +155,7 @@ async function advanceIntroCard(event) {
   introEnding = true;
   introStartButton.disabled = true;
   introCard.classList.add("is-ending");
-  finishIntroSound();
+  await finishIntroSound();
   introStartButton.disabled = false;
   startGame();
 }
