@@ -1376,7 +1376,7 @@ requestAnimationFrame(tick);
 stage.addEventListener("pointerdown", setTarget);
 stage.addEventListener("pointermove", (event) => {
   if (event.buttons === 1 && event.pointerType !== "mouse") {
-    setTarget(event);
+    setTarget(event, { playSound: false });
   }
 });
 
@@ -1419,7 +1419,7 @@ function isMovementLockedForBedroomCage() {
   return typeof isBedroomCageBreakoutPending === "function" && isBedroomCageBreakoutPending();
 }
 
-function setTarget(event) {
+function setTarget(event, options = {}) {
   if (isGamePausedForDialogue()) {
     return;
   }
@@ -1451,7 +1451,7 @@ function setTarget(event) {
   getActiveArea().target.classList.add("visible");
   placeTarget();
 
-  if (typeof playMoveClickSound === "function") {
+  if (options.playSound !== false && typeof playMoveClickSound === "function") {
     playMoveClickSound();
   }
 }
