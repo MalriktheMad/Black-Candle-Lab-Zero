@@ -25,6 +25,21 @@
   pointer-events: none;
 }
 
+.player.is-taking-off::after,
+.player.is-landing::after {
+  bottom: -1px;
+  width: 22px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.player.is-flying::after {
+  bottom: -4px;
+  width: 14px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
 .pixel-bird {
   left: 0;
   top: 0;
