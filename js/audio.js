@@ -109,7 +109,8 @@ function watchStartMenuSoundState() {
 
 function syncMenuCampfireSound() {
   const startMenu = document.getElementById("start-menu");
-  const shouldPlay = startMenu && !startMenu.hidden;
+  const introCard = document.getElementById("intro-card");
+  const shouldPlay = (startMenu && !startMenu.hidden) || (introCard && !introCard.hidden);
 
   if (shouldPlay) {
     restoreCampfireSound();
