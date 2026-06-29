@@ -1,7 +1,7 @@
 const BUTTON_PUSH_SOUND_SRC = new URL("../assets/audio/sfx/button-push.wav", document.currentScript.src).href;
 const LEVEL_UP_SOUND_SRC = new URL("../assets/audio/sfx/level-up.wav", document.currentScript.src).href;
 const LITTLE_WING_MEEP_SOUND_SRC = new URL("../assets/audio/sfx/Meep.wav", document.currentScript.src).href;
-const TAKEOFF_SOUND_SRC = new URL("../assets/audio/sfx/takeoff.wav", document.currentScript.src).href;
+const TAKEOFF_SOUND_SRC = new URL("../assets/audio/sfx/Takeoff.wav", document.currentScript.src).href;
 const MENU_CAMPFIRE_SOUND_SRC = new URL("../assets/audio/sfx/campfire.wav", document.currentScript.src).href;
 const INTRO_THUNDER_SOUND_SRC = new URL("../assets/audio/ambience/intro-thunder.wav", document.currentScript.src).href;
 const menuCampfireSound = new Audio(MENU_CAMPFIRE_SOUND_SRC);
