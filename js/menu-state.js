@@ -88,7 +88,7 @@ function warmFireAndShowMenu(event) {
 
   startMenu.classList.add("is-warmed");
   syncMenuCampfireSound();
-  prepareIntroStormSound();
+  prepareIntroThunderSound();
 
   const firstButton = hasSavedGame() ? continueGameButton : newGameButton;
   firstButton.focus();
@@ -110,17 +110,17 @@ function beginNewGameIntro(event) {
   movePlayerToStart();
   startMenu.classList.remove("is-warmed");
   restoreCampfireSound();
-  playIntroStormSound();
+  playIntroThunderSound();
   startMenu.classList.add("is-zooming-out");
 
   window.setTimeout(() => {
-    showIntroCard({ playThunder: false });
+    showIntroCard();
     startMenu.classList.remove("is-zooming-out");
     introStarting = false;
   }, INTRO_MENU_ZOOM_DURATION);
 }
 
-function showIntroCard(options = {}) {
+function showIntroCard() {
   startMenu.hidden = true;
   introSlideIndex = 0;
   introEnding = false;
@@ -201,8 +201,12 @@ function startGame(options = {}) {
     introCard.classList.remove("is-ending", "is-thunder-zoom");
   }
 
-  if (typeof stopIntroStormSound === "function") {
-    stopIntroStormSound();
+  if (typeof stopIntroThunderSound === "function") {
+    stopIntroThunderSound();
+  }
+
+  if (typeof stopMenuCampfireSound === "function") {
+    stopMenuCampfireSound();
   }
 
   const shouldPlayOpening = options.playOpening !== false;

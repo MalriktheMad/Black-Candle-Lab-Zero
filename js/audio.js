@@ -3,12 +3,12 @@ const LEVEL_UP_SOUND_SRC = new URL("../assets/audio/sfx/level-up.wav", document.
 const LITTLE_WING_MEEP_SOUND_SRC = new URL("../assets/audio/sfx/Meep.wav", document.currentScript.src).href;
 const TAKEOFF_SOUND_SRC = new URL("../assets/audio/sfx/takeoff.wav", document.currentScript.src).href;
 const MENU_CAMPFIRE_SOUND_SRC = new URL("../assets/audio/sfx/campfire.wav", document.currentScript.src).href;
-const INTRO_STORM_SOUND_SRC = new URL("../assets/audio/ambience/intro-thunder.wav", document.currentScript.src).href;
+const INTRO_THUNDER_SOUND_SRC = new URL("../assets/audio/ambience/intro-thunder.wav", document.currentScript.src).href;
 const menuCampfireSound = new Audio(MENU_CAMPFIRE_SOUND_SRC);
-const introStormSound = new Audio(INTRO_STORM_SOUND_SRC);
+const introThunderSound = new Audio(INTRO_THUNDER_SOUND_SRC);
 const levelUpSound = new Audio(LEVEL_UP_SOUND_SRC);
 const takeoffSound = new Audio(TAKEOFF_SOUND_SRC);
-const INTRO_STORM_VOLUME = 0.95;
+const INTRO_THUNDER_VOLUME = 0.95;
 const CAMPFIRE_VOLUME = 0.7;
 const CAMPFIRE_FADE_MS = 1400;
 const buttonPushSoundPool = makeSoundPool(BUTTON_PUSH_SOUND_SRC, 6, 0.55);
@@ -18,7 +18,7 @@ let littleWingMeepSoundIndex = 0;
 let campfireFadeFrame = 0;
 menuCampfireSound.volume = CAMPFIRE_VOLUME;
 menuCampfireSound.loop = true;
-introStormSound.volume = INTRO_STORM_VOLUME;
+introThunderSound.volume = INTRO_THUNDER_VOLUME;
 levelUpSound.volume = 0.72;
 takeoffSound.volume = 0.72;
 [
@@ -33,7 +33,7 @@ takeoffSound.volume = 0.72;
 
 [
   menuCampfireSound,
-  introStormSound
+  introThunderSound
 ].forEach((sound) => {
   sound.preload = "metadata";
 });
@@ -43,7 +43,7 @@ document.addEventListener("pointerdown", unlockMenuCampfireSound, { capture: tru
 window.addEventListener("pageshow", syncMenuCampfireSound);
 watchStartMenuSoundState();
 syncMenuCampfireSound();
-introStormSound.addEventListener("ended", stopIntroStormSound);
+introThunderSound.addEventListener("ended", stopIntroThunderSound);
 
 function playButtonSoundForControl(event) {
   const control = event.target.closest("button, a");
@@ -96,15 +96,25 @@ function playFromPool(pool, index) {
 
 function watchStartMenuSoundState() {
   const startMenu = document.getElementById("start-menu");
+  const introCard = document.getElementById("intro-card");
 
-  if (!startMenu) {
+  if (!startMenu && !introCard) {
     return;
   }
 
-  new MutationObserver(syncMenuCampfireSound).observe(startMenu, {
+  const campfireObserver = new MutationObserver(syncMenuCampfireSound);
+  const observerOptions = {
     attributes: true,
     attributeFilter: ["hidden"]
-  });
+  };
+
+  if (startMenu) {
+    campfireObserver.observe(startMenu, observerOptions);
+  }
+
+  if (introCard) {
+    campfireObserver.observe(introCard, observerOptions);
+  }
 }
 
 function syncMenuCampfireSound() {
@@ -172,13 +182,13 @@ function cancelCampfireFade() {
   campfireFadeFrame = 0;
 }
 
-function playIntroStormSound() {
-  introStormSound.volume = INTRO_STORM_VOLUME;
-  restartSound(introStormSound);
+function playIntroThunderSound() {
+  introThunderSound.volume = INTRO_THUNDER_VOLUME;
+  restartSound(introThunderSound);
 }
 
-function prepareIntroStormSound() {
-  introStormSound.load();
+function prepareIntroThunderSound() {
+  introThunderSound.load();
 }
 
 function unlockMenuCampfireSound() {
@@ -186,17 +196,17 @@ function unlockMenuCampfireSound() {
 }
 
 function endIntroThunderSound() {
-  stopIntroStormSound();
+  stopIntroThunderSound();
 }
 
-function stopIntroStormSound() {
-  introStormSound.pause();
-  introStormSound.currentTime = 0;
-  introStormSound.volume = INTRO_STORM_VOLUME;
+function stopIntroThunderSound() {
+  introThunderSound.pause();
+  introThunderSound.currentTime = 0;
+  introThunderSound.volume = INTRO_THUNDER_VOLUME;
 }
 
 function finishIntroSound() {
-  stopIntroStormSound();
+  stopIntroThunderSound();
   return fadeOutCampfireSound();
 }
 
