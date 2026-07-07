@@ -571,7 +571,7 @@ a {
   }
 
   .start-menu-art {
-    background-size: cover;
+    background-size: contain;
   }
 
   .start-menu-bar {
