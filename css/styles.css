@@ -318,7 +318,6 @@ a {
   text-align: center;
   pointer-events: auto;
   opacity: 1;
-  transition: opacity 900ms ease;
 }
 
 .intro-card[hidden] {
@@ -332,6 +331,7 @@ a {
   transform: scale(1);
   transform-origin: center;
   opacity: 1;
+  transition: opacity 900ms ease;
 }
 
 .intro-card.is-thunder-zoom .intro-card-copy {
@@ -339,8 +339,12 @@ a {
 }
 
 .intro-card.is-ending {
-  opacity: 0;
   pointer-events: none;
+}
+
+.intro-card.is-ending .intro-card-copy {
+  animation: none;
+  opacity: 0;
 }
 
 .intro-card h1 {
