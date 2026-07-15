@@ -2,6 +2,7 @@ const BUTTON_PUSH_SOUND_SRC = new URL("../assets/audio/sfx/button-push.wav", doc
 const LEVEL_UP_SOUND_SRC = new URL("../assets/audio/sfx/level-up.wav", document.currentScript.src).href;
 const LITTLE_WING_MEEP_SOUND_SRC = new URL("../assets/audio/sfx/Meep.wav", document.currentScript.src).href;
 const TAKEOFF_SOUND_SRC = new URL("../assets/audio/sfx/Takeoff.wav", document.currentScript.src).href;
+const LOCK_TAP_SOUND_SRC = new URL("../assets/audio/sfx/LockTap.wav", document.currentScript.src).href;
 const MENU_CAMPFIRE_SOUND_SRC = new URL("../assets/audio/sfx/campfire.wav", document.currentScript.src).href;
 const INTRO_THUNDER_SOUND_SRC = new URL("../assets/audio/ambience/intro-thunder.wav", document.currentScript.src).href;
 const menuCampfireSound = new Audio(MENU_CAMPFIRE_SOUND_SRC);
@@ -13,8 +14,10 @@ const CAMPFIRE_VOLUME = 0.7;
 const CAMPFIRE_FADE_MS = 1400;
 const buttonPushSoundPool = makeSoundPool(BUTTON_PUSH_SOUND_SRC, 6, 0.55);
 const littleWingMeepSoundPool = makeSoundPool(LITTLE_WING_MEEP_SOUND_SRC, 3, 0.62);
+const lockTapSoundPool = makeSoundPool(LOCK_TAP_SOUND_SRC, 4, 0.72);
 let buttonPushSoundIndex = 0;
 let littleWingMeepSoundIndex = 0;
+let lockTapSoundIndex = 0;
 let campfireFadeFrame = 0;
 menuCampfireSound.volume = CAMPFIRE_VOLUME;
 menuCampfireSound.loop = true;
@@ -24,6 +27,7 @@ takeoffSound.volume = 0.72;
 [
   ...buttonPushSoundPool,
   ...littleWingMeepSoundPool,
+  ...lockTapSoundPool,
   levelUpSound,
   takeoffSound
 ].forEach((sound) => {
@@ -77,6 +81,10 @@ function playTakeoffSound() {
 
 function playLittleWingMeepSound() {
   littleWingMeepSoundIndex = playFromPool(littleWingMeepSoundPool, littleWingMeepSoundIndex);
+}
+
+function playLockTapSound() {
+  lockTapSoundIndex = playFromPool(lockTapSoundPool, lockTapSoundIndex);
 }
 
 function makeSoundPool(src, size, volume) {

@@ -188,6 +188,10 @@ function handleBedroomCageBreakoutPointer(event) {
     return false;
   }
 
+  if (typeof playLockTapSound === "function") {
+    playLockTapSound();
+  }
+
   bedroomCageBreakoutTaps += 1;
 
   if (bedroomCageBreakoutTaps < BEDROOM_CAGE_BREAKOUT_TAPS) {
