@@ -411,7 +411,7 @@ a {
   image-rendering: pixelated;
   animation: start-menu-painting 1100ms steps(1, end) infinite;
   transform: scale(1);
-  transform-origin: center;
+  transform-origin: 69% 40%;
   filter: brightness(1);
 }
 
@@ -576,6 +576,7 @@ a {
 
   .start-menu-art {
     background-size: contain;
+    transform-origin: 78% 45%;
   }
 
   .start-menu-bar {
