@@ -2,6 +2,7 @@ const OPENING_BEDROOM_DIALOGUE_KEY = "lab-zero-opening-bedroom-dialogue";
 const OPENING_BEDROOM_INTRO_KEY = "lab-zero-opening-bedroom-intro";
 const OPENING_CONTROLS_TUTORIAL_KEY = "lab-zero-opening-controls-tutorial";
 const BEDROOM_CAGE_ZOOM = 1.35;
+const OPENING_WAKE_FADE_DURATION = 1600;
 const BEDROOM_CAGE_START_X = 138;
 const BEDROOM_CAGE_START_Y = 162;
 const BEDROOM_CAGE_EXIT_X = 270;
@@ -30,8 +31,46 @@ function playOpeningBedroomDialogue() {
 
   if (!sessionStorage.getItem(OPENING_BEDROOM_INTRO_KEY)) {
     sessionStorage.setItem(OPENING_BEDROOM_INTRO_KEY, "true");
-    startDialogue(getOpeningBedroomIntroLines());
+    revealOpeningWakeFade(() => startDialogue(getOpeningBedroomIntroLines()));
   }
+}
+
+function prepareOpeningWakeFade() {
+  const fade = getOpeningWakeFade();
+  fade.classList.remove("is-revealing");
+  fade.hidden = false;
+}
+
+function revealOpeningWakeFade(onComplete) {
+  const fade = getOpeningWakeFade();
+
+  window.requestAnimationFrame(() => {
+    fade.classList.add("is-revealing");
+  });
+
+  window.setTimeout(() => {
+    fade.hidden = true;
+    fade.classList.remove("is-revealing");
+
+    if (onComplete) {
+      onComplete();
+    }
+  }, OPENING_WAKE_FADE_DURATION);
+}
+
+function getOpeningWakeFade() {
+  let fade = document.getElementById("opening-wake-fade");
+
+  if (!fade) {
+    fade = document.createElement("div");
+    fade.id = "opening-wake-fade";
+    fade.className = "opening-wake-fade";
+    fade.hidden = true;
+    fade.setAttribute("aria-hidden", "true");
+    stage.append(fade);
+  }
+
+  return fade;
 }
 
 function getOpeningBedroomIntroLines() {

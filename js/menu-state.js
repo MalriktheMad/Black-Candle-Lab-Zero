@@ -192,6 +192,12 @@ function clearSavedGame() {
 }
 
 function startGame(options = {}) {
+  const shouldPlayOpening = options.playOpening !== false;
+
+  if (shouldPlayOpening && typeof prepareOpeningWakeFade === "function") {
+    prepareOpeningWakeFade();
+  }
+
   if (startMenu) {
     startMenu.hidden = true;
     startMenu.classList.remove("is-zooming-out");
@@ -209,8 +215,6 @@ function startGame(options = {}) {
   if (typeof stopMenuCampfireSound === "function") {
     stopMenuCampfireSound();
   }
-
-  const shouldPlayOpening = options.playOpening !== false;
 
   if (shouldPlayOpening && typeof playOpeningBedroomDialogue === "function") {
     window.setTimeout(playOpeningBedroomDialogue, 80);
