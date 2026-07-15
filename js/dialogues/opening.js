@@ -1,5 +1,7 @@
 const OPENING_BEDROOM_DIALOGUE_KEY = "lab-zero-opening-bedroom-dialogue";
 const OPENING_BEDROOM_INTRO_KEY = "lab-zero-opening-bedroom-intro";
+const OPENING_CONTROLS_TUTORIAL_KEY = "lab-zero-opening-controls-tutorial";
+const BEDROOM_CAGE_ZOOM = 1.35;
 const BEDROOM_CAGE_START_X = 138;
 const BEDROOM_CAGE_START_Y = 162;
 const BEDROOM_CAGE_EXIT_X = 270;
@@ -17,6 +19,7 @@ const BEDROOM_CAGE_BREAKOUT_PROMPTS = [
   "Almost out."
 ];
 let bedroomCageBreakoutTaps = 0;
+let openingControlsTutorialActive = false;
 
 function playOpeningBedroomDialogue() {
   if (dialogueState.active || state.area !== "bedroom" || sessionStorage.getItem(OPENING_BEDROOM_DIALOGUE_KEY)) {
@@ -43,7 +46,7 @@ function getOpeningBedroomIntroLines() {
 }
 
 function getBedroomCageBreakoutLines() {
-  return [
+  const lines = [
     {
       ...littleWingLine("Tap tap... tap."),
       onShow: openBedroomCageDoor
@@ -54,6 +57,79 @@ function getBedroomCageBreakoutLines() {
     },
     littleWingLine("I wonder if everyone is downstairs?")
   ];
+
+  lines.onComplete = finishBedroomCageBreakout;
+  return lines;
+}
+
+function finishBedroomCageBreakout() {
+  state.zoom = DEFAULT_ZOOM;
+  placeCamera();
+  showOpeningControlsTutorial();
+}
+
+function isOpeningControlsTutorialActive() {
+  return openingControlsTutorialActive;
+}
+
+function showOpeningControlsTutorial() {
+  if (sessionStorage.getItem(OPENING_CONTROLS_TUTORIAL_KEY)) {
+    return;
+  }
+
+  const tutorial = getOpeningControlsTutorial();
+  const area = getActiveArea();
+  state.path = [];
+  state.targetX = state.x;
+  state.targetY = state.y;
+  area.target.classList.remove("visible");
+  openingControlsTutorialActive = true;
+  sessionStorage.setItem(OPENING_CONTROLS_TUTORIAL_KEY, "true");
+  document.body.classList.add("controls-tutorial-open");
+  tutorial.hidden = false;
+  tutorial.querySelector("button").focus();
+}
+
+function getOpeningControlsTutorial() {
+  let tutorial = document.getElementById("opening-controls-tutorial");
+
+  if (tutorial) {
+    return tutorial;
+  }
+
+  tutorial = document.createElement("div");
+  tutorial.id = "opening-controls-tutorial";
+  tutorial.className = "controls-tutorial";
+  tutorial.hidden = true;
+  tutorial.setAttribute("role", "dialog");
+  tutorial.setAttribute("aria-modal", "true");
+  tutorial.setAttribute("aria-labelledby", "controls-tutorial-title");
+  tutorial.innerHTML = `
+    <div class="controls-tutorial-panel">
+      <h2 id="controls-tutorial-title">Quick controls</h2>
+      <p>Use <strong>-</strong> and <strong>+</strong> at the top right to zoom.</p>
+      <p>Tap <strong>Fly</strong> at the bottom right to take off or land.</p>
+      <button type="button">Got it</button>
+    </div>
+  `;
+  tutorial.querySelector("button").addEventListener("click", closeOpeningControlsTutorial);
+  stage.append(tutorial);
+  return tutorial;
+}
+
+function closeOpeningControlsTutorial(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  const tutorial = document.getElementById("opening-controls-tutorial");
+  openingControlsTutorialActive = false;
+  document.body.classList.remove("controls-tutorial-open");
+
+  if (tutorial) {
+    tutorial.hidden = true;
+  }
 }
 
 function isBedroomCageBreakoutPending() {
@@ -98,6 +174,7 @@ function placeLittleWingInBedroomCage() {
   state.targetX = BEDROOM_CAGE_START_X;
   state.targetY = BEDROOM_CAGE_START_Y;
   state.path = [];
+  state.zoom = BEDROOM_CAGE_ZOOM;
   bedroomCageBreakoutTaps = 0;
   closeBedroomCageDoor();
 

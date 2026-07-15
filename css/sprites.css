@@ -15,7 +15,7 @@
   content: "";
   position: absolute;
   left: 50%;
-  bottom: 1px;
+  bottom: -4px;
   z-index: 0;
   width: 30px;
   height: 8px;
@@ -27,17 +27,19 @@
 
 .player.is-taking-off::after,
 .player.is-landing::after {
-  bottom: -1px;
-  width: 22px;
-  height: 6px;
-  background: rgba(0, 0, 0, 0.24);
+  bottom: -9px;
+  width: 20px;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.2);
+  filter: blur(0.5px);
 }
 
 .player.is-flying::after {
-  bottom: -4px;
-  width: 14px;
+  bottom: -18px;
+  width: 12px;
   height: 4px;
-  background: rgba(0, 0, 0, 0.16);
+  background: rgba(0, 0, 0, 0.12);
+  filter: blur(1.5px);
 }
 
 .pixel-bird {

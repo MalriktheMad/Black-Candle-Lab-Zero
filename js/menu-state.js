@@ -4,6 +4,7 @@ const START_MENU_NEW_GAME_KEYS = [
   GAME_STATE_STORAGE_KEY,
   "lab-zero-opening-bedroom-dialogue",
   "lab-zero-opening-bedroom-intro",
+  "lab-zero-opening-controls-tutorial",
   "lab-zero-inventory",
   "lab-zero-player-progress",
   "lab-zero-collected-pickups",
@@ -28,7 +29,7 @@ const INTRO_SLIDES = [
   { title: "Lab Zero", credit: "", subtitle: "" },
   { title: "A Budgie RPG", credit: "", subtitle: "" }
 ];
-const INTRO_MENU_ZOOM_DURATION = 13270;
+const INTRO_MENU_ZOOM_DURATION = 6635;
 let introSlideIndex = 0;
 let introEnding = false;
 let introStarting = false;

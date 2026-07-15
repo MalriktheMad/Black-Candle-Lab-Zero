@@ -1412,7 +1412,9 @@ function stopUiMovement(event) {
 }
 
 function isGamePausedForDialogue() {
-  return typeof isDialogueActive === "function" && isDialogueActive();
+  const dialogueActive = typeof isDialogueActive === "function" && isDialogueActive();
+  const controlsTutorialActive = typeof isOpeningControlsTutorialActive === "function" && isOpeningControlsTutorialActive();
+  return dialogueActive || controlsTutorialActive;
 }
 
 function isMovementLockedForBedroomCage() {
