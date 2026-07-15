@@ -155,6 +155,11 @@ async function advanceIntroCard(event) {
 
   introEnding = true;
   introStartButton.disabled = true;
+
+  if (typeof prepareOpeningWakeFade === "function") {
+    prepareOpeningWakeFade();
+  }
+
   introCard.classList.add("is-ending");
   await finishIntroSound();
   introStartButton.disabled = false;

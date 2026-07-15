@@ -146,11 +146,11 @@
 .opening-wake-fade {
   position: fixed;
   inset: 0;
-  z-index: 70;
+  z-index: 61;
   background:
     radial-gradient(circle at 50% 42%, rgba(58, 38, 28, 0.94), rgba(5, 4, 7, 0.98) 48%, #000 100%);
   opacity: 1;
-  transition: opacity 1600ms ease-in-out;
+  transition: opacity 2600ms ease-in-out;
   pointer-events: auto;
 }
 

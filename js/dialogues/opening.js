@@ -2,7 +2,8 @@ const OPENING_BEDROOM_DIALOGUE_KEY = "lab-zero-opening-bedroom-dialogue";
 const OPENING_BEDROOM_INTRO_KEY = "lab-zero-opening-bedroom-intro";
 const OPENING_CONTROLS_TUTORIAL_KEY = "lab-zero-opening-controls-tutorial";
 const BEDROOM_CAGE_ZOOM = 1.35;
-const OPENING_WAKE_FADE_DURATION = 1600;
+const OPENING_WAKE_DARK_HOLD = 300;
+const OPENING_WAKE_FADE_DURATION = 2600;
 const BEDROOM_CAGE_START_X = 138;
 const BEDROOM_CAGE_START_Y = 162;
 const BEDROOM_CAGE_EXIT_X = 270;
@@ -44,9 +45,11 @@ function prepareOpeningWakeFade() {
 function revealOpeningWakeFade(onComplete) {
   const fade = getOpeningWakeFade();
 
-  window.requestAnimationFrame(() => {
-    fade.classList.add("is-revealing");
-  });
+  window.setTimeout(() => {
+    window.requestAnimationFrame(() => {
+      fade.classList.add("is-revealing");
+    });
+  }, OPENING_WAKE_DARK_HOLD);
 
   window.setTimeout(() => {
     fade.hidden = true;
@@ -55,7 +58,7 @@ function revealOpeningWakeFade(onComplete) {
     if (onComplete) {
       onComplete();
     }
-  }, OPENING_WAKE_FADE_DURATION);
+  }, OPENING_WAKE_DARK_HOLD + OPENING_WAKE_FADE_DURATION);
 }
 
 function getOpeningWakeFade() {
