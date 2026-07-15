@@ -45,8 +45,7 @@
   animation: water-current 1200ms steps(1, end) infinite;
 }
 
-.flight-animation-active .forest-floor::after,
-.flight-animation-active .map-water {
+.flight-animation-active .forest-floor::after {
   animation-play-state: paused;
 }
 
