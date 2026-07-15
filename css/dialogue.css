@@ -224,7 +224,8 @@
 }
 
 .controls-tutorial-open .zoom-controls,
-.controls-tutorial-open .flight-controls {
+.controls-tutorial-open .flight-controls,
+.controls-tutorial-open .quick-nav {
   z-index: 102;
   border-radius: 8px;
   animation: controls-tutorial-highlight 900ms ease-in-out infinite alternate;

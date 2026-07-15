@@ -151,6 +151,7 @@ function getOpeningControlsTutorial() {
       <h2 id="controls-tutorial-title">Quick controls</h2>
       <p>Use <strong>-</strong> and <strong>+</strong> at the top right to zoom.</p>
       <p>Tap <strong>Fly</strong> at the bottom right to take off or land.</p>
+      <p>Bottom left opens <strong>Character</strong>, <strong>Inventory</strong>, <strong>Map</strong>, and <strong>Quest</strong>.</p>
       <button type="button">Got it</button>
     </div>
   `;
