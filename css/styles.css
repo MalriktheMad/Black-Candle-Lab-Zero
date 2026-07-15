@@ -412,7 +412,7 @@ a {
 }
 
 .start-menu.is-zooming-out .start-menu-art {
-  animation: start-menu-painting 1100ms steps(1, end) infinite, intro-menu-zoom-to-black 18950ms ease-in forwards;
+  animation: start-menu-painting 1100ms steps(1, end) infinite, intro-menu-zoom-to-black 6635ms ease-in forwards;
 }
 
 .start-menu.is-zooming-out .start-menu-bar {
