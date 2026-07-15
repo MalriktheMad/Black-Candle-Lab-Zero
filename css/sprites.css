@@ -96,11 +96,10 @@
 }
 
 @keyframes little-wing-fly {
-  0% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight.png"); }
-  20% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight1.png"); }
-  40% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight2.png"); }
-  60% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight3.png"); }
-  80%, 100% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight4.png"); }
+  0% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight1.png"); }
+  25% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight2.png"); }
+  50% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight3.png"); }
+  75%, 100% { background-image: url("../assets/sprites/characters/LittlewingV2/Flight/flight4.png"); }
 }
 @keyframes little-wing-land {
   0% { background-image: url("../assets/sprites/characters/LittlewingV2/Landing/landing1.png"); }
