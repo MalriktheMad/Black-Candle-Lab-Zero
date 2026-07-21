@@ -5,48 +5,119 @@ const TAKEOFF_SOUND_SRC = new URL("../assets/audio/sfx/Takeoff.wav", document.cu
 const LOCK_TAP_SOUND_SRC = new URL("../assets/audio/sfx/LockTap.wav", document.currentScript.src).href;
 const MENU_CAMPFIRE_SOUND_SRC = new URL("../assets/audio/sfx/campfire.wav", document.currentScript.src).href;
 const INTRO_THUNDER_SOUND_SRC = new URL("../assets/audio/ambience/intro-thunder.wav", document.currentScript.src).href;
-const menuCampfireSound = new Audio(MENU_CAMPFIRE_SOUND_SRC);
-const introThunderSound = new Audio(INTRO_THUNDER_SOUND_SRC);
-const levelUpSound = new Audio(LEVEL_UP_SOUND_SRC);
-const takeoffSound = new Audio(TAKEOFF_SOUND_SRC);
 const INTRO_THUNDER_VOLUME = 0.95;
 const CAMPFIRE_VOLUME = 0.7;
 const CAMPFIRE_FADE_MS = 1400;
-const buttonPushSoundPool = makeSoundPool(BUTTON_PUSH_SOUND_SRC, 6, 0.55);
-const littleWingMeepSoundPool = makeSoundPool(LITTLE_WING_MEEP_SOUND_SRC, 3, 0.62);
-const lockTapSoundPool = makeSoundPool(LOCK_TAP_SOUND_SRC, 4, 0.72);
-let buttonPushSoundIndex = 0;
-let littleWingMeepSoundIndex = 0;
-let lockTapSoundIndex = 0;
-let campfireFadeFrame = 0;
-menuCampfireSound.volume = CAMPFIRE_VOLUME;
-menuCampfireSound.loop = true;
-introThunderSound.volume = INTRO_THUNDER_VOLUME;
-levelUpSound.volume = 0.72;
-takeoffSound.volume = 0.72;
-[
-  ...buttonPushSoundPool,
-  ...littleWingMeepSoundPool,
-  ...lockTapSoundPool,
-  levelUpSound,
-  takeoffSound
-].forEach((sound) => {
-  sound.preload = "auto";
-  sound.load();
-});
+const GameAudioContext = window.AudioContext || window.webkitAudioContext;
+const GAME_SOUNDS = {
+  buttonPush: { src: BUTTON_PUSH_SOUND_SRC, volume: 0.55, maxVoices: 6 },
+  levelUp: { src: LEVEL_UP_SOUND_SRC, volume: 0.72, maxVoices: 1 },
+  littleWingMeep: { src: LITTLE_WING_MEEP_SOUND_SRC, volume: 0.62, maxVoices: 3 },
+  takeoff: { src: TAKEOFF_SOUND_SRC, volume: 0.72, maxVoices: 1 },
+  lockTap: { src: LOCK_TAP_SOUND_SRC, volume: 0.72, maxVoices: 4 },
+  campfire: { src: MENU_CAMPFIRE_SOUND_SRC, volume: CAMPFIRE_VOLUME, maxVoices: 1 },
+  introThunder: { src: INTRO_THUNDER_SOUND_SRC, volume: INTRO_THUNDER_VOLUME, maxVoices: 1 }
+};
+const rawSoundPromises = new Map();
+const decodedSoundPromises = new Map();
+const activeSoundVoices = new Map();
+let gameAudioContext = null;
+let campfireSource = null;
+let campfireGain = null;
+let campfireStartPromise = null;
+let campfireRequested = false;
+let campfireFadeTimer = 0;
+let campfireFadeResolve = null;
 
-[
-  menuCampfireSound,
-  introThunderSound
-].forEach((sound) => {
-  sound.preload = "metadata";
-});
-
+preloadRawSounds();
+document.addEventListener("pointerdown", unlockGameAudio, { capture: true });
 document.addEventListener("pointerdown", playButtonSoundForControl, { capture: true });
-document.addEventListener("pointerdown", unlockMenuCampfireSound, { capture: true });
 window.addEventListener("pageshow", syncMenuCampfireSound);
 watchStartMenuSoundState();
 syncMenuCampfireSound();
+
+function preloadRawSounds() {
+  Object.entries(GAME_SOUNDS).forEach(([soundId, sound]) => {
+    const request = fetch(sound.src)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Unable to load ${soundId}: ${response.status}`);
+        }
+
+        return response.arrayBuffer();
+      })
+      .catch((error) => {
+        console.warn(error);
+        return null;
+      });
+
+    rawSoundPromises.set(soundId, request);
+  });
+}
+
+function unlockGameAudio() {
+  const context = getGameAudioContext();
+
+  if (!context) {
+    return;
+  }
+
+  const resume = context.state === "running"
+    ? Promise.resolve()
+    : context.resume().catch(() => {});
+
+  resume.then(() => {
+    preloadDecodedSounds();
+    syncMenuCampfireSound();
+  });
+}
+
+function getGameAudioContext() {
+  if (!gameAudioContext && GameAudioContext) {
+    gameAudioContext = new GameAudioContext();
+  }
+
+  return gameAudioContext;
+}
+
+function preloadDecodedSounds() {
+  Object.keys(GAME_SOUNDS).forEach((soundId) => {
+    getDecodedSound(soundId).catch(() => {});
+  });
+}
+
+function getDecodedSound(soundId) {
+  if (decodedSoundPromises.has(soundId)) {
+    return decodedSoundPromises.get(soundId);
+  }
+
+  const context = gameAudioContext;
+  const rawSound = rawSoundPromises.get(soundId);
+
+  if (!context || !rawSound) {
+    return Promise.resolve(null);
+  }
+
+  const decodedSound = rawSound.then((audioData) => {
+    if (!audioData) {
+      return null;
+    }
+
+    return decodeSoundData(context, audioData.slice(0));
+  }).catch((error) => {
+    console.warn(error);
+    return null;
+  });
+
+  decodedSoundPromises.set(soundId, decodedSound);
+  return decodedSound;
+}
+
+function decodeSoundData(context, audioData) {
+  return new Promise((resolve, reject) => {
+    context.decodeAudioData(audioData, resolve, reject);
+  });
+}
 
 function playButtonSoundForControl(event) {
   const control = event.target.closest("button, a");
@@ -63,7 +134,7 @@ function playButtonSoundForControl(event) {
 }
 
 function playButtonPushSound() {
-  buttonPushSoundIndex = playFromPool(buttonPushSoundPool, buttonPushSoundIndex);
+  playBufferedSound("buttonPush");
 }
 
 function playConfirmReturnSound() {
@@ -71,34 +142,119 @@ function playConfirmReturnSound() {
 }
 
 function playLevelUpSound() {
-  restartSound(levelUpSound);
+  playBufferedSound("levelUp", { restart: true });
 }
 
 function playTakeoffSound() {
-  restartSound(takeoffSound);
+  playBufferedSound("takeoff", { restart: true });
 }
 
 function playLittleWingMeepSound() {
-  littleWingMeepSoundIndex = playFromPool(littleWingMeepSoundPool, littleWingMeepSoundIndex);
+  playBufferedSound("littleWingMeep");
 }
 
 function playLockTapSound() {
-  lockTapSoundIndex = playFromPool(lockTapSoundPool, lockTapSoundIndex);
+  playBufferedSound("lockTap");
 }
 
-function makeSoundPool(src, size, volume) {
-  return Array.from({ length: size }, () => {
-    const sound = new Audio(src);
-    sound.volume = volume;
-    return sound;
-  });
+function playIntroThunderSound() {
+  playBufferedSound("introThunder", { restart: true });
 }
 
-function playFromPool(pool, index) {
-  const sound = pool[index];
-  sound.currentTime = 0;
-  sound.play().catch(() => {});
-  return (index + 1) % pool.length;
+function prepareIntroThunderSound() {
+  if (gameAudioContext) {
+    getDecodedSound("introThunder").catch(() => {});
+  }
+}
+
+async function playBufferedSound(soundId, options = {}) {
+  const context = gameAudioContext;
+  const sound = GAME_SOUNDS[soundId];
+
+  if (!context || !sound) {
+    return;
+  }
+
+  if (context.state !== "running") {
+    await context.resume().catch(() => {});
+  }
+
+  const buffer = await getDecodedSound(soundId);
+
+  if (!buffer || context.state !== "running") {
+    return;
+  }
+
+  if (options.restart) {
+    stopSoundVoices(soundId);
+  }
+
+  const voices = getSoundVoices(soundId);
+
+  while (voices.size >= sound.maxVoices) {
+    const oldestVoice = voices.values().next().value;
+    stopVoice(soundId, oldestVoice);
+  }
+
+  const source = context.createBufferSource();
+  const gain = context.createGain();
+  const voice = { source, gain, cleaned: false };
+  source.buffer = buffer;
+  gain.gain.value = sound.volume;
+  source.connect(gain);
+  gain.connect(context.destination);
+  voices.add(voice);
+  source.addEventListener("ended", () => removeVoice(soundId, voice), { once: true });
+  source.start();
+}
+
+function getSoundVoices(soundId) {
+  if (!activeSoundVoices.has(soundId)) {
+    activeSoundVoices.set(soundId, new Set());
+  }
+
+  return activeSoundVoices.get(soundId);
+}
+
+function stopSoundVoices(soundId) {
+  const voices = activeSoundVoices.get(soundId);
+
+  if (!voices) {
+    return;
+  }
+
+  Array.from(voices).forEach((voice) => stopVoice(soundId, voice));
+}
+
+function stopVoice(soundId, voice) {
+  if (!voice) {
+    return;
+  }
+
+  removeVoice(soundId, voice);
+
+  try {
+    voice.source.stop();
+  } catch (error) {
+    // The source may already have ended.
+  }
+
+}
+
+function removeVoice(soundId, voice) {
+  if (voice.cleaned) {
+    return;
+  }
+
+  voice.cleaned = true;
+  const voices = activeSoundVoices.get(soundId);
+
+  if (voices) {
+    voices.delete(voice);
+  }
+
+  voice.source.disconnect();
+  voice.gain.disconnect();
 }
 
 function watchStartMenuSoundState() {
@@ -130,83 +286,137 @@ function syncMenuCampfireSound() {
   const shouldPlay = (startMenu && !startMenu.hidden) || (introCard && !introCard.hidden);
 
   if (shouldPlay) {
-    restoreCampfireSound();
-    menuCampfireSound.play().catch(() => {});
+    startMenuCampfireSound();
     return;
   }
 
   stopMenuCampfireSound();
 }
 
+function startMenuCampfireSound() {
+  campfireRequested = true;
+  restoreCampfireSound();
+
+  if (!gameAudioContext || campfireSource || campfireStartPromise) {
+    return;
+  }
+
+  campfireStartPromise = startMenuCampfireWhenReady().finally(() => {
+    campfireStartPromise = null;
+  });
+}
+
+async function startMenuCampfireWhenReady() {
+  const context = gameAudioContext;
+
+  if (context.state !== "running") {
+    await context.resume().catch(() => {});
+  }
+
+  const buffer = await getDecodedSound("campfire");
+
+  if (!buffer || !campfireRequested || context.state !== "running" || campfireSource) {
+    return;
+  }
+
+  const source = context.createBufferSource();
+  const gain = context.createGain();
+  source.buffer = buffer;
+  source.loop = true;
+  gain.gain.value = CAMPFIRE_VOLUME;
+  source.connect(gain);
+  gain.connect(context.destination);
+  campfireSource = source;
+  campfireGain = gain;
+  source.addEventListener("ended", () => {
+    if (campfireSource === source) {
+      campfireSource = null;
+      campfireGain = null;
+    }
+
+    source.disconnect();
+    gain.disconnect();
+  }, { once: true });
+  source.start();
+}
+
 function stopMenuCampfireSound() {
+  campfireRequested = false;
   cancelCampfireFade();
-  menuCampfireSound.pause();
-  menuCampfireSound.currentTime = 0;
-  menuCampfireSound.volume = CAMPFIRE_VOLUME;
+
+  if (!campfireSource) {
+    return;
+  }
+
+  const source = campfireSource;
+  campfireSource = null;
+  campfireGain = null;
+
+  try {
+    source.stop();
+  } catch (error) {
+    // The source may already have ended.
+  }
 }
 
 function restoreCampfireSound() {
   cancelCampfireFade();
-  menuCampfireSound.volume = CAMPFIRE_VOLUME;
+
+  if (campfireGain && gameAudioContext) {
+    campfireGain.gain.cancelScheduledValues(gameAudioContext.currentTime);
+    campfireGain.gain.setValueAtTime(CAMPFIRE_VOLUME, gameAudioContext.currentTime);
+  }
 }
 
 function fadeOutCampfireSound(duration = CAMPFIRE_FADE_MS) {
   cancelCampfireFade();
 
-  if (menuCampfireSound.paused) {
+  if (!campfireSource || !campfireGain || !gameAudioContext) {
     stopMenuCampfireSound();
     return Promise.resolve();
   }
 
-  const startVolume = menuCampfireSound.volume;
-  const startTime = performance.now();
+  const now = gameAudioContext.currentTime;
+  campfireGain.gain.cancelScheduledValues(now);
+  campfireGain.gain.setValueAtTime(CAMPFIRE_VOLUME, now);
+  campfireGain.gain.linearRampToValueAtTime(0, now + duration / 1000);
 
   return new Promise((resolve) => {
-    function step(now) {
-      const progress = Math.min(1, (now - startTime) / duration);
-      menuCampfireSound.volume = startVolume * (1 - progress);
-
-      if (progress < 1) {
-        campfireFadeFrame = requestAnimationFrame(step);
-        return;
-      }
-
-      campfireFadeFrame = 0;
+    campfireFadeResolve = resolve;
+    campfireFadeTimer = window.setTimeout(() => {
+      const finishFade = campfireFadeResolve;
+      campfireFadeTimer = 0;
+      campfireFadeResolve = null;
       stopMenuCampfireSound();
-      resolve();
-    }
 
-    campfireFadeFrame = requestAnimationFrame(step);
+      if (finishFade) {
+        finishFade();
+      }
+    }, duration);
   });
 }
 
 function cancelCampfireFade() {
-  if (!campfireFadeFrame) {
-    return;
+  if (campfireFadeTimer) {
+    window.clearTimeout(campfireFadeTimer);
+    campfireFadeTimer = 0;
   }
 
-  cancelAnimationFrame(campfireFadeFrame);
-  campfireFadeFrame = 0;
-}
+  if (campfireGain && gameAudioContext) {
+    campfireGain.gain.cancelScheduledValues(gameAudioContext.currentTime);
+  }
 
-function playIntroThunderSound() {
-  introThunderSound.volume = INTRO_THUNDER_VOLUME;
-  restartSound(introThunderSound);
-}
-
-function prepareIntroThunderSound() {
-  introThunderSound.load();
+  if (campfireFadeResolve) {
+    const resolve = campfireFadeResolve;
+    campfireFadeResolve = null;
+    resolve();
+  }
 }
 
 function unlockMenuCampfireSound() {
-  syncMenuCampfireSound();
+  unlockGameAudio();
 }
 
 function finishIntroSound() {
   return fadeOutCampfireSound();
-}
-
-function restartSound(sound) {
-  sound.currentTime = 0;
-  sound.play().catch(() => {});
 }
