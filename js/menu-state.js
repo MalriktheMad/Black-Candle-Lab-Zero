@@ -129,7 +129,6 @@ function showIntroCard() {
   renderIntroCard();
   introCard.hidden = false;
   window.setTimeout(() => introCard.classList.add("is-thunder-zoom"), 20);
-  endIntroThunderSound();
   introStartButton.focus();
 }
 
@@ -211,10 +210,6 @@ function startGame(options = {}) {
   if (introCard) {
     introCard.hidden = true;
     introCard.classList.remove("is-ending", "is-thunder-zoom");
-  }
-
-  if (typeof stopIntroThunderSound === "function") {
-    stopIntroThunderSound();
   }
 
   if (typeof stopMenuCampfireSound === "function") {

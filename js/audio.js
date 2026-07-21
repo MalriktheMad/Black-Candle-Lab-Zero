@@ -47,7 +47,6 @@ document.addEventListener("pointerdown", unlockMenuCampfireSound, { capture: tru
 window.addEventListener("pageshow", syncMenuCampfireSound);
 watchStartMenuSoundState();
 syncMenuCampfireSound();
-introThunderSound.addEventListener("ended", stopIntroThunderSound);
 
 function playButtonSoundForControl(event) {
   const control = event.target.closest("button, a");
@@ -203,18 +202,7 @@ function unlockMenuCampfireSound() {
   syncMenuCampfireSound();
 }
 
-function endIntroThunderSound() {
-  stopIntroThunderSound();
-}
-
-function stopIntroThunderSound() {
-  introThunderSound.pause();
-  introThunderSound.currentTime = 0;
-  introThunderSound.volume = INTRO_THUNDER_VOLUME;
-}
-
 function finishIntroSound() {
-  stopIntroThunderSound();
   return fadeOutCampfireSound();
 }
 
