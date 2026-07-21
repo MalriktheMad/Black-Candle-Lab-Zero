@@ -16,12 +16,13 @@ const GAME_SOUNDS = {
   takeoff: { src: TAKEOFF_SOUND_SRC, volume: 0.72, maxVoices: 1 },
   lockTap: { src: LOCK_TAP_SOUND_SRC, volume: 0.72, maxVoices: 4 },
   campfire: { src: MENU_CAMPFIRE_SOUND_SRC, volume: CAMPFIRE_VOLUME, maxVoices: 1 },
-  introThunder: { src: INTRO_THUNDER_SOUND_SRC, volume: INTRO_THUNDER_VOLUME, maxVoices: 1 }
+  introThunder: { src: INTRO_THUNDER_SOUND_SRC, volume: INTRO_THUNDER_VOLUME, maxVoices: 1, fadeOutSeconds: 2.25 }
 };
 const rawSoundPromises = new Map();
 const decodedSoundPromises = new Map();
 const activeSoundVoices = new Map();
 let gameAudioContext = null;
+let gameAudioPrimed = false;
 let campfireSource = null;
 let campfireGain = null;
 let campfireStartPromise = null;
@@ -31,6 +32,7 @@ let campfireFadeResolve = null;
 
 preloadRawSounds();
 document.addEventListener("pointerdown", unlockGameAudio, { capture: true });
+document.addEventListener("touchend", unlockGameAudio, { capture: true, passive: true });
 document.addEventListener("pointerdown", playButtonSoundForControl, { capture: true });
 window.addEventListener("pageshow", syncMenuCampfireSound);
 watchStartMenuSoundState();
@@ -62,6 +64,8 @@ function unlockGameAudio() {
     return;
   }
 
+  primeGameAudioContext(context);
+
   const resume = context.state === "running"
     ? Promise.resolve()
     : context.resume().catch(() => {});
@@ -70,6 +74,24 @@ function unlockGameAudio() {
     preloadDecodedSounds();
     syncMenuCampfireSound();
   });
+}
+
+function primeGameAudioContext(context) {
+  if (gameAudioPrimed) {
+    return;
+  }
+
+  try {
+    const silentBuffer = context.createBuffer(1, 1, context.sampleRate);
+    const silentSource = context.createBufferSource();
+    silentSource.buffer = silentBuffer;
+    silentSource.connect(context.destination);
+    silentSource.addEventListener("ended", () => silentSource.disconnect(), { once: true });
+    silentSource.start();
+    gameAudioPrimed = true;
+  } catch (error) {
+    // A later user gesture can retry if this browser has not unlocked yet.
+  }
 }
 
 function getGameAudioContext() {
@@ -200,7 +222,16 @@ async function playBufferedSound(soundId, options = {}) {
   const gain = context.createGain();
   const voice = { source, gain, cleaned: false };
   source.buffer = buffer;
-  gain.gain.value = sound.volume;
+  const startTime = context.currentTime;
+  gain.gain.setValueAtTime(sound.volume, startTime);
+
+  if (sound.fadeOutSeconds) {
+    const fadeDuration = Math.min(sound.fadeOutSeconds, buffer.duration);
+    const fadeStartTime = startTime + buffer.duration - fadeDuration;
+    gain.gain.setValueAtTime(sound.volume, fadeStartTime);
+    gain.gain.linearRampToValueAtTime(0, startTime + buffer.duration);
+  }
+
   source.connect(gain);
   gain.connect(context.destination);
   voices.add(voice);
