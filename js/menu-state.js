@@ -24,6 +24,7 @@ const warmFireButton = document.getElementById("warm-fire");
 const newGameButton = document.getElementById("new-game");
 const continueGameButton = document.getElementById("continue-game");
 const clearSaveButton = document.getElementById("clear-save");
+const startMenuArtFrames = Array.from(document.querySelectorAll(".start-menu-art-frame"));
 const INTRO_SLIDES = [
   { title: "Black Candle Labs", credit: "Lead Developer,Writer,Animator Kevin Klinkert", subtitle: "presents" },
   { title: "Lab Zero", credit: "", subtitle: "" },
@@ -35,6 +36,7 @@ let introEnding = false;
 let introStarting = false;
 
 restoreGameState();
+prepareStartMenuArtwork();
 setupStartMenu();
 
 if (quickNav) {
@@ -50,6 +52,35 @@ if (quickNav) {
 }
 
 window.addEventListener("pagehide", saveGameState);
+
+function prepareStartMenuArtwork() {
+  if (!startMenu || startMenuArtFrames.length === 0) {
+    return;
+  }
+
+  startMenu.classList.remove("is-art-ready");
+
+  Promise.all(startMenuArtFrames.map(decodeStartMenuFrame))
+    .then(() => startMenu.classList.add("is-art-ready"))
+    .catch((error) => {
+      console.warn("The animated start-menu artwork could not be decoded. Using the stable first frame.", error);
+    });
+}
+
+function decodeStartMenuFrame(image) {
+  if (typeof image.decode === "function") {
+    return image.decode();
+  }
+
+  if (image.complete && image.naturalWidth > 0) {
+    return Promise.resolve();
+  }
+
+  return new Promise((resolve, reject) => {
+    image.addEventListener("load", resolve, { once: true });
+    image.addEventListener("error", reject, { once: true });
+  });
+}
 
 function setupStartMenu() {
   if (!startMenu || !introCard || !introTitle || !introCredit || !introSubtitle || !introStartButton || !warmFireButton || !newGameButton || !continueGameButton || !clearSaveButton) {
