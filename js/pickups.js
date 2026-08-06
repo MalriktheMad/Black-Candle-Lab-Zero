@@ -7,28 +7,20 @@ const DEFAULT_PICKUP_INVENTORY = {
 };
 
 const PICKUPS = [
-  makeSunflowerPickup("dilly-sunflower-1", 180, 360),
-  makeSunflowerPickup("dilly-sunflower-2", 170, 276),
-  makeSunflowerPickup("dilly-sunflower-3", 450, 350),
-  makeSunflowerPickup("dilly-sunflower-4", 470, 270),
-  makeSunflowerPickup("forest-sunflower-1", 895, 400),
-  makeSunflowerPickup("forest-sunflower-2", 678, 738),
-  makeSunflowerPickup("forest-sunflower-3", 292, 1032),
-  makeSunflowerPickup("forest-sunflower-4", 656, 1184),
-  makeSunflowerPickup("east-sunflower-1", 1654, 814),
-  makeSunflowerPickup("east-sunflower-2", 1834, 374),
-  makeSunflowerPickup("northeast-sunflower-1", 1804, 38),
-  makeMilletPickup("northeast-millet-1", 2012, 140),
-  makeMilletPickup("northeast-millet-2", 2072, 260),
-  makeMilletPickup("crickthicket-millet-1", 240, 890),
-  makeMilletPickup("crickthicket-millet-2", 550, 968),
-  makeMilletPickup("crickthicket-millet-3", 1856, 398),
-  makeMilletPickup("crickthicket-millet-4", 812, 596),
-  makeMilletPickup("crickthicket-millet-5", 2086, 1152),
-  makeMilletPickup("crickthicket-millet-6", 936, 442),
-  makeMilletPickup("crickthicket-millet-7", 158, 1186),
-  makeMilletPickup("crickthicket-millet-8", 316, 574),
-  makeMilletPickup("crickthicket-millet-9", 1586, 1160)
+  makeSunflowerPickup("crickthicket-sunflower-1", 319, 816),
+  makeSunflowerPickup("crickthicket-sunflower-2", 913, 420),
+  makeSunflowerPickup("crickthicket-sunflower-3", 1021, 675),
+  makeSunflowerPickup("crickthicket-sunflower-4", 1189, 525),
+  makeSunflowerPickup("crickthicket-sunflower-5", 1477, 1182),
+  makeSunflowerPickup("crickthicket-sunflower-6", 1882, 1119),
+  makeSunflowerPickup("crickthicket-sunflower-7", 2008, 735),
+  makeSunflowerPickup("crickthicket-sunflower-8", 2070, 516),
+  makeMilletPickup("crickthicket-millet-1", 336, 1062),
+  makeMilletPickup("crickthicket-millet-2", 386, 1164),
+  makeMilletPickup("crickthicket-millet-3", 446, 1061),
+  makeMilletPickup("crickthicket-millet-4", 509, 1139),
+  makeMilletPickup("crickthicket-millet-5", 552, 1036),
+  makeMilletPickup("crickthicket-millet-6", 816, 744)
 ];
 
 const pickupElements = new Map();
@@ -71,8 +63,8 @@ function installPickupStyles() {
   style.textContent = `
     .pickup {
       position: absolute;
-      width: 42px;
-      height: 42px;
+      width: 64px;
+      height: 64px;
       background-position: center;
       background-repeat: no-repeat;
       background-size: contain;

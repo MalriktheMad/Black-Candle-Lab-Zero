@@ -152,17 +152,17 @@
 }
 
 .lab-pc-monitor {
-  left: 466px;
-  top: 73px;
-  width: 71px;
-  height: 50px;
+  left: 414px;
+  top: 42px;
+  width: 200px;
+  height: 140px;
   background-image: url("../assets/sprites/characters/Terminal%20Core/terminal-core-clean1.png");
   animation: lab-core-idle 800ms steps(1, end) infinite;
 }
 
 .wing-master-cricket {
-  left: 427px;
-  top: 176px;
+  left: 472px;
+  top: 260px;
   width: 104px;
   height: 72px;
   background-image: url("../assets/sprites/characters/Wing%20Master%20Cricket/wing-master-cricket.png");
@@ -170,11 +170,11 @@
 }
 
 .candlewick-terminal {
-  left: 618px;
-  top: 69px;
-  width: 111px;
-  height: 106px;
-  background-image: url("../assets/sprites/characters/Candlewick/candlewick.png");
+  left: 664px;
+  top: 11px;
+  width: 200px;
+  height: 190px;
+  background-image: url("../assets/sprites/characters/Candlewick/candlewick1.png");
   animation: candlewick-idle 1200ms steps(1, end) infinite;
 }
 
@@ -190,10 +190,9 @@
 }
 
 @keyframes candlewick-idle {
-  0% { background-image: url("../assets/sprites/characters/Candlewick/candlewick.png"); }
-  25% { background-image: url("../assets/sprites/characters/Candlewick/candlewick1.png"); }
-  50% { background-image: url("../assets/sprites/characters/Candlewick/candlewick2.png"); }
-  75%, 100% { background-image: url("../assets/sprites/characters/Candlewick/candlewick3.png"); }
+  0% { background-image: url("../assets/sprites/characters/Candlewick/candlewick1.png"); }
+  33% { background-image: url("../assets/sprites/characters/Candlewick/candlewick2.png"); }
+  66%, 100% { background-image: url("../assets/sprites/characters/Candlewick/candlewick3.png"); }
 }
 
 .lab-stairs-up {

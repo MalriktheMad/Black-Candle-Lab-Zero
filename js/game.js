@@ -1067,18 +1067,15 @@ const TRANSITION_COOLDOWN = 0.45;
 const FLIGHT_TAKEOFF_MS = 380;
 const FLIGHT_LAND_MS = 320;
 const BLOCKED_TERRAIN = [
-  { name: "lab-zero-building", left: 1856, top: 552, right: 2252, bottom: 842 },
-  { name: "northeast-millet-1", left: 1988, top: 116, right: 2036, bottom: 164, flightPassable: true },
-  { name: "northeast-millet-2", left: 2048, top: 236, right: 2096, bottom: 284, flightPassable: true },
-  { name: "crickthicket-millet-1", left: 216, top: 866, right: 264, bottom: 914, flightPassable: true },
-  { name: "crickthicket-millet-2", left: 526, top: 944, right: 574, bottom: 992, flightPassable: true },
-  { name: "crickthicket-millet-3", left: 1832, top: 374, right: 1880, bottom: 422, flightPassable: true },
-  { name: "crickthicket-millet-4", left: 788, top: 572, right: 836, bottom: 620, flightPassable: true },
-  { name: "crickthicket-millet-5", left: 2062, top: 1128, right: 2110, bottom: 1176, flightPassable: true },
-  { name: "crickthicket-millet-6", left: 912, top: 418, right: 960, bottom: 466, flightPassable: true },
-  { name: "crickthicket-millet-7", left: 134, top: 1162, right: 182, bottom: 1210, flightPassable: true },
-  { name: "crickthicket-millet-8", left: 292, top: 550, right: 340, bottom: 598, flightPassable: true },
-  { name: "crickthicket-millet-9", left: 1562, top: 1136, right: 1610, bottom: 1184, flightPassable: true },
+  { name: "lab-zero-left", left: 257, top: 372, right: 509, bottom: 818 },
+  { name: "lab-zero-over-door", left: 509, top: 372, right: 627, bottom: 652 },
+  { name: "lab-zero-right", left: 627, top: 372, right: 932, bottom: 818 },
+  { name: "crickthicket-millet-1", left: 312, top: 1038, right: 360, bottom: 1086, flightPassable: true },
+  { name: "crickthicket-millet-2", left: 362, top: 1140, right: 410, bottom: 1188, flightPassable: true },
+  { name: "crickthicket-millet-3", left: 422, top: 1037, right: 470, bottom: 1085, flightPassable: true },
+  { name: "crickthicket-millet-4", left: 485, top: 1115, right: 533, bottom: 1163, flightPassable: true },
+  { name: "crickthicket-millet-5", left: 528, top: 1012, right: 576, bottom: 1060, flightPassable: true },
+  { name: "crickthicket-millet-6", left: 792, top: 720, right: 840, bottom: 768, flightPassable: true },
   { name: "water-000", left: 1024, top: 0, right: 1216, bottom: 32, flightPassable: true },
   { name: "water-001", left: 1024, top: 32, right: 1216, bottom: 64, flightPassable: true },
   { name: "water-002", left: 1056, top: 64, right: 1248, bottom: 96, flightPassable: true },
@@ -1151,9 +1148,9 @@ const BLOCKED_TERRAIN = [
 ];
 const LAB_BLOCKED_TERRAIN = [
   { name: "lab-furniture", left: 42, top: 361, right: 300, bottom: 594 },
-  { name: "lab-pc-monitor", left: 466, top: 73, right: 537, bottom: 123 },
-  { name: "wing-master-cricket", left: 427, top: 176, right: 531, bottom: 248 },
-  { name: "candlewick-workstation", left: 618, top: 69, right: 729, bottom: 175 }
+  { name: "lab-pc-monitor", left: 451, top: 73, right: 567, bottom: 182 },
+  { name: "wing-master-cricket", left: 482, top: 271, right: 567, bottom: 325 },
+  { name: "candlewick-workstation", left: 666, top: 15, right: 863, bottom: 201 }
 ];
 const BEDROOM_BLOCKED_TERRAIN = [];
 const DILLY_BLOCKED_TERRAIN = [
@@ -1162,7 +1159,7 @@ const DILLY_BLOCKED_TERRAIN = [
 ];
 const FOREST_BLOCKED_TERRAIN = [
   { name: "majira", left: 1193, top: 925, right: 1262, bottom: 1045 },
-  { name: "old-dilly-house", left: 2220, top: 2170, right: 2590, bottom: 2640 }
+  { name: "old-dilly-house", left: 2015, top: 61, right: 2785, bottom: 1042 }
 ];
 const FOREST_CANOPY_ROWS = [
   [0, [[0, 93]]],
@@ -1295,8 +1292,8 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
-      { left: 1940, top: 820, right: 2180, bottom: 900, to: "lab", entryX: 752, entryY: 456 },
-      { left: 2160, top: 120, right: 2350, bottom: 330, to: "forest", entryX: 2095, entryY: 2825 }
+      { left: 509, top: 650, right: 627, bottom: 850, to: "lab", entryX: 752, entryY: 456 },
+      { left: 2256, top: 12, right: 2400, bottom: 1753, to: "forest", entryX: 145, preserveY: true, snapToWalkable: true }
     ]
   },
   forest: {
@@ -1308,8 +1305,8 @@ const AREAS = {
     blocked: FOREST_BLOCKED_TERRAIN,
     canopyRows: FOREST_CANOPY_ROW_MAP,
     transitions: [
-      { left: 1980, top: 2865, right: 2195, bottom: 2976, to: "outside", entryX: 2240, entryY: 370 },
-      { left: 2325, top: 2640, right: 2485, bottom: 2715, to: "dilly", entryX: 748, entryY: 320 }
+      { left: 0, top: 24, right: 97, bottom: 2929, to: "outside", entryX: 2208, preserveY: true, snapToWalkable: true },
+      { left: 2310, top: 990, right: 2500, bottom: 1100, to: "dilly", entryX: 748, entryY: 320 }
     ]
   },
   lab: {
@@ -1320,7 +1317,7 @@ const AREAS = {
     target: interiorTarget,
     blocked: LAB_BLOCKED_TERRAIN,
     transitions: [
-      { left: 792, top: 488, right: 862, bottom: 565, to: "outside", entryX: 2060, entryY: 925 },
+      { left: 792, top: 488, right: 862, bottom: 565, to: "outside", entryX: 568, entryY: 860 },
       { left: 62, top: 45, right: 191, bottom: 159, to: "bedroom", entryX: 536, entryY: 232 }
     ]
   },
@@ -1343,7 +1340,7 @@ const AREAS = {
     target: dillyTarget,
     blocked: DILLY_BLOCKED_TERRAIN,
     transitions: [
-      { left: 792, top: 252, right: 874, bottom: 404, to: "forest", entryX: 2180, entryY: 2790 }
+      { left: 792, top: 252, right: 874, bottom: 404, to: "forest", entryX: 2405, entryY: 1120 }
     ]
   }
 };
@@ -1551,7 +1548,7 @@ function followPath(delta) {
   const transition = getTransition(nextX, nextY);
 
   if (transition && state.transitionCooldown === 0) {
-    enterArea(transition.to, transition.entryX, transition.entryY);
+    enterTransition(transition);
   } else if (isUiBlocked(nextX, nextY) || isTerrainBlocked(nextX, nextY)) {
     state.path = [];
     state.targetX = state.x;
@@ -1570,7 +1567,7 @@ function enterTransitionAtCurrentPosition() {
   const transition = getTransition(state.x, state.y);
 
   if (transition && state.transitionCooldown === 0) {
-    enterArea(transition.to, transition.entryX, transition.entryY);
+    enterTransition(transition);
   }
 }
 
@@ -1691,8 +1688,10 @@ function isAreaCanopyBlocked(worldX, worldY) {
   return Boolean(ranges && ranges.some(([left, right]) => cellX >= left && cellX <= right));
 }
 
-function isWalkablePoint(worldX, worldY) {
-  return !isTerrainBlocked(worldX, worldY) && worldX >= 24 && worldX <= getActiveArea().width - 24 && worldY >= 24 && worldY <= getActiveArea().height - 24;
+function isWalkablePoint(worldX, worldY, allowTransitions = true) {
+  const isInsideArea = worldX >= 24 && worldX <= getActiveArea().width - 24 && worldY >= 24 && worldY <= getActiveArea().height - 24;
+  const isTransition = allowTransitions && Boolean(getTransition(worldX, worldY));
+  return isInsideArea && (isTransition || !isTerrainBlocked(worldX, worldY));
 }
 
 function getTransition(worldX, worldY) {
@@ -1701,12 +1700,26 @@ function getTransition(worldX, worldY) {
   });
 }
 
-function enterArea(areaName, x, y) {
+function enterTransition(transition) {
+  const destination = AREAS[transition.to];
+  const entryY = transition.preserveY
+    ? clamp((state.y / getActiveArea().height) * destination.height, 24, destination.height - 24)
+    : transition.entryY;
+  enterArea(transition.to, transition.entryX, entryY, transition.snapToWalkable);
+}
+
+function enterArea(areaName, x, y, snapToWalkable = false) {
   const currentArea = getActiveArea();
   currentArea.target.classList.remove("visible");
   currentArea.element.hidden = true;
 
   state.area = areaName;
+  if (snapToWalkable) {
+    const entryCell = findNearestWalkableCell(worldToCell(x), worldToCell(y), false);
+    const safeEntry = entryCell && cellToWorld(entryCell.x, entryCell.y);
+    x = safeEntry ? safeEntry.x : x;
+    y = safeEntry ? safeEntry.y : y;
+  }
   state.x = x;
   state.y = y;
   state.targetX = x;
@@ -1842,13 +1855,13 @@ function findNearestWalkablePoint(worldX, worldY) {
   return cell ? cellToWorld(cell.x, cell.y) : null;
 }
 
-function findNearestWalkableCell(startX, startY) {
+function findNearestWalkableCell(startX, startY, allowTransitions = true) {
   const maxColumns = Math.ceil(getActiveArea().width / PATH_GRID_SIZE);
   const maxRows = Math.ceil(getActiveArea().height / PATH_GRID_SIZE);
   const originX = clamp(startX, 0, maxColumns - 1);
   const originY = clamp(startY, 0, maxRows - 1);
 
-  if (isWalkableCell(originX, originY)) {
+  if (isWalkableCell(originX, originY, allowTransitions)) {
     return makeCell(originX, originY);
   }
 
@@ -1859,7 +1872,7 @@ function findNearestWalkableCell(startX, startY) {
       for (let x = originX - radius; x <= originX + radius; x += 1) {
         const onEdge = x === originX - radius || x === originX + radius || y === originY - radius || y === originY + radius;
 
-        if (onEdge && isWalkableCell(x, y)) {
+        if (onEdge && isWalkableCell(x, y, allowTransitions)) {
           return makeCell(x, y);
         }
       }
@@ -1891,7 +1904,7 @@ function getNeighbors(cell) {
   }));
 }
 
-function isWalkableCell(cellX, cellY) {
+function isWalkableCell(cellX, cellY, allowTransitions = true) {
   const maxColumns = Math.ceil(getActiveArea().width / PATH_GRID_SIZE);
   const maxRows = Math.ceil(getActiveArea().height / PATH_GRID_SIZE);
 
@@ -1900,7 +1913,7 @@ function isWalkableCell(cellX, cellY) {
   }
 
   const point = cellToWorld(cellX, cellY);
-  return isWalkablePoint(point.x, point.y);
+  return isWalkablePoint(point.x, point.y, allowTransitions);
 }
 
 function makePathNode(x, y, parent, g, h) {
