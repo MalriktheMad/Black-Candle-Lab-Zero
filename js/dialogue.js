@@ -10,22 +10,22 @@ const dialogueProgressDefaults = {
   completedQuests: []
 };
 const cricketTalkZone = {
-  left: 470,
-  top: 50,
-  right: 635,
-  bottom: 210
+  left: 407,
+  top: 156,
+  right: 552,
+  bottom: 271
 };
 const labCoreTalkZone = {
-  left: 300,
-  top: 40,
-  right: 425,
-  bottom: 190
+  left: 446,
+  top: 53,
+  right: 557,
+  bottom: 143
 };
 const candlewickTalkZone = {
-  left: 650,
-  top: 36,
-  right: 870,
-  bottom: 220
+  left: 598,
+  top: 49,
+  right: 749,
+  bottom: 195
 };
 const oldDillyTalkZone = {
   left: 70,

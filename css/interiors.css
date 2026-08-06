@@ -152,27 +152,48 @@
 }
 
 .lab-pc-monitor {
-  left: 310px;
-  top: 50px;
-  width: 103px;
-  height: 123px;
-  background-image: url("../assets/sprites/characters/terminal-core-clean.png");
+  left: 466px;
+  top: 73px;
+  width: 71px;
+  height: 50px;
+  background-image: url("../assets/sprites/characters/Terminal%20Core/terminal-core-clean1.png");
+  animation: lab-core-idle 800ms steps(1, end) infinite;
 }
 
 .wing-master-cricket {
-  left: 492px;
-  top: 74px;
-  width: 117px;
-  height: 103px;
-  background-image: url("../assets/sprites/characters/wing-master-cricket.png");
+  left: 427px;
+  top: 176px;
+  width: 104px;
+  height: 72px;
+  background-image: url("../assets/sprites/characters/Wing%20Master%20Cricket/wing-master-cricket.png");
+  animation: wing-master-idle 900ms steps(1, end) infinite;
 }
 
 .candlewick-terminal {
-  left: 672px;
-  top: 52px;
-  width: 175px;
-  height: 135px;
-  background-image: url("../assets/sprites/characters/candlewick.svg");
+  left: 618px;
+  top: 69px;
+  width: 111px;
+  height: 106px;
+  background-image: url("../assets/sprites/characters/Candlewick/candlewick.png");
+  animation: candlewick-idle 1200ms steps(1, end) infinite;
+}
+
+@keyframes lab-core-idle {
+  0% { background-image: url("../assets/sprites/characters/Terminal%20Core/terminal-core-clean1.png"); }
+  50%, 100% { background-image: url("../assets/sprites/characters/Terminal%20Core/terminal-core-clean2.png"); }
+}
+
+@keyframes wing-master-idle {
+  0% { background-image: url("../assets/sprites/characters/Wing%20Master%20Cricket/wing-master-cricket.png"); }
+  33% { background-image: url("../assets/sprites/characters/Wing%20Master%20Cricket/Idle/WingMasterIdle1.png"); }
+  66%, 100% { background-image: url("../assets/sprites/characters/Wing%20Master%20Cricket/Idle/WingMasterIdle2.png"); }
+}
+
+@keyframes candlewick-idle {
+  0% { background-image: url("../assets/sprites/characters/Candlewick/candlewick.png"); }
+  25% { background-image: url("../assets/sprites/characters/Candlewick/candlewick1.png"); }
+  50% { background-image: url("../assets/sprites/characters/Candlewick/candlewick2.png"); }
+  75%, 100% { background-image: url("../assets/sprites/characters/Candlewick/candlewick3.png"); }
 }
 
 .lab-stairs-up {
