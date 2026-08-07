@@ -21,6 +21,7 @@ const BEDROOM_CAGE_BREAKOUT_PROMPTS = [
   "Almost out."
 ];
 let bedroomCageBreakoutTaps = 0;
+let bedroomCageBreakoutReady = false;
 let openingControlsTutorialActive = false;
 
 function playOpeningBedroomDialogue() {
@@ -180,7 +181,7 @@ function isBedroomCageBreakoutPending() {
 }
 
 function handleBedroomCageBreakoutPointer(event) {
-  if (state.area !== "bedroom" || sessionStorage.getItem(OPENING_BEDROOM_DIALOGUE_KEY)) {
+  if (!bedroomCageBreakoutReady || state.area !== "bedroom" || sessionStorage.getItem(OPENING_BEDROOM_DIALOGUE_KEY)) {
     return false;
   }
 
@@ -223,6 +224,8 @@ function placeLittleWingInBedroomCage() {
   state.path = [];
   state.zoom = BEDROOM_CAGE_ZOOM;
   bedroomCageBreakoutTaps = 0;
+  bedroomCageBreakoutReady = false;
+  hideBedroomCagePrompt();
   closeBedroomCageDoor();
 
   initializeAreaVisibility();
@@ -261,11 +264,13 @@ function moveLittleWingOutOfBedroomCage() {
 function showBedroomCagePrompt() {
   const prompt = getBedroomCagePrompt();
   bedroomCageBreakoutTaps = 0;
+  bedroomCageBreakoutReady = true;
   updateBedroomCagePrompt();
   prompt.hidden = false;
 }
 
 function hideBedroomCagePrompt() {
+  bedroomCageBreakoutReady = false;
   const prompt = document.querySelector(".bedroom-cage-prompt");
 
   if (prompt) {

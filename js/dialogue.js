@@ -98,7 +98,7 @@ function handleDialoguePointer(event) {
     return;
   }
 
-  if (event.target.closest(".readout, .quick-nav, .zoom-controls, .flight-controls, .dialogue-box, .start-menu, .opening-wake-fade")) {
+  if (event.target.closest(".readout, .quick-nav, .zoom-controls, .flight-controls, .dialogue-box, .start-menu, .intro-card, .opening-wake-fade")) {
     return;
   }
 

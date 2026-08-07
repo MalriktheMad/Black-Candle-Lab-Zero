@@ -31,9 +31,11 @@ const INTRO_SLIDES = [
   { title: "A Budgie RPG", credit: "", subtitle: "" }
 ];
 const INTRO_MENU_ZOOM_DURATION = 6635;
+const INTRO_SLIDE_DURATION = 5000;
 let introSlideIndex = 0;
 let introEnding = false;
 let introStarting = false;
+let introSlideTimer = 0;
 
 restoreGameState();
 prepareStartMenuArtwork();
@@ -98,14 +100,12 @@ function setupStartMenu() {
   startMenu.hidden = false;
   startMenu.classList.remove("is-warmed");
 
-  warmFireButton.addEventListener("pointerdown", warmFireAndShowMenu);
   warmFireButton.addEventListener("click", warmFireAndShowMenu);
   newGameButton.addEventListener("pointerdown", beginNewGameIntro);
   newGameButton.addEventListener("click", beginNewGameIntro);
 
   continueGameButton.addEventListener("click", () => startGame({ playOpening: false }));
 
-  introCard.addEventListener("click", advanceIntroCard);
   introStartButton.addEventListener("click", advanceIntroCard);
 
   clearSaveButton.addEventListener("pointerup", handleClearSave);
@@ -161,6 +161,7 @@ function showIntroCard() {
   introCard.hidden = false;
   window.setTimeout(() => introCard.classList.add("is-thunder-zoom"), 20);
   introStartButton.focus();
+  scheduleIntroSlideAdvance();
 }
 
 async function advanceIntroCard(event) {
@@ -176,6 +177,7 @@ async function advanceIntroCard(event) {
   if (introSlideIndex < INTRO_SLIDES.length - 1) {
     introSlideIndex += 1;
     renderIntroCard();
+    scheduleIntroSlideAdvance();
     return;
   }
 
@@ -184,6 +186,7 @@ async function advanceIntroCard(event) {
   }
 
   introEnding = true;
+  clearIntroSlideTimer();
   introStartButton.disabled = true;
 
   if (typeof prepareOpeningWakeFade === "function") {
@@ -203,6 +206,28 @@ function renderIntroCard() {
   introSubtitle.textContent = slide.subtitle;
   introStartButton.hidden = introSlideIndex < INTRO_SLIDES.length - 1;
   introStartButton.textContent = "Start";
+}
+
+function scheduleIntroSlideAdvance() {
+  clearIntroSlideTimer();
+
+  if (introSlideIndex >= INTRO_SLIDES.length - 1) {
+    return;
+  }
+
+  introSlideTimer = window.setTimeout(() => {
+    introSlideTimer = 0;
+    advanceIntroCard();
+  }, INTRO_SLIDE_DURATION);
+}
+
+function clearIntroSlideTimer() {
+  if (!introSlideTimer) {
+    return;
+  }
+
+  window.clearTimeout(introSlideTimer);
+  introSlideTimer = 0;
 }
 
 function hasSavedGame() {
@@ -228,6 +253,7 @@ function clearSavedGame() {
 
 function startGame(options = {}) {
   const shouldPlayOpening = options.playOpening !== false;
+  clearIntroSlideTimer();
 
   if (shouldPlayOpening && typeof prepareOpeningWakeFade === "function") {
     prepareOpeningWakeFade();
