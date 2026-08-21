@@ -20,17 +20,19 @@ const PICKUPS = [
   makeMilletPickup("crickthicket-millet-3", 446, 1061),
   makeMilletPickup("crickthicket-millet-4", 509, 1139),
   makeMilletPickup("crickthicket-millet-5", 552, 1036),
-  makeMilletPickup("crickthicket-millet-6", 816, 744)
+  // This plant sits inside the enlarged Lab Zero footprint, so it is collected from the nearest walkable edge.
+  makeMilletPickup("crickthicket-millet-6", 816, 744, 110)
 ];
 
 const pickupElements = new Map();
+let collectedPickupIds = new Set(getCollectedPickups());
 let pickupToastTimeout;
 
 installPickupStyles();
 placePickups();
 requestAnimationFrame(checkPickups);
 
-function makeSunflowerPickup(id, x, y) {
+function makeSunflowerPickup(id, x, y, collectRadius = 48) {
   return {
     id,
     area: "outside",
@@ -39,12 +41,12 @@ function makeSunflowerPickup(id, x, y) {
     itemId: "sunflowerSeeds",
     amount: 1,
     label: "Sunflower Seeds",
-    collectRadius: 34,
+    collectRadius,
     className: "sunflower-pickup"
   };
 }
 
-function makeMilletPickup(id, x, y) {
+function makeMilletPickup(id, x, y, collectRadius = 64) {
   return {
     id,
     area: "outside",
@@ -53,7 +55,7 @@ function makeMilletPickup(id, x, y) {
     itemId: "milletSeeds",
     amount: 1,
     label: "Millet Seeds",
-    collectRadius: 58,
+    collectRadius,
     className: "millet-pickup"
   };
 }
@@ -110,12 +112,10 @@ function installPickupStyles() {
 }
 
 function placePickups() {
-  const collected = getCollectedPickups();
-
   PICKUPS.forEach((pickup) => {
     const area = AREAS[pickup.area];
 
-    if (!area) {
+    if (!area || collectedPickupIds.has(pickup.id)) {
       return;
     }
 
@@ -124,10 +124,6 @@ function placePickups() {
     element.style.left = `${pickup.x}px`;
     element.style.top = `${pickup.y}px`;
     element.setAttribute("aria-label", pickup.label);
-
-    if (collected.includes(pickup.id)) {
-      element.classList.add("collected");
-    }
 
     area.element.append(element);
     pickupElements.set(pickup.id, element);
@@ -140,35 +136,45 @@ function checkPickups() {
     return;
   }
 
-  const collected = getCollectedPickups();
-
   PICKUPS.forEach((pickup) => {
-    if (pickup.area !== state.area || collected.includes(pickup.id)) {
+    if (pickup.area !== state.area || collectedPickupIds.has(pickup.id)) {
       return;
     }
 
     const distance = Math.hypot(state.x - pickup.x, state.y - pickup.y);
 
     if (distance <= pickup.collectRadius) {
-      collectPickup(pickup, collected);
+      collectPickup(pickup);
     }
   });
 
   requestAnimationFrame(checkPickups);
 }
 
-function collectPickup(pickup, collected) {
-  collected.push(pickup.id);
-  sessionStorage.setItem(PICKUP_STORAGE_KEY, JSON.stringify(collected));
+function collectPickup(pickup) {
+  collectedPickupIds.add(pickup.id);
+  sessionStorage.setItem(PICKUP_STORAGE_KEY, JSON.stringify([...collectedPickupIds]));
 
   const element = pickupElements.get(pickup.id);
 
   if (element) {
-    element.classList.add("collected");
+    element.remove();
+    pickupElements.delete(pickup.id);
   }
 
   addPickupItem(pickup.itemId, pickup.amount);
   showPickupToast(`Found ${pickup.label} x${pickup.amount}`);
+}
+
+function isPickupCollected(pickupId) {
+  return collectedPickupIds.has(pickupId);
+}
+
+function resetPickupState() {
+  pickupElements.forEach((element) => element.remove());
+  pickupElements.clear();
+  collectedPickupIds = new Set();
+  placePickups();
 }
 
 function addPickupItem(itemId, amount) {

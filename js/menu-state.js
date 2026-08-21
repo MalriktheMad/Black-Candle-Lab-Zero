@@ -249,6 +249,10 @@ function clearSavedGame() {
     sessionStorage.removeItem(key);
     localStorage.removeItem(key);
   });
+
+  if (typeof resetPickupState === "function") {
+    resetPickupState();
+  }
 }
 
 function startGame(options = {}) {

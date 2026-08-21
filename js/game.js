@@ -1070,12 +1070,12 @@ const BLOCKED_TERRAIN = [
   { name: "lab-zero-left", left: 257, top: 372, right: 509, bottom: 818 },
   { name: "lab-zero-over-door", left: 509, top: 372, right: 627, bottom: 652 },
   { name: "lab-zero-right", left: 627, top: 372, right: 932, bottom: 818 },
-  { name: "crickthicket-millet-1", left: 312, top: 1038, right: 360, bottom: 1086, flightPassable: true },
-  { name: "crickthicket-millet-2", left: 362, top: 1140, right: 410, bottom: 1188, flightPassable: true },
-  { name: "crickthicket-millet-3", left: 422, top: 1037, right: 470, bottom: 1085, flightPassable: true },
-  { name: "crickthicket-millet-4", left: 485, top: 1115, right: 533, bottom: 1163, flightPassable: true },
-  { name: "crickthicket-millet-5", left: 528, top: 1012, right: 576, bottom: 1060, flightPassable: true },
-  { name: "crickthicket-millet-6", left: 792, top: 720, right: 840, bottom: 768, flightPassable: true },
+  { name: "crickthicket-millet-1", pickupId: "crickthicket-millet-1", left: 312, top: 1038, right: 360, bottom: 1086, flightPassable: true },
+  { name: "crickthicket-millet-2", pickupId: "crickthicket-millet-2", left: 362, top: 1140, right: 410, bottom: 1188, flightPassable: true },
+  { name: "crickthicket-millet-3", pickupId: "crickthicket-millet-3", left: 422, top: 1037, right: 470, bottom: 1085, flightPassable: true },
+  { name: "crickthicket-millet-4", pickupId: "crickthicket-millet-4", left: 485, top: 1115, right: 533, bottom: 1163, flightPassable: true },
+  { name: "crickthicket-millet-5", pickupId: "crickthicket-millet-5", left: 528, top: 1012, right: 576, bottom: 1060, flightPassable: true },
+  { name: "crickthicket-millet-6", pickupId: "crickthicket-millet-6", left: 792, top: 720, right: 840, bottom: 768, flightPassable: true },
   { name: "water-000", left: 1024, top: 0, right: 1216, bottom: 32, flightPassable: true },
   { name: "water-001", left: 1024, top: 32, right: 1216, bottom: 64, flightPassable: true },
   { name: "water-002", left: 1056, top: 64, right: 1248, bottom: 96, flightPassable: true },
@@ -1669,6 +1669,9 @@ function isTerrainBlocked(worldX, worldY) {
   }
 
   return getActiveArea().blocked.some((rect) => {
+    if (rect.pickupId && typeof isPickupCollected === "function" && isPickupCollected(rect.pickupId)) {
+      return false;
+    }
     if (rect.flightPassable && state.flightMode) {
       return false;
     }
