@@ -162,8 +162,8 @@ function collectPickup(pickup) {
     pickupElements.delete(pickup.id);
   }
 
-  addPickupItem(pickup.itemId, pickup.amount);
-  showPickupToast(`Found ${pickup.label} x${pickup.amount}`);
+  const itemTotal = addPickupItem(pickup.itemId, pickup.amount);
+  showPickupToast(`Found ${pickup.label} x${itemTotal}`);
 }
 
 function isPickupCollected(pickupId) {
@@ -180,12 +180,13 @@ function resetPickupState() {
 function addPickupItem(itemId, amount) {
   if (typeof addInventoryItem === "function") {
     addInventoryItem(itemId, amount);
-    return;
+    return typeof getInventoryItemCount === "function" ? getInventoryItemCount(itemId) : amount;
   }
 
   const inventory = getPickupInventory();
   inventory[itemId] = Math.max(0, (inventory[itemId] || 0) + amount);
   sessionStorage.setItem(PICKUP_INVENTORY_KEY, JSON.stringify(inventory));
+  return inventory[itemId];
 }
 
 function getPickupInventory() {
