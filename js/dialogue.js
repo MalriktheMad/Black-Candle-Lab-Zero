@@ -1,14 +1,4 @@
 const dialogueStage = document.getElementById("stage");
-const dialogueInventoryDefaults = {
-  sunflowerSeeds: 0,
-  milletSeeds: 0,
-  cig: 1
-};
-const dialogueProgressDefaults = {
-  level: 1,
-  hp: 100,
-  completedQuests: []
-};
 const cricketTalkZone = {
   left: 452,
   top: 240,
@@ -211,53 +201,6 @@ function startDialogue(lines) {
   dialogueState.onComplete = typeof lines.onComplete === "function" ? lines.onComplete : null;
   dialogueBox.hidden = false;
   showDialogueLine();
-}
-
-function addDialogueInventoryItem(itemId, amount = 1) {
-  if (typeof addInventoryItem === "function") {
-    addInventoryItem(itemId, amount);
-    return;
-  }
-
-  const inventory = getDialogueInventory();
-  inventory[itemId] = Math.max(0, (inventory[itemId] || 0) + amount);
-  sessionStorage.setItem("lab-zero-inventory", JSON.stringify(inventory));
-}
-
-function getDialogueInventory() {
-  const savedInventory = sessionStorage.getItem("lab-zero-inventory");
-
-  if (!savedInventory) {
-    return { ...dialogueInventoryDefaults };
-  }
-
-  try {
-    return {
-      ...dialogueInventoryDefaults,
-      ...JSON.parse(savedInventory)
-    };
-  } catch (error) {
-    return { ...dialogueInventoryDefaults };
-  }
-}
-
-function getDialogueProgress() {
-  const savedProgress = sessionStorage.getItem("lab-zero-player-progress");
-
-  if (!savedProgress) {
-    return { ...dialogueProgressDefaults };
-  }
-
-  try {
-    const progress = JSON.parse(savedProgress);
-    return {
-      ...dialogueProgressDefaults,
-      ...progress,
-      completedQuests: Array.isArray(progress.completedQuests) ? progress.completedQuests : []
-    };
-  } catch (error) {
-    return { ...dialogueProgressDefaults };
-  }
 }
 
 function cricketLine(text) {

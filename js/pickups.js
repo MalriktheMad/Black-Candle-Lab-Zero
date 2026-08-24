@@ -1,10 +1,4 @@
 const PICKUP_STORAGE_KEY = "lab-zero-collected-pickups";
-const PICKUP_INVENTORY_KEY = "lab-zero-inventory";
-const DEFAULT_PICKUP_INVENTORY = {
-  sunflowerSeeds: 0,
-  milletSeeds: 0,
-  cig: 1
-};
 
 const PICKUPS = [
   makeSunflowerPickup("crickthicket-sunflower-1", 319, 816),
@@ -178,32 +172,8 @@ function resetPickupState() {
 }
 
 function addPickupItem(itemId, amount) {
-  if (typeof addInventoryItem === "function") {
-    addInventoryItem(itemId, amount);
-    return typeof getInventoryItemCount === "function" ? getInventoryItemCount(itemId) : amount;
-  }
-
-  const inventory = getPickupInventory();
-  inventory[itemId] = Math.max(0, (inventory[itemId] || 0) + amount);
-  sessionStorage.setItem(PICKUP_INVENTORY_KEY, JSON.stringify(inventory));
-  return inventory[itemId];
-}
-
-function getPickupInventory() {
-  const savedInventory = sessionStorage.getItem(PICKUP_INVENTORY_KEY);
-
-  if (!savedInventory) {
-    return { ...DEFAULT_PICKUP_INVENTORY };
-  }
-
-  try {
-    return {
-      ...DEFAULT_PICKUP_INVENTORY,
-      ...JSON.parse(savedInventory)
-    };
-  } catch (error) {
-    return { ...DEFAULT_PICKUP_INVENTORY };
-  }
+  addInventoryItem(itemId, amount);
+  return getInventoryItemCount(itemId);
 }
 
 function getCollectedPickups() {

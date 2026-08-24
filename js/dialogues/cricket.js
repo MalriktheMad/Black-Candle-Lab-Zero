@@ -89,52 +89,17 @@ function completeCricketSeedTraining() {
 }
 
 function hasCricketSeed() {
-  if (typeof hasInventoryItem === "function") {
-    return hasInventoryItem(CRICKET_SEED_ITEM_ID);
-  }
-
-  return getDialogueInventory()[CRICKET_SEED_ITEM_ID] > 0;
+  return hasInventoryItem(CRICKET_SEED_ITEM_ID);
 }
 
 function removeCricketSeed() {
-  if (typeof removeInventoryItem === "function") {
-    return removeInventoryItem(CRICKET_SEED_ITEM_ID, 1);
-  }
-
-  const inventory = getDialogueInventory();
-
-  if ((inventory[CRICKET_SEED_ITEM_ID] || 0) <= 0) {
-    return false;
-  }
-
-  inventory[CRICKET_SEED_ITEM_ID] -= 1;
-  sessionStorage.setItem("lab-zero-inventory", JSON.stringify(inventory));
-  return true;
+  return removeInventoryItem(CRICKET_SEED_ITEM_ID, 1);
 }
 
 function markCricketSeedQuestComplete() {
-  if (typeof completeQuest === "function") {
-    completeQuest(CRICKET_SEED_QUEST_ID);
-    return;
-  }
-
-  const progress = getDialogueProgress();
-
-  if (!progress.completedQuests.includes(CRICKET_SEED_QUEST_ID)) {
-    progress.completedQuests.push(CRICKET_SEED_QUEST_ID);
-  }
-
-  sessionStorage.setItem("lab-zero-player-progress", JSON.stringify(progress));
+  completeQuest(CRICKET_SEED_QUEST_ID);
 }
 
 function raiseLittleWingLevel() {
-  if (typeof levelUpPlayer === "function") {
-    levelUpPlayer(1);
-    return;
-  }
-
-  const progress = getDialogueProgress();
-  progress.level += 1;
-  progress.hp = 100 + (progress.level - 1) * 50;
-  sessionStorage.setItem("lab-zero-player-progress", JSON.stringify(progress));
+  levelUpPlayer(1);
 }

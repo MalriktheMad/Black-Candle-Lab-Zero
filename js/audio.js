@@ -444,10 +444,6 @@ function cancelCampfireFade() {
   }
 }
 
-function unlockMenuCampfireSound() {
-  unlockGameAudio();
-}
-
 function finishIntroSound() {
   return fadeOutCampfireSound();
 }

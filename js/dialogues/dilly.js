@@ -26,6 +26,6 @@ function giveOldDillyTreat() {
     return;
   }
 
-  addDialogueInventoryItem(OLD_DILLY_TREAT_ITEM_ID, 1);
+  addInventoryItem(OLD_DILLY_TREAT_ITEM_ID, 1);
   sessionStorage.setItem(OLD_DILLY_TREAT_KEY, "true");
 }

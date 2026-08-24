@@ -19,11 +19,13 @@ function getPlayerProgress() {
   try {
     const progress = JSON.parse(savedProgress);
     const level = Math.max(1, progress.level || STARTING_PLAYER_PROGRESS.level);
+    const maxHp = getMaxHpForLevel(level);
+    const savedHp = Number.isFinite(progress.hp) ? progress.hp : maxHp;
     return {
       ...STARTING_PLAYER_PROGRESS,
       ...progress,
       level,
-      hp: getHpForLevel(level),
+      hp: clampPlayerHp(savedHp, maxHp),
       completedQuests: Array.isArray(progress.completedQuests) ? progress.completedQuests : []
     };
   } catch (error) {
@@ -34,22 +36,54 @@ function getPlayerProgress() {
 
 function savePlayerProgress(progress) {
   const level = Math.max(1, progress.level || STARTING_PLAYER_PROGRESS.level);
+  const maxHp = getMaxHpForLevel(level);
   sessionStorage.setItem(PLAYER_PROGRESS_STORAGE_KEY, JSON.stringify({
     ...STARTING_PLAYER_PROGRESS,
     ...progress,
     level,
-    hp: getHpForLevel(level)
+    hp: clampPlayerHp(progress.hp, maxHp)
   }));
 }
 
-function getHpForLevel(level) {
+function getMaxHpForLevel(level) {
   return BASE_PLAYER_HP + (Math.max(1, level) - 1) * HP_PER_LEVEL;
+}
+
+function clampPlayerHp(hp, maxHp) {
+  const numericHp = Number.isFinite(hp) ? hp : maxHp;
+  return Math.max(0, Math.min(maxHp, numericHp));
+}
+
+function getPlayerMaxHp() {
+  return getMaxHpForLevel(getPlayerProgress().level);
+}
+
+function setPlayerHp(hp) {
+  const progress = getPlayerProgress();
+  progress.hp = clampPlayerHp(hp, getMaxHpForLevel(progress.level));
+  savePlayerProgress(progress);
+  syncPlayerProgressReadout();
+  return progress.hp;
+}
+
+function damagePlayer(amount) {
+  const damage = Math.max(0, Number(amount) || 0);
+  return setPlayerHp(getPlayerProgress().hp - damage);
+}
+
+function healPlayer(amount) {
+  const healing = Math.max(0, Number(amount) || 0);
+  return setPlayerHp(getPlayerProgress().hp + healing);
+}
+
+function isPlayerDefeated() {
+  return getPlayerProgress().hp <= 0;
 }
 
 function setPlayerLevel(level) {
   const progress = getPlayerProgress();
   progress.level = Math.max(1, level);
-  progress.hp = getHpForLevel(progress.level);
+  progress.hp = getMaxHpForLevel(progress.level);
   savePlayerProgress(progress);
   syncPlayerProgressReadout();
 }
