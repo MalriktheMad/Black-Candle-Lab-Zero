@@ -26,7 +26,7 @@ const continueGameButton = document.getElementById("continue-game");
 const clearSaveButton = document.getElementById("clear-save");
 const startMenuArtFrames = Array.from(document.querySelectorAll(".start-menu-art-frame"));
 const INTRO_SLIDES = [
-  { title: "Black Candle Labs", credit: "Lead Developer,Writer,Animator Kevin Klinkert", subtitle: "presents" },
+  { title: "Black Candle Labs", credit: "Lead Developer Kevin Klinkert", subtitle: "presents" },
   { title: "Lab Zero", credit: "", subtitle: "" },
   { title: "A Budgie RPG", credit: "", subtitle: "" }
 ];
