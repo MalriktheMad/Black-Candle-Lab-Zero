@@ -72,14 +72,17 @@
 }
 
 .player.is-taking-off .pixel-bird {
+  background-image: url("../assets/sprites/characters/LittlewingV2.5/Takeoff/takeoff1.png");
   animation: little-wing-takeoff 380ms steps(1, end) 1 forwards;
 }
 
 .player.is-flying .pixel-bird {
+  background-image: url("../assets/sprites/characters/LittlewingV2.5/Flight/flight1.png");
   animation: little-wing-fly 650ms steps(1, end) infinite;
 }
 
 .player.is-landing .pixel-bird {
+  background-image: url("../assets/sprites/characters/LittlewingV2.5/Landing/landing1.png");
   animation: little-wing-land 320ms steps(1, end) 1 forwards;
 }
 

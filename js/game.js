@@ -1066,6 +1066,34 @@ const SAND_CELLS = new Set([
 const TRANSITION_COOLDOWN = 0.45;
 const FLIGHT_TAKEOFF_MS = 380;
 const FLIGHT_LAND_MS = 320;
+const LITTLE_WING_V25_FRAME_SOURCES = [
+  "assets/sprites/characters/LittlewingV2.5/Idle/idle2.png",
+  "assets/sprites/characters/LittlewingV2.5/Idle/idle3.png",
+  "assets/sprites/characters/LittlewingV2.5/Idle/idle5.png",
+  "assets/sprites/characters/LittlewingV2.5/Walk/walk1.png",
+  "assets/sprites/characters/LittlewingV2.5/Walk/walk2.png",
+  "assets/sprites/characters/LittlewingV2.5/Walk/walk3.png",
+  "assets/sprites/characters/LittlewingV2.5/Walk/walk4.png",
+  "assets/sprites/characters/LittlewingV2.5/Takeoff/takeoff1.png",
+  "assets/sprites/characters/LittlewingV2.5/Takeoff/takeoff2.png",
+  "assets/sprites/characters/LittlewingV2.5/Takeoff/takeoff3.png",
+  "assets/sprites/characters/LittlewingV2.5/Takeoff/takeoff4.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/flight1.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/flight2.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/flight3.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/flight4.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/flight5.png",
+  "assets/sprites/characters/LittlewingV2.5/Landing/landing1.png",
+  "assets/sprites/characters/LittlewingV2.5/Landing/landing2.png",
+  "assets/sprites/characters/LittlewingV2.5/Landing/landing3.png",
+  "assets/sprites/characters/LittlewingV2.5/Landing/landing4.png"
+];
+const littleWingV25Preloads = LITTLE_WING_V25_FRAME_SOURCES.map((source) => {
+  const image = new Image();
+  image.decoding = "async";
+  image.src = source;
+  return image;
+});
 const BLOCKED_TERRAIN = [
   { name: "lab-zero-left", left: 257, top: 372, right: 509, bottom: 818 },
   { name: "lab-zero-over-door", left: 509, top: 372, right: 627, bottom: 652 },
