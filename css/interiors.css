@@ -67,7 +67,7 @@
 }
 
 .bedroom-cage-art:not(.is-open) {
-  z-index: 6;
+  z-index: 8;
 }
 
 .lab-transition-layer,
