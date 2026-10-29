@@ -172,13 +172,12 @@
 }
 
 .wing-master-cricket {
-  left: 472px;
-  top: 260px;
+  left: 706px;
+  top: 750px;
   width: 104px;
   height: 72px;
   background-image: url("../assets/sprites/characters/Wing%20Master%20Cricket/wing-master-cricket.png");
   animation: wing-master-idle 900ms steps(1, end) infinite;
-  display: none;
 }
 
 .candlewick-terminal {

@@ -1182,6 +1182,7 @@ const LAB_BLOCKED_TERRAIN = [
   { name: "lab-top-wall-middle", left: 361, top: 0, right: 789, bottom: 350 },
   { name: "lab-top-wall-right", left: 985, top: 0, right: 1465, bottom: 350 },
   { name: "lab-desk", left: 327, top: 464, right: 707, bottom: 728, flightPassable: true },
+  { name: "wing-master-cricket", left: 716, top: 761, right: 801, bottom: 815 },
   { name: "candlewick-workstation", left: 1200, top: 567, right: 1400, bottom: 757 }
 ];
 const BEDROOM_BLOCKED_TERRAIN = [

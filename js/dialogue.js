@@ -1,9 +1,9 @@
 const dialogueStage = document.getElementById("stage");
 const cricketTalkZone = {
-  left: -1,
-  top: -1,
-  right: -1,
-  bottom: -1
+  left: 686,
+  top: 730,
+  right: 830,
+  bottom: 842
 };
 const labCoreTalkZone = {
   left: -1,
