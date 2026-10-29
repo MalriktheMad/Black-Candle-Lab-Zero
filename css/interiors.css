@@ -162,13 +162,12 @@
 }
 
 .lab-pc-monitor {
-  left: 414px;
-  top: 42px;
+  left: 1245px;
+  top: 613px;
   width: 200px;
   height: 140px;
   background-image: url("../assets/sprites/characters/Terminal%20Core/terminal-core-clean1.png");
   animation: lab-core-idle 800ms steps(1, end) infinite;
-  display: none;
 }
 
 .wing-master-cricket {
@@ -181,8 +180,8 @@
 }
 
 .candlewick-terminal {
-  left: 1200px;
-  top: 567px;
+  left: 1092px;
+  top: 559px;
   width: 200px;
   height: 190px;
   background-image: url("../assets/sprites/characters/Candlewick/candlewick1.png");

@@ -6,16 +6,16 @@ const cricketTalkZone = {
   bottom: 842
 };
 const labCoreTalkZone = {
-  left: -1,
-  top: -1,
-  right: -1,
-  bottom: -1
+  left: 1292,
+  top: 593,
+  right: 1428,
+  bottom: 773
 };
 const candlewickTalkZone = {
-  left: 1180,
-  top: 547,
-  right: 1420,
-  bottom: 777
+  left: 1072,
+  top: 539,
+  right: 1291,
+  bottom: 769
 };
 const oldDillyTalkZone = {
   left: 70,
