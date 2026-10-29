@@ -6,8 +6,8 @@ const LAB_WIDTH = 920;
 const LAB_HEIGHT = 620;
 const DILLY_WIDTH = 880;
 const DILLY_HEIGHT = 640;
-const BEDROOM_WIDTH = 820;
-const BEDROOM_HEIGHT = 560;
+const BEDROOM_WIDTH = 1517;
+const BEDROOM_HEIGHT = 1037;
 const MIN_ZOOM = 0.5;
 const MAX_ZOOM = 2;
 const ZOOM_STEP = 0.25;
@@ -1152,7 +1152,15 @@ const LAB_BLOCKED_TERRAIN = [
   { name: "wing-master-cricket", left: 482, top: 271, right: 567, bottom: 325 },
   { name: "candlewick-workstation", left: 666, top: 15, right: 863, bottom: 201 }
 ];
-const BEDROOM_BLOCKED_TERRAIN = [];
+const BEDROOM_BLOCKED_TERRAIN = [
+  { name: "bedroom-top-wall", left: 0, top: 0, right: 1517, bottom: 184 },
+  { name: "bedroom-left-wall", left: 0, top: 0, right: 66, bottom: 1037 },
+  { name: "bedroom-right-wall", left: 1452, top: 0, right: 1517, bottom: 1037 },
+  { name: "bedroom-bottom-wall", left: 0, top: 980, right: 1517, bottom: 1037 },
+  { name: "bedroom-cage", left: 104, top: 24, right: 430, bottom: 416, flightPassable: true },
+  { name: "bedroom-bed", left: 105, top: 585, right: 350, bottom: 970, flightPassable: true },
+  { name: "bedroom-table", left: 900, top: 126, right: 1418, bottom: 410, flightPassable: true }
+];
 const DILLY_BLOCKED_TERRAIN = [
   { name: "old-dilly", left: 90, top: 152, right: 213, bottom: 296 },
   { name: "liz", left: 267, top: 158, right: 432, bottom: 314 }
@@ -1318,7 +1326,7 @@ const AREAS = {
     blocked: LAB_BLOCKED_TERRAIN,
     transitions: [
       { left: 792, top: 488, right: 862, bottom: 565, to: "outside", entryX: 568, entryY: 860 },
-      { left: 62, top: 45, right: 191, bottom: 159, to: "bedroom", entryX: 536, entryY: 232 }
+      { left: 62, top: 45, right: 191, bottom: 159, to: "bedroom", entryX: 1190, entryY: 840 }
     ]
   },
   bedroom: {
@@ -1329,7 +1337,7 @@ const AREAS = {
     target: bedroomTarget,
     blocked: BEDROOM_BLOCKED_TERRAIN,
     transitions: [
-      { left: 570, top: 32, right: 740, bottom: 204, to: "lab", entryX: 210, entryY: 184 }
+      { left: 1244, top: 708, right: 1493, bottom: 1013, to: "lab", entryX: 210, entryY: 184 }
     ]
   },
   dilly: {
@@ -1347,10 +1355,10 @@ const AREAS = {
 
 const state = {
   area: "bedroom",
-  x: 138,
-  y: 162,
-  targetX: 138,
-  targetY: 162,
+  x: 258,
+  y: 292,
+  targetX: 258,
+  targetY: 292,
   path: [],
   speed: 260,
   zoom: DEFAULT_ZOOM,
@@ -1458,6 +1466,10 @@ function changeZoom(amount) {
 }
 
 function toggleFlightMode() {
+  if (isGamePausedForDialogue() || isMovementLockedForBedroomCage()) {
+    return;
+  }
+
   if (state.flightPhase === "taking-off" || state.flightPhase === "landing") {
     return;
   }

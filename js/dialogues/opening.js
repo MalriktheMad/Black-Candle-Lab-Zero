@@ -4,15 +4,15 @@ const OPENING_CONTROLS_TUTORIAL_KEY = "lab-zero-opening-controls-tutorial";
 const BEDROOM_CAGE_ZOOM = 1.35;
 const OPENING_WAKE_DARK_HOLD = 300;
 const OPENING_WAKE_FADE_DURATION = 2600;
-const BEDROOM_CAGE_START_X = 138;
-const BEDROOM_CAGE_START_Y = 162;
-const BEDROOM_CAGE_EXIT_X = 270;
-const BEDROOM_CAGE_EXIT_Y = 258;
+const BEDROOM_CAGE_START_X = 258;
+const BEDROOM_CAGE_START_Y = 292;
+const BEDROOM_CAGE_EXIT_X = 470;
+const BEDROOM_CAGE_EXIT_Y = 440;
 const BEDROOM_CAGE_BREAKOUT_ZONE = {
-  left: 112,
-  top: 118,
-  right: 224,
-  bottom: 248
+  left: 104,
+  top: 24,
+  right: 430,
+  bottom: 416
 };
 const BEDROOM_CAGE_BREAKOUT_TAPS = 4;
 const BEDROOM_CAGE_BREAKOUT_PROMPTS = [

@@ -17,8 +17,8 @@
 }
 
 .bedroom-interior {
-  width: 820px;
-  height: 560px;
+  width: 1517px;
+  height: 1037px;
 }
 
 .lab-floor,
@@ -48,7 +48,7 @@
 .bedroom-furniture-layer,
 .bedroom-cage-art,
 .bedroom-transition-layer {
-  background-size: 820px 560px;
+  background-size: 1517px 1037px;
 }
 
 .lab-floor,
@@ -92,26 +92,26 @@
 }
 
 .bedroom-floor {
-  background-image: url("../assets/sprites/environment/map-layers/Bedroom/floor.png");
+  background-image: url("../assets/sprites/environment/map-layers/Bedroom/RoomFloorandwalls.png");
 }
 
 .bedroom-furniture-layer {
-  background-image: url("../assets/sprites/environment/map-layers/Bedroom/furniture.png");
+  background-image: none;
 }
 
 .bedroom-cage-art {
   inset: auto;
-  left: 27px;
-  top: 18px;
-  width: 200px;
-  height: 200px;
-  background-size: 200px 200px;
-  background-image: url("../assets/sprites/environment/map-layers/Bedroom/cage/cage1.png");
+  left: 104px;
+  top: 24px;
+  width: 326px;
+  height: 392px;
+  background-size: 326px 392px;
+  background-image: url("../assets/sprites/environment/map-layers/Bedroom/cage/CageClosed.png");
 }
 
 .bedroom-cage-art.is-open {
   z-index: 3;
-  background-image: url("../assets/sprites/environment/map-layers/Bedroom/cage/cage2.png");
+  background-image: url("../assets/sprites/environment/map-layers/Bedroom/cage/CageOpen.png");
 }
 
 .bedroom-transition-layer {
@@ -213,10 +213,11 @@
 }
 
 .bedroom-ladder {
-  left: 606px;
-  top: 60px;
-  width: 60px;
-  height: 100px;
+  left: 1244px;
+  top: 708px;
+  width: 273px;
+  height: 329px;
   z-index: 4;
-  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/transitions/ladder.png");
+  background-size: 100% 100%;
+  background-image: url("../assets/sprites/environment/map-layers/Bedroom/transition/Stairs.png");
 }
