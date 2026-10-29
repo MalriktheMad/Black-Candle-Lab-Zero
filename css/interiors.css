@@ -80,7 +80,7 @@
 }
 
 .lab-furniture-layer {
-  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/furniture.png");
+  background-image: none;
 }
 
 .lab-npcs-layer {
