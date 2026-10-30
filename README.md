@@ -39,6 +39,7 @@ Run the state regression check with Node before deploying:
 
 ```text
 node tests/state-smoke.js
+node tests/interiors-smoke.js
 ```
 
 ## Map artwork workflow
