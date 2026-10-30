@@ -2,12 +2,8 @@ const WORLD_WIDTH = 2400;
 const WORLD_HEIGHT = 1800;
 const FOREST_WIDTH = 3000;
 const FOREST_HEIGHT = 3000;
-const LAB_WIDTH = 1517;
-const LAB_HEIGHT = 1037;
 const DILLY_WIDTH = 880;
 const DILLY_HEIGHT = 640;
-const BEDROOM_WIDTH = 1517;
-const BEDROOM_HEIGHT = 1037;
 const MIN_ZOOM = 0.5;
 const MAX_ZOOM = 2;
 const ZOOM_STEP = 0.25;
@@ -1174,27 +1170,6 @@ const BLOCKED_TERRAIN = [
   { name: "water-067", left: 0, top: 1760, right: 2400, bottom: 1792, flightPassable: true },
   { name: "water-068", left: 0, top: 1792, right: 2400, bottom: 1824, flightPassable: true },
 ];
-const LAB_BLOCKED_TERRAIN = [
-  { name: "lab-left-wall", left: 0, top: 0, right: 52, bottom: 1037 },
-  { name: "lab-right-wall", left: 1465, top: 0, right: 1517, bottom: 1037 },
-  { name: "lab-bottom-wall", left: 0, top: 968, right: 1517, bottom: 1037 },
-  { name: "lab-top-wall-left", left: 52, top: 0, right: 183, bottom: 350 },
-  { name: "lab-top-wall-middle", left: 361, top: 0, right: 789, bottom: 350 },
-  { name: "lab-top-wall-right", left: 985, top: 0, right: 1465, bottom: 350 },
-  { name: "lab-desk", left: 327, top: 464, right: 707, bottom: 728, flightPassable: true },
-  { name: "wing-master-cricket", left: 716, top: 761, right: 801, bottom: 815 },
-  { name: "candlewick-workstation", left: 1092, top: 559, right: 1292, bottom: 749 },
-  { name: "lab-core", left: 1292, top: 644, right: 1408, bottom: 753 }
-];
-const BEDROOM_BLOCKED_TERRAIN = [
-  { name: "bedroom-top-wall", left: 0, top: 0, right: 1517, bottom: 184 },
-  { name: "bedroom-left-wall", left: 0, top: 0, right: 66, bottom: 1037 },
-  { name: "bedroom-right-wall", left: 1452, top: 0, right: 1517, bottom: 1037 },
-  { name: "bedroom-bottom-wall", left: 0, top: 980, right: 1517, bottom: 1037 },
-  { name: "bedroom-cage", left: 104, top: 24, right: 430, bottom: 416, flightPassable: true },
-  { name: "bedroom-bed", left: 105, top: 585, right: 350, bottom: 970, flightPassable: true },
-  { name: "bedroom-table", left: 900, top: 126, right: 1418, bottom: 410, flightPassable: true }
-];
 const DILLY_BLOCKED_TERRAIN = [
   { name: "old-dilly", left: 90, top: 152, right: 213, bottom: 296 },
   { name: "liz", left: 267, top: 158, right: 432, bottom: 314 }
@@ -1352,27 +1327,22 @@ const AREAS = {
     ]
   },
   lab: {
-    width: LAB_WIDTH,
-    height: LAB_HEIGHT,
+    width: INTERIOR_LAYOUTS.lab.width,
+    height: INTERIOR_LAYOUTS.lab.height,
     element: labInterior,
     player: interiorPlayer,
     target: interiorTarget,
-    blocked: LAB_BLOCKED_TERRAIN,
-    transitions: [
-      { left: 789, top: 102, right: 985, bottom: 313, to: "outside", entryX: 568, entryY: 860 },
-      { left: 183, top: 66, right: 361, bottom: 277, to: "bedroom", entryX: 1190, entryY: 840 }
-    ]
+    blocked: INTERIOR_LAYOUTS.lab.blocked,
+    transitions: INTERIOR_LAYOUTS.lab.transitions
   },
   bedroom: {
-    width: BEDROOM_WIDTH,
-    height: BEDROOM_HEIGHT,
+    width: INTERIOR_LAYOUTS.bedroom.width,
+    height: INTERIOR_LAYOUTS.bedroom.height,
     element: bedroomInterior,
     player: bedroomPlayer,
     target: bedroomTarget,
-    blocked: BEDROOM_BLOCKED_TERRAIN,
-    transitions: [
-      { left: 1244, top: 708, right: 1493, bottom: 1013, to: "lab", entryX: 270, entryY: 330 }
-    ]
+    blocked: INTERIOR_LAYOUTS.bedroom.blocked,
+    transitions: INTERIOR_LAYOUTS.bedroom.transitions
   },
   dilly: {
     width: DILLY_WIDTH,
@@ -1405,6 +1375,7 @@ const state = {
   lastTime: performance.now()
 };
 
+applyInteriorLayouts();
 initializeAreaVisibility();
 placePlayer();
 placeTarget();

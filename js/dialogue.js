@@ -1,22 +1,7 @@
 const dialogueStage = document.getElementById("stage");
-const cricketTalkZone = {
-  left: 686,
-  top: 730,
-  right: 830,
-  bottom: 842
-};
-const labCoreTalkZone = {
-  left: 1292,
-  top: 593,
-  right: 1428,
-  bottom: 773
-};
-const candlewickTalkZone = {
-  left: 1072,
-  top: 539,
-  right: 1291,
-  bottom: 769
-};
+const cricketTalkZone = INTERIOR_LAYOUTS.lab.talkZones.cricket;
+const labCoreTalkZone = INTERIOR_LAYOUTS.lab.talkZones.labCore;
+const candlewickTalkZone = INTERIOR_LAYOUTS.lab.talkZones.candlewick;
 const oldDillyTalkZone = {
   left: 70,
   top: 132,

@@ -11,24 +11,9 @@
   will-change: transform;
 }
 
-.lab-interior {
-  width: 1517px;
-  height: 1037px;
-}
-
-.bedroom-interior {
-  width: 1517px;
-  height: 1037px;
-}
-
 .lab-floor,
-.lab-furniture-layer,
-.lab-npcs-layer,
-.lab-transition-layer,
 .bedroom-floor,
-.bedroom-furniture-layer,
-.bedroom-cage-art,
-.bedroom-transition-layer {
+.bedroom-cage-art {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -37,18 +22,9 @@
   image-rendering: pixelated;
 }
 
-.lab-floor,
-.lab-furniture-layer,
-.lab-npcs-layer,
-.lab-transition-layer {
-  background-size: 1517px 1037px;
-}
-
 .bedroom-floor,
-.bedroom-furniture-layer,
-.bedroom-cage-art,
-.bedroom-transition-layer {
-  background-size: 1517px 1037px;
+.lab-floor {
+  background-size: 100% 100%;
 }
 
 .lab-floor,
@@ -56,12 +32,6 @@
   z-index: 1;
 }
 
-.lab-furniture-layer,
-.bedroom-furniture-layer {
-  z-index: 2;
-}
-
-.lab-npcs-layer,
 .bedroom-cage-art {
   z-index: 3;
 }
@@ -70,41 +40,16 @@
   z-index: 8;
 }
 
-.lab-transition-layer,
-.bedroom-transition-layer {
-  z-index: 4;
-}
-
 .lab-floor {
   background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/Floor%20One/FloorOne.png");
-}
-
-.lab-furniture-layer {
-  background-image: none;
-}
-
-.lab-npcs-layer {
-  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/NPCs.png");
-}
-
-.lab-transition-layer {
-  background-image: none;
 }
 
 .bedroom-floor {
   background-image: url("../assets/sprites/environment/map-layers/Bedroom/RoomFloorandwalls.png");
 }
 
-.bedroom-furniture-layer {
-  background-image: none;
-}
-
 .bedroom-cage-art {
   inset: auto;
-  left: 104px;
-  top: 24px;
-  width: 326px;
-  height: 392px;
   background-size: 326px 392px;
   background-image: url("../assets/sprites/environment/map-layers/Bedroom/cage/CageClosed.png");
 }
@@ -112,10 +57,6 @@
 .bedroom-cage-art.is-open {
   z-index: 3;
   background-image: url("../assets/sprites/environment/map-layers/Bedroom/cage/CageOpen.png");
-}
-
-.bedroom-transition-layer {
-  background-image: url("../assets/sprites/environment/map-layers/Bedroom/transition/transition.png");
 }
 
 .lab-interior .target,
@@ -128,13 +69,6 @@
   z-index: 7;
 }
 
-
-/* Planning layers are kept in the repo for coordinates, but hidden in-game. */
-.lab-npcs-layer,
-.lab-transition-layer,
-.bedroom-transition-layer {
-  display: none;
-}
 
 .lab-pc-monitor,
 .wing-master-cricket,
@@ -153,37 +87,21 @@
 }
 
 .lab-desk {
-  left: 327px;
-  top: 464px;
-  width: 380px;
-  height: 264px;
   background-size: 100% 100%;
   background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/Floor%20One/objects/desk.png");
 }
 
 .lab-pc-monitor {
-  left: 1245px;
-  top: 613px;
-  width: 200px;
-  height: 140px;
   background-image: url("../assets/sprites/characters/Terminal%20Core/terminal-core-clean1.png");
   animation: lab-core-idle 800ms steps(1, end) infinite;
 }
 
 .wing-master-cricket {
-  left: 706px;
-  top: 750px;
-  width: 104px;
-  height: 72px;
   background-image: url("../assets/sprites/characters/Wing%20Master%20Cricket/wing-master-cricket.png");
   animation: wing-master-idle 900ms steps(1, end) infinite;
 }
 
 .candlewick-terminal {
-  left: 1092px;
-  top: 559px;
-  width: 200px;
-  height: 190px;
   background-image: url("../assets/sprites/characters/Candlewick/candlewick1.png");
   animation: candlewick-idle 1200ms steps(1, end) infinite;
 }
@@ -206,25 +124,10 @@
 }
 
 .lab-stairs-up {
-  left: 183px;
-  top: 66px;
-  width: 178px;
-  height: 211px;
   z-index: 4;
 }
 
-.lab-exit-door {
-  left: 789px;
-  top: 102px;
-  width: 196px;
-  height: 211px;
-}
-
 .bedroom-ladder {
-  left: 1244px;
-  top: 708px;
-  width: 273px;
-  height: 329px;
   z-index: 4;
   background-size: 100% 100%;
   background-image: url("../assets/sprites/environment/map-layers/Bedroom/transition/Stairs.png");
