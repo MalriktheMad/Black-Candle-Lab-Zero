@@ -179,7 +179,6 @@ const AREAS = {
     blocked: [],
     collisionGridSize: OUTSIDE_LAYOUT.collisionGridSize,
     collisionLayers: OUTSIDE_LAYOUT.collisionLayers,
-    walkableZones: OUTSIDE_LAYOUT.walkableZones,
     transitions: OUTSIDE_LAYOUT.transitions
   },
   forest: {
@@ -567,10 +566,6 @@ function isAreaCollisionLayerBlocked(worldX, worldY) {
     if (layer.flightPassable && state.flightMode) {
       return false;
     }
-    if (layer.walkableZone && isPointInWalkableZone(worldX, worldY, area.walkableZones?.[layer.walkableZone])) {
-      return false;
-    }
-
     const ranges = layer.rows.get(cellY);
     return Boolean(ranges && ranges.some(([left, right]) => cellX >= left && cellX <= right));
   });

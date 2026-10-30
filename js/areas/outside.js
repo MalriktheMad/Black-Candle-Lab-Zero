@@ -29,7 +29,6 @@ const OUTSIDE_LAYOUT = {
     {
       name: "terrain",
       flightPassable: true,
-      walkableZone: "riverLogs",
       rows: new Map([
         [0, [[0, 21], [63, 84]]],
         [1, [[0, 22], [24, 25], [63, 84]]],
@@ -88,17 +87,6 @@ const OUTSIDE_LAYOUT = {
       ])
     }
   ],
-  walkableZones: {
-    riverLogs: {
-      padding: 16,
-      polygons: [
-        [[2120, 425], [2475, 365], [2510, 420], [2160, 485]],
-        [[1900, 655], [2165, 515], [2200, 565], [1940, 710]],
-        [[1870, 1150], [2295, 1310], [2260, 1370], [1840, 1210]],
-        [[1575, 1530], [1900, 1450], [1930, 1510], [1600, 1605]]
-      ]
-    }
-  },
   transitions: [
     { left: 650, top: 580, right: 850, bottom: 880, to: "lab", entryX: 887, entryY: 360 },
     { left: 2630, top: 24, right: 2720, bottom: 1688, to: "forest", entryX: 145, preserveY: true, snapToWalkable: true }
@@ -147,56 +135,4 @@ function applyOutsideRect(element, rect, includePosition = true) {
 
   element.style.width = `${rect.width}px`;
   element.style.height = `${rect.height}px`;
-}
-
-function isPointInWalkableZone(worldX, worldY, zone) {
-  const polygons = Array.isArray(zone) ? zone : zone?.polygons || [];
-  const padding = Array.isArray(zone) ? 0 : zone?.padding || 0;
-
-  return polygons.some((polygon) => {
-    return isPointInPolygon(worldX, worldY, polygon)
-      || (padding > 0 && getDistanceToPolygon(worldX, worldY, polygon) <= padding);
-  });
-}
-
-function isPointInPolygon(worldX, worldY, polygon) {
-  let inside = false;
-
-  for (let current = 0, previous = polygon.length - 1; current < polygon.length; previous = current++) {
-    const [currentX, currentY] = polygon[current];
-    const [previousX, previousY] = polygon[previous];
-    const crossesRay = (currentY > worldY) !== (previousY > worldY)
-      && worldX < ((previousX - currentX) * (worldY - currentY)) / (previousY - currentY) + currentX;
-    if (crossesRay) {
-      inside = !inside;
-    }
-  }
-
-  return inside;
-}
-
-function getDistanceToPolygon(worldX, worldY, polygon) {
-  let shortestDistance = Infinity;
-
-  for (let current = 0, previous = polygon.length - 1; current < polygon.length; previous = current++) {
-    shortestDistance = Math.min(
-      shortestDistance,
-      getDistanceToSegment(worldX, worldY, polygon[previous], polygon[current])
-    );
-  }
-
-  return shortestDistance;
-}
-
-function getDistanceToSegment(worldX, worldY, start, end) {
-  const deltaX = end[0] - start[0];
-  const deltaY = end[1] - start[1];
-  const lengthSquared = deltaX * deltaX + deltaY * deltaY;
-  const unclampedProjection = lengthSquared === 0
-    ? 0
-    : ((worldX - start[0]) * deltaX + (worldY - start[1]) * deltaY) / lengthSquared;
-  const projection = Math.max(0, Math.min(1, unclampedProjection));
-  const nearestX = start[0] + projection * deltaX;
-  const nearestY = start[1] + projection * deltaY;
-  return Math.hypot(worldX - nearestX, worldY - nearestY);
 }

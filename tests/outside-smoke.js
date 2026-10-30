@@ -26,28 +26,24 @@ assert.equal(evaluate("OUTSIDE_LAYOUT.pickups.length"), 15);
 assert.equal(evaluate("OUTSIDE_LAYOUT.pickups.filter(({ type }) => type === 'sunflower').length"), 9);
 assert.equal(evaluate("OUTSIDE_LAYOUT.pickups.filter(({ type }) => type === 'millet').length"), 6);
 assert.deepEqual(Array.from(evaluate("OUTSIDE_LAYOUT.transitions.map(({ to }) => to)")), ["lab", "forest"]);
-assert.equal(evaluate("OUTSIDE_LAYOUT.walkableZones.riverLogs.polygons.length"), 4);
-assert.equal(evaluate("OUTSIDE_LAYOUT.walkableZones.riverLogs.padding"), 16);
 assert.equal(evaluate("OUTSIDE_LAYOUT.collisionLayers[1].name"), "terrain");
 assert.equal(
-  evaluate("isPointInWalkableZone(2300, 420, OUTSIDE_LAYOUT.walkableZones.riverLogs)"),
+  evaluate("OUTSIDE_LAYOUT.collisionLayers[1].flightPassable"),
   true,
-  "the upper river log must be walkable"
+  "flight must pass over exterior terrain"
 );
 assert.equal(
-  evaluate("isPointInWalkableZone(2120, 410, OUTSIDE_LAYOUT.walkableZones.riverLogs)"),
+  evaluate("OUTSIDE_LAYOUT.collisionLayers[1].rows.get(13).some(([left, right]) => 71 >= left && 71 <= right)"),
   true,
-  "bridge padding must connect the log to its bank"
+  "river logs must remain ground obstacles"
 );
 
-assert.equal(
+assert.deepEqual(
+  Array.from(
   evaluate(`(() => {
     const gridSize = OUTSIDE_LAYOUT.collisionGridSize;
     const columns = Math.ceil(OUTSIDE_LAYOUT.width / gridSize);
     const rows = Math.ceil(OUTSIDE_LAYOUT.height / gridSize);
-    const start = [Math.floor(800 / gridSize), Math.floor(930 / gridSize)];
-    const queue = [start];
-    const visited = new Set([start.join(",")]);
 
     function isTransitionPoint(worldX, worldY) {
       return OUTSIDE_LAYOUT.transitions.some((transition) => {
@@ -56,7 +52,12 @@ assert.equal(
       });
     }
 
-    function isBlocked(cellX, cellY) {
+    function canReachForest(isFlying) {
+      const start = [Math.floor(800 / gridSize), Math.floor(930 / gridSize)];
+      const queue = [start];
+      const visited = new Set([start.join(",")]);
+
+      function isBlocked(cellX, cellY) {
       const worldX = cellX * gridSize + gridSize / 2;
       const worldY = cellY * gridSize + gridSize / 2;
       if (isTransitionPoint(worldX, worldY)) {
@@ -64,42 +65,45 @@ assert.equal(
       }
 
       return OUTSIDE_LAYOUT.collisionLayers.some((layer) => {
-        if (layer.walkableZone
-          && isPointInWalkableZone(worldX, worldY, OUTSIDE_LAYOUT.walkableZones[layer.walkableZone])) {
+        if (layer.flightPassable && isFlying) {
           return false;
         }
         const ranges = layer.rows.get(cellY);
         return Boolean(ranges && ranges.some(([left, right]) => cellX >= left && cellX <= right));
       });
-    }
-
-    while (queue.length) {
-      const [cellX, cellY] = queue.shift();
-      const worldX = cellX * gridSize + gridSize / 2;
-      const worldY = cellY * gridSize + gridSize / 2;
-      const forestTransition = OUTSIDE_LAYOUT.transitions[1];
-      if (worldX >= forestTransition.left && worldX <= forestTransition.right
-        && worldY >= forestTransition.top && worldY <= forestTransition.bottom) {
-        return true;
       }
 
-      for (const [deltaX, deltaY] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
-        const nextX = cellX + deltaX;
-        const nextY = cellY + deltaY;
-        const key = nextX + "," + nextY;
-        if (nextX < 0 || nextX >= columns || nextY < 0 || nextY >= rows
-          || visited.has(key) || isBlocked(nextX, nextY)) {
-          continue;
+      while (queue.length) {
+        const [cellX, cellY] = queue.shift();
+        const worldX = cellX * gridSize + gridSize / 2;
+        const worldY = cellY * gridSize + gridSize / 2;
+        const forestTransition = OUTSIDE_LAYOUT.transitions[1];
+        if (worldX >= forestTransition.left && worldX <= forestTransition.right
+          && worldY >= forestTransition.top && worldY <= forestTransition.bottom) {
+          return true;
         }
-        visited.add(key);
-        queue.push([nextX, nextY]);
+
+        for (const [deltaX, deltaY] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+          const nextX = cellX + deltaX;
+          const nextY = cellY + deltaY;
+          const key = nextX + "," + nextY;
+          if (nextX < 0 || nextX >= columns || nextY < 0 || nextY >= rows
+            || visited.has(key) || isBlocked(nextX, nextY)) {
+            continue;
+          }
+          visited.add(key);
+          queue.push([nextX, nextY]);
+        }
       }
+
+      return false;
     }
 
-    return false;
+    return [canReachForest(false), canReachForest(true)];
   })()`),
-  true,
-  "the Lab Zero landing must remain connected to the east forest transition"
+  ),
+  [false, true],
+  "the forest route must require flight across the river"
 );
 
 for (const layer of evaluate("OUTSIDE_LAYOUT.collisionLayers")) {
