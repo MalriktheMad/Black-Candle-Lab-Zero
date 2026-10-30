@@ -1,97 +1,36 @@
-/* Exterior map layers exported from the MapLayers source artwork. */
-.forest-floor,
-.map-layer {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 2400px;
-  height: 1800px;
-  pointer-events: none;
-  background-position: 0 0;
-  background-repeat: no-repeat;
-  background-size: 2400px 1800px;
-  image-rendering: pixelated;
-}
-
-.forest-floor {
-  z-index: 1;
-  background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Grass/grass.png");
-}
-
-
-.forest-floor::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.72;
-  background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Grass/grasscover1.png");
-  background-position: 0 0;
-  background-repeat: repeat;
-  background-size: 64px 64px;
-  image-rendering: pixelated;
-  animation: grass-sway 900ms steps(1, end) infinite;
-}
-
-@keyframes grass-sway {
-  0% { background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Grass/grasscover1.png"); }
-  33% { background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Grass/grasscover2.png"); }
-  66% { background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Grass/grasscover3.png"); }
-}
-
-.map-water {
-  z-index: 2;
-  background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Water/water.png");
-  animation: water-current 1200ms steps(1, end) infinite;
-}
-
-.flight-animation-active .forest-floor::after {
-  animation-play-state: paused;
-}
-
-@keyframes water-current {
-  0% { background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Water/water.png"); }
-  33% { background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Water/water1.png"); }
-  66% { background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Water/water2.png"); }
-  100% { background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Water/water3.png"); }
-}
-
-.map-sand {
-  z-index: 3;
-  background-image: url("../../assets/sprites/environment/map-layers/crickthicket/sand.png");
-}
-
-
-.world .player:not(.on-sand):not(.is-flying):not(.is-taking-off):not(.is-landing):not(.is-moving) .pixel-bird {
-  left: 0;
-  top: 0;
-  width: 64px;
-  height: 64px;
-  background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Grass/littlewing-grass.png");
-  animation: none;
-}
-
-.tree {
-  width: 64px;
-  height: 96px;
-  background: url("../../assets/sprites/environment/trees/tree-small.png") center bottom / contain no-repeat;
-  box-shadow: none;
-  image-rendering: pixelated;
-}
+/* Cricket Thicket rebuild: one base, one animated river, and one building. */
+.cricket-thicket-base,
+.cricket-thicket-river,
 .map-building {
   position: absolute;
   pointer-events: none;
-  background-position: center bottom;
+  background-position: 0 0;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 100% 100%;
   image-rendering: pixelated;
+}
+
+.cricket-thicket-base {
+  z-index: 1;
+  background-image: url("../../assets/sprites/environment/map-layers/crick-thicket/CricketThicket.png");
+}
+
+.cricket-thicket-river {
+  z-index: 2;
+  background-image: url("../../assets/sprites/environment/map-layers/crick-thicket/river/CricketThicketRiver1.png");
+  animation: cricket-thicket-river 900ms steps(1, end) infinite;
+}
+
+@keyframes cricket-thicket-river {
+  0%, 32.999% { background-image: url("../../assets/sprites/environment/map-layers/crick-thicket/river/CricketThicketRiver1.png"); }
+  33%, 65.999% { background-image: url("../../assets/sprites/environment/map-layers/crick-thicket/river/CricketThicketRiver2.png"); }
+  66%, 100% { background-image: url("../../assets/sprites/environment/map-layers/crick-thicket/river/CricketThicketRiver3.png"); }
+}
+
+.map-building {
   z-index: 6;
 }
 
 .lab-zero-building {
-  left: 72px;
-  top: 152px;
-  width: 1000px;
-  height: 738px;
-  background-image: url("../../assets/sprites/environment/map-layers/crickthicket/Transitions/LabZerov2.png");
+  background-image: url("../../assets/sprites/environment/map-layers/crick-thicket/LabZero.png");
 }

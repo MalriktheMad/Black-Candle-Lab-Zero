@@ -24,7 +24,7 @@ const INTERIOR_LAYOUTS = {
       { name: "lab-core", left: 1292, top: 644, right: 1408, bottom: 753 }
     ],
     transitions: [
-      { left: 789, top: 102, right: 985, bottom: 313, to: "outside", entryX: 568, entryY: 860 },
+      { left: 789, top: 102, right: 985, bottom: 313, to: "outside", entryX: 800, entryY: 930 },
       { left: 183, top: 66, right: 361, bottom: 277, to: "bedroom", entryX: 1190, entryY: 840 }
     ],
     talkZones: {

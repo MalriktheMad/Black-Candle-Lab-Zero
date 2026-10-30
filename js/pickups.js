@@ -1,22 +1,10 @@
 const PICKUP_STORAGE_KEY = "lab-zero-collected-pickups";
 
-const PICKUPS = [
-  makeSunflowerPickup("crickthicket-sunflower-1", 319, 816),
-  makeSunflowerPickup("crickthicket-sunflower-2", 913, 420),
-  makeSunflowerPickup("crickthicket-sunflower-3", 1021, 675),
-  makeSunflowerPickup("crickthicket-sunflower-4", 1189, 525),
-  makeSunflowerPickup("crickthicket-sunflower-5", 1477, 1182),
-  makeSunflowerPickup("crickthicket-sunflower-6", 1882, 1119),
-  makeSunflowerPickup("crickthicket-sunflower-7", 2008, 735),
-  makeSunflowerPickup("crickthicket-sunflower-8", 2070, 516),
-  makeMilletPickup("crickthicket-millet-1", 336, 1062),
-  makeMilletPickup("crickthicket-millet-2", 386, 1164),
-  makeMilletPickup("crickthicket-millet-3", 446, 1061),
-  makeMilletPickup("crickthicket-millet-4", 509, 1139),
-  makeMilletPickup("crickthicket-millet-5", 552, 1036),
-  // This plant sits inside the enlarged Lab Zero footprint, so it is collected from the nearest walkable edge.
-  makeMilletPickup("crickthicket-millet-6", 816, 744, 110)
-];
+const PICKUPS = OUTSIDE_LAYOUT.pickups.map((pickup) => {
+  return pickup.type === "sunflower"
+    ? makeSunflowerPickup(pickup.id, pickup.x, pickup.y, pickup.collectRadius)
+    : makeMilletPickup(pickup.id, pickup.x, pickup.y, pickup.collectRadius);
+});
 
 const pickupElements = new Map();
 let collectedPickupIds = new Set(getCollectedPickups());

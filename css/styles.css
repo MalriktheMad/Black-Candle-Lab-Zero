@@ -58,8 +58,6 @@ a {
   position: absolute;
   left: 0;
   top: 0;
-  width: 2400px;
-  height: 1800px;
   transform-origin: 0 0;
   background:
     radial-gradient(circle at 22% 16%, rgba(124, 60, 255, 0.18), transparent 26%),

@@ -5,7 +5,8 @@ A browser-based Budgie RPG built from scratch for desktop and mobile browsers.
 ## Project structure
 
 - `index.html` owns the game-area markup and the intentional classic-script load order.
-- `js/game.js` owns movement, camera, flight, pathfinding, collisions, areas, and transitions.
+- `js/game.js` owns movement, camera, flight, pathfinding, collision evaluation, and transitions.
+- `js/areas/` contains the dimensions, placements, collision data, and transition definitions for interior and exterior areas.
 - `js/inventory.js` is the single source of truth for item definitions and quantities.
 - `js/progress.js` is the single source of truth for level, current HP, maximum HP, and completed quests.
 - `js/pickups.js` connects world pickups to inventory quantities and removable pickup collisions.
@@ -35,15 +36,16 @@ The player-health API is ready for combat code:
 
 A future `js/combat.js` should load after `js/progress.js`. It should own combat state, attacks, hit cooldowns, enemies, boss phases, victory/defeat, and combat-only animation timing. Movement and camera should remain in `js/game.js`; boss dialogue should remain in `js/dialogues/`.
 
-Run the state regression check with Node before deploying:
+Run the regression checks with Node before deploying:
 
 ```text
 node tests/state-smoke.js
 node tests/interiors-smoke.js
+node tests/outside-smoke.js
 ```
 
 ## Map artwork workflow
 
-Keep collectible plants out of static terrain layers. `sand.png` should contain only sand, while `Plants.png` is a planning/reference layer. The live pickup elements in `js/pickups.js` are what appear and disappear during play.
+Keep collectible plants out of visible static terrain layers. Area-specific `planning/` folders may retain placement and terrain guides, such as Cricket Thicket's plant and terrain PNGs, but those guides are not loaded by the game. The live pickup elements in `js/pickups.js` are what appear and disappear during play.
 
 This is the developer's first game built without Unreal or Unity and the first deployed directly to smartphones. Frequent deployment and device testing are intentional parts of development.

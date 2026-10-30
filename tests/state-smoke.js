@@ -99,6 +99,7 @@ function evaluate(source) {
   return vm.runInContext(source, context);
 }
 
+loadScript("js/areas/outside.js");
 loadScript("js/progress.js");
 loadScript("js/inventory.js");
 loadScript("js/pickups.js");
@@ -117,7 +118,7 @@ evaluate("setPlayerLevel(2)");
 assert.equal(evaluate("getPlayerMaxHp()"), 150);
 assert.equal(evaluate("getPlayerProgress().hp"), 150, "level-up must restore the new maximum HP");
 
-assert.equal(evaluate("pickupElements.size"), 14);
+assert.equal(evaluate("pickupElements.size"), 15);
 evaluate("collectPickup(PICKUPS[0])");
 assert.equal(evaluate("getInventoryItemCount('sunflowerSeeds')"), 1);
 assert.equal(pickupToast.textContent, "Found Sunflower Seeds x1");
@@ -127,6 +128,6 @@ assert.equal(evaluate("isPickupCollected(PICKUPS[0].id)"), true);
 evaluate("collectPickup(PICKUPS[1])");
 assert.equal(evaluate("getInventoryItemCount('sunflowerSeeds')"), 2);
 assert.equal(pickupToast.textContent, "Found Sunflower Seeds x2");
-assert.equal(evaluate("pickupElements.size"), 12);
+assert.equal(evaluate("pickupElements.size"), 13);
 
 console.log("State smoke tests passed.");
