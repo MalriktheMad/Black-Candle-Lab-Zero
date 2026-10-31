@@ -11,7 +11,7 @@
   filter: none;
 }
 
-.player:not(.is-flying):not(.is-taking-off):not(.is-landing) {
+.player:not(.is-vacuum-caught):not(.is-flying):not(.is-taking-off):not(.is-landing) {
   filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.7));
 }
 
@@ -57,11 +57,11 @@
   background-position: center bottom;
 }
 
-.player:not(.is-flying):not(.is-taking-off):not(.is-landing) .pixel-bird {
+.player:not(.is-vacuum-caught):not(.is-flying):not(.is-taking-off):not(.is-landing) .pixel-bird {
   transform: translateY(2px);
 }
 
-.player:not(.is-moving):not(.is-flying):not(.is-taking-off):not(.is-landing) .pixel-bird {
+.player:not(.is-vacuum-caught):not(.is-moving):not(.is-flying):not(.is-taking-off):not(.is-landing) .pixel-bird {
   animation: little-wing-idle 9s steps(1, end) infinite;
 }
 

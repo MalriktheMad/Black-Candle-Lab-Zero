@@ -57,8 +57,10 @@ const context = vm.createContext({
 });
 const filename = path.join(__dirname, "..", "js", "vacuum-combat.js");
 const dialogueFilename = path.join(__dirname, "..", "js", "dialogues", "vacuum.js");
+const combatCssFilename = path.join(__dirname, "..", "css", "vacuum-combat.css");
 vm.runInContext(fs.readFileSync(dialogueFilename, "utf8"), context, { filename: dialogueFilename });
 vm.runInContext(fs.readFileSync(filename, "utf8"), context, { filename });
+const combatCss = fs.readFileSync(combatCssFilename, "utf8");
 
 function evaluate(source) {
   return vm.runInContext(source, context);
@@ -101,6 +103,8 @@ assert.equal(evaluate("vacuumLine('', 2, { speaker: '', lockAdvance: true }).loc
 assert.equal(evaluate("getVacuumDarkThreatLines()[0].portrait.endsWith('vacuum-portrait1.png')"), true);
 assert.equal(evaluate("getVacuumBootLine().portrait.endsWith('vacuum-portrait2.png')"), true);
 assert.equal(evaluate("getVacuumCleaningLines()[0].portrait.endsWith('vacuum-portrait3.png')"), true);
+assert.match(combatCss, /is-vacuum-caught\.vacuum-sucked-frame-2[\s\S]*sucked2\.png/);
+assert.match(combatCss, /is-vacuum-caught\.vacuum-sucked-frame-3[\s\S]*sucked3\.png/);
 evaluate("vacuumEncounter.phase = 'caught'; vacuumEncounter.struggle = VACUUM_STRUGGLE_INITIAL");
 for (let tap = 0; tap < 4; tap += 1) {
   evaluate("handleVacuumEscapeTap(tapEvent)");

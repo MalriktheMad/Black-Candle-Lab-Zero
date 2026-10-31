@@ -1,5 +1,5 @@
 function getVacuumDarkThreatLines() {
-  return [vacuumLine("Bird don't belong in the dark.", 1)];
+  return [vacuumLine("Birds don't belong in the dark.", 1)];
 }
 
 function getVacuumBootLine() {

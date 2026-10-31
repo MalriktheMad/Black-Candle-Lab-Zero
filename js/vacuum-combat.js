@@ -337,6 +337,7 @@ function beginVacuumCapture() {
   stopPlayerFlightForVacuumCapture();
   activePlayer.classList.remove("facing-left", "facing-up", "facing-down", "is-moving");
   activePlayer.classList.add("is-vacuum-caught");
+  setVacuumCaughtFrame(activePlayer, 0);
   showVacuumStruggleControl();
   callOptionalVacuumSound("playVacuumCatchSound");
 }
@@ -349,6 +350,7 @@ function updateVacuumStruggle(delta) {
 
   const progress = clamp(1 - vacuumEncounter.struggle / VACUUM_STRUGGLE_INITIAL, 0, 1);
   const easedProgress = 1 - Math.pow(1 - progress, 3);
+  setVacuumCaughtFrame(getActiveArea().player, progress);
   state.x = lerp(vacuumEncounter.captureStart.x, vacuumEncounter.captureTarget.x, easedProgress);
   state.y = lerp(vacuumEncounter.captureStart.y, vacuumEncounter.captureTarget.y, easedProgress);
   state.targetX = state.x;
@@ -420,8 +422,23 @@ function stopPlayerFlightForVacuumCapture() {
 
 function clearVacuumPlayerClasses() {
   Object.values(AREAS).forEach((area) => {
-    area.player.classList.remove("is-vacuum-caught", "is-vacuum-held");
+    area.player.classList.remove(
+      "is-vacuum-caught",
+      "is-vacuum-held",
+      "vacuum-sucked-frame-2",
+      "vacuum-sucked-frame-3"
+    );
   });
+}
+
+function setVacuumCaughtFrame(player, pullProgress) {
+  player.classList.remove("vacuum-sucked-frame-2", "vacuum-sucked-frame-3");
+
+  if (pullProgress >= 2 / 3) {
+    player.classList.add("vacuum-sucked-frame-3");
+  } else if (pullProgress >= 1 / 3) {
+    player.classList.add("vacuum-sucked-frame-2");
+  }
 }
 
 function showVacuumStruggleControl() {

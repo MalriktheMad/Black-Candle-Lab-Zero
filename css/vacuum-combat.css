@@ -117,8 +117,17 @@
 }
 
 .basement-interior .player.is-vacuum-caught .pixel-bird {
-  animation: little-wing-vacuum-caught 360ms steps(1, end) infinite;
+  background-image: url("../assets/sprites/characters/Vacuum/Grapple/sucked1.png");
+  animation: none;
   transform: none;
+}
+
+.basement-interior .player.is-vacuum-caught.vacuum-sucked-frame-2 .pixel-bird {
+  background-image: url("../assets/sprites/characters/Vacuum/Grapple/sucked2.png");
+}
+
+.basement-interior .player.is-vacuum-caught.vacuum-sucked-frame-3 .pixel-bird {
+  background-image: url("../assets/sprites/characters/Vacuum/Grapple/sucked3.png");
 }
 
 .basement-interior .player.is-vacuum-held {
@@ -272,12 +281,6 @@
   25% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/VacuumGrapple2.png"); }
   50% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/VacuumGrapple3.png"); }
   75%, 100% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/VacuumGrapple4.png"); }
-}
-
-@keyframes little-wing-vacuum-caught {
-  0% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/sucked1.png"); }
-  33.33% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/sucked2.png"); }
-  66.66%, 100% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/sucked3.png"); }
 }
 
 @keyframes vacuum-flap-button {
