@@ -114,6 +114,7 @@ assert.equal(evaluate("isVacuumBodyBlockingPoint(300, 300, 0)"), false);
 const requiredAssets = [
   "assets/sprites/environment/map-layers/Lab Zero/Basement/Basement.png",
   "assets/sprites/environment/map-layers/Lab Zero/Basement/BasementTerrain.png",
+  "assets/sprites/environment/map-layers/Lab Zero/Basement/BasementForeground.png",
   ...Array.from({ length: 4 }, (_, index) => `assets/sprites/characters/Vacuum/Idle/Vacuum${index + 1}.png`),
   ...Array.from({ length: 6 }, (_, index) => `assets/sprites/characters/Vacuum/Extend/VacuumExtend${index + 1}.png`),
   ...Array.from({ length: 4 }, (_, index) => `assets/sprites/characters/Vacuum/Suck/VacuumSuck${index + 1}.png`),

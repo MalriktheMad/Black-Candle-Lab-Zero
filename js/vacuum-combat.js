@@ -477,10 +477,17 @@ function getVacuumStruggleControl() {
   button.className = "vacuum-escape-button";
   button.type = "button";
   button.textContent = "Flap!";
-  button.addEventListener("click", handleVacuumEscapeTap);
+  button.addEventListener("pointerdown", handleVacuumEscapeTap);
+  button.addEventListener("click", handleVacuumEscapeKeyboardClick);
   control.append(labels, track, button);
   stage.append(control);
   return control;
+}
+
+function handleVacuumEscapeKeyboardClick(event) {
+  if (event.detail === 0) {
+    handleVacuumEscapeTap(event);
+  }
 }
 
 function handleVacuumEscapeTap(event) {
