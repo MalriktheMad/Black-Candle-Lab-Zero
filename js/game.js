@@ -171,6 +171,9 @@ const interiorTarget = document.getElementById("interior-target");
 const bedroomInterior = document.getElementById("bedroom-interior");
 const bedroomPlayer = document.getElementById("bedroom-player");
 const bedroomTarget = document.getElementById("bedroom-target");
+const basementInterior = document.getElementById("basement-interior");
+const basementPlayer = document.getElementById("basement-player");
+const basementTarget = document.getElementById("basement-target");
 const dillyInterior = document.getElementById("dilly-interior");
 const dillyPlayer = document.getElementById("dilly-player");
 const dillyTarget = document.getElementById("dilly-target");
@@ -224,6 +227,17 @@ const AREAS = {
     target: bedroomTarget,
     blocked: INTERIOR_LAYOUTS.bedroom.blocked,
     transitions: INTERIOR_LAYOUTS.bedroom.transitions
+  },
+  basement: {
+    width: INTERIOR_LAYOUTS.basement.width,
+    height: INTERIOR_LAYOUTS.basement.height,
+    element: basementInterior,
+    player: basementPlayer,
+    target: basementTarget,
+    blocked: INTERIOR_LAYOUTS.basement.blocked,
+    collisionGridSize: INTERIOR_LAYOUTS.basement.collisionGridSize,
+    collisionLayers: INTERIOR_LAYOUTS.basement.collisionLayers,
+    transitions: INTERIOR_LAYOUTS.basement.transitions
   },
   dilly: {
     width: DILLY_WIDTH,
@@ -306,7 +320,8 @@ function stopUiMovement(event) {
 function isGamePausedForDialogue() {
   const dialogueActive = typeof isDialogueActive === "function" && isDialogueActive();
   const controlsTutorialActive = typeof isOpeningControlsTutorialActive === "function" && isOpeningControlsTutorialActive();
-  return dialogueActive || controlsTutorialActive;
+  const vacuumEncounterLocked = typeof isVacuumEncounterMovementLocked === "function" && isVacuumEncounterMovementLocked();
+  return dialogueActive || controlsTutorialActive || vacuumEncounterLocked;
 }
 
 function isMovementLockedForBedroomCage() {
@@ -322,7 +337,7 @@ function setTarget(event) {
     return;
   }
 
-  if (event.target.closest(".readout, .quick-nav, .zoom-controls, .flight-controls, .start-menu")) {
+  if (event.target.closest(".readout, .quick-nav, .zoom-controls, .flight-controls, .start-menu, .vacuum-escape-button")) {
     return;
   }
 
@@ -405,6 +420,10 @@ function tick(now) {
   const delta = Math.min((now - state.lastTime) / 1000, 0.05);
   state.lastTime = now;
   state.transitionCooldown = Math.max(0, state.transitionCooldown - delta);
+
+  if (typeof updateVacuumEncounter === "function") {
+    updateVacuumEncounter(delta);
+  }
 
   
   if (isGamePausedForDialogue()) {
@@ -634,6 +653,7 @@ function enterTransition(transition) {
 
 function enterArea(areaName, x, y, snapToWalkable = false) {
   const currentArea = getActiveArea();
+  const previousAreaName = state.area;
   currentArea.target.classList.remove("visible");
   currentArea.element.hidden = true;
 
@@ -659,6 +679,10 @@ function enterArea(areaName, x, y, snapToWalkable = false) {
   placePlayer();
   placeTarget();
   placeCamera();
+
+  if (typeof handleVacuumAreaEntered === "function") {
+    handleVacuumAreaEntered(areaName, previousAreaName);
+  }
 }
 
 function getActiveArea() {

@@ -234,6 +234,12 @@ function placeLittleWingInBedroomCage() {
   placeCamera();
 }
 
+function resetBedroomCageAfterCapture() {
+  sessionStorage.removeItem(OPENING_BEDROOM_DIALOGUE_KEY);
+  placeLittleWingInBedroomCage();
+  showBedroomCagePrompt();
+}
+
 function closeBedroomCageDoor() {
   const cage = document.querySelector(".bedroom-cage-art");
 

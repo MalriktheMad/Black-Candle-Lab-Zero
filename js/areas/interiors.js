@@ -1,3 +1,38 @@
+const BASEMENT_TERRAIN_ROWS = new Map([
+  [0, [[0, 47]]],
+  [1, [[0, 47]]],
+  [2, [[0, 47]]],
+  [3, [[0, 47]]],
+  [4, [[0, 47]]],
+  [5, [[0, 47]]],
+  [6, [[0, 47]]],
+  [7, [[0, 47]]],
+  [8, [[0, 47]]],
+  [9, [[0, 18], [24, 47]]],
+  [10, [[0, 8], [35, 47]]],
+  [11, [[0, 12], [35, 47]]],
+  [12, [[0, 12], [35, 47]]],
+  [13, [[0, 12], [35, 47]]],
+  [14, [[0, 15], [40, 47]]],
+  [15, [[0, 15], [40, 47]]],
+  [16, [[0, 15], [35, 47]]],
+  [17, [[0, 15], [35, 47]]],
+  [18, [[0, 12], [35, 47]]],
+  [19, [[0, 12], [35, 47]]],
+  [20, [[0, 10], [35, 47]]],
+  [21, [[0, 12], [32, 47]]],
+  [22, [[0, 13], [32, 47]]],
+  [23, [[0, 13], [33, 47]]],
+  [24, [[0, 18], [33, 47]]],
+  [25, [[0, 20], [28, 47]]],
+  [26, [[0, 47]]],
+  [27, [[0, 47]]],
+  [28, [[0, 47]]],
+  [29, [[0, 47]]],
+  [30, [[0, 47]]],
+  [31, [[0, 47]]]
+]);
+
 const INTERIOR_LAYOUTS = {
   lab: {
     selector: ".lab-interior",
@@ -25,7 +60,8 @@ const INTERIOR_LAYOUTS = {
     ],
     transitions: [
       { left: 789, top: 102, right: 985, bottom: 313, to: "outside", entryX: 800, entryY: 930 },
-      { left: 183, top: 66, right: 361, bottom: 277, to: "bedroom", entryX: 1190, entryY: 840 }
+      { left: 183, top: 66, right: 361, bottom: 277, to: "bedroom", entryX: 1190, entryY: 840 },
+      { left: 52, top: 840, right: 220, bottom: 1037, to: "basement", entryX: 704, entryY: 314 }
     ],
     talkZones: {
       cricket: { left: 686, top: 730, right: 830, bottom: 842 },
@@ -52,6 +88,24 @@ const INTERIOR_LAYOUTS = {
     ],
     transitions: [
       { left: 1244, top: 708, right: 1493, bottom: 1013, to: "lab", entryX: 270, entryY: 330 }
+    ]
+  },
+  basement: {
+    selector: ".basement-interior",
+    width: 1536,
+    height: 1024,
+    elements: {
+      vacuum: { selector: ".basement-vacuum", left: 598, top: 340, width: 340, height: 258 }
+    },
+    blocked: [
+      { name: "vacuum-base", left: 738, top: 520, right: 800, bottom: 603 }
+    ],
+    collisionGridSize: 32,
+    collisionLayers: [
+      { name: "basement-terrain", rows: BASEMENT_TERRAIN_ROWS }
+    ],
+    transitions: [
+      { left: 608, top: 0, right: 800, bottom: 288, to: "lab", entryX: 140, entryY: 820 }
     ]
   }
 };

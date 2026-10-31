@@ -253,6 +253,10 @@ function advanceDialogue() {
     return;
   }
 
+  if (line && line.lockAdvance) {
+    return;
+  }
+
   if (line && line.choices) {
     return;
   }

@@ -23,16 +23,19 @@ function evaluate(source) {
 
 assert.deepEqual(Array.from(evaluate("[INTERIOR_LAYOUTS.lab.width, INTERIOR_LAYOUTS.lab.height]")), [1517, 1037]);
 assert.deepEqual(Array.from(evaluate("[INTERIOR_LAYOUTS.bedroom.width, INTERIOR_LAYOUTS.bedroom.height]")), [1517, 1037]);
+assert.deepEqual(Array.from(evaluate("[INTERIOR_LAYOUTS.basement.width, INTERIOR_LAYOUTS.basement.height]")), [1536, 1024]);
 assert.equal(evaluate("INTERIOR_LAYOUTS.lab.transitions[0].to"), "outside");
 assert.equal(evaluate("INTERIOR_LAYOUTS.lab.transitions[1].to"), "bedroom");
+assert.equal(evaluate("INTERIOR_LAYOUTS.lab.transitions[2].to"), "basement");
 assert.equal(evaluate("INTERIOR_LAYOUTS.bedroom.transitions[0].to"), "lab");
+assert.equal(evaluate("INTERIOR_LAYOUTS.basement.transitions[0].to"), "lab");
 assert.equal(
   evaluate("INTERIOR_LAYOUTS.lab.talkZones.candlewick.right < INTERIOR_LAYOUTS.lab.talkZones.labCore.left"),
   true,
   "Candlewick and Lab Core talk zones must not overlap"
 );
 
-for (const areaName of ["lab", "bedroom"]) {
+for (const areaName of ["lab", "bedroom", "basement"]) {
   const layout = evaluate(`INTERIOR_LAYOUTS.${areaName}`);
 
   for (const rect of [...Object.values(layout.elements), ...layout.blocked, ...layout.transitions]) {
@@ -49,5 +52,7 @@ assert.equal(elements.get(".lab-desk").style.left, "327px");
 assert.equal(elements.get(".candlewick-terminal").style.left, "1092px");
 assert.equal(elements.get(".lab-pc-monitor").style.left, "1245px");
 assert.equal(elements.get(".bedroom-cage-art").style.width, "326px");
+assert.equal(elements.get(".basement-interior").style.width, "1536px");
+assert.equal(elements.get(".basement-vacuum").style.left, "598px");
 
 console.log("Interior layout smoke tests passed.");

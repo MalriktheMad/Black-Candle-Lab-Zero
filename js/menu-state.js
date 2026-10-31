@@ -277,6 +277,17 @@ function startGame(options = {}) {
     stopMenuCampfireSound();
   }
 
+  if (!shouldPlayOpening
+    && typeof isBedroomCageBreakoutPending === "function"
+    && isBedroomCageBreakoutPending()
+    && typeof resetBedroomCageAfterCapture === "function") {
+    window.setTimeout(resetBedroomCageAfterCapture, 80);
+  }
+
+  if (typeof handleVacuumAreaEntered === "function" && state.area === "basement") {
+    window.setTimeout(() => handleVacuumAreaEntered("basement", null), 80);
+  }
+
   if (shouldPlayOpening && typeof playOpeningBedroomDialogue === "function") {
     window.setTimeout(playOpeningBedroomDialogue, 80);
   }

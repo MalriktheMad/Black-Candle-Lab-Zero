@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="css/interiors.css">
   <link rel="stylesheet" href="css/dilly.css">
   <link rel="stylesheet" href="css/sprites.css">
+  <link rel="stylesheet" href="css/vacuum-combat.css">
   <link rel="stylesheet" href="css/dialogue.css">
   <link rel="stylesheet" href="css/transition-cues.css">
   <link rel="stylesheet" href="css/areas/outside.css">
@@ -70,6 +71,14 @@
       <div class="bedroom-ladder" aria-label="Stairs down to Lab Zero"></div>
       <div id="bedroom-target" class="target" aria-hidden="true"></div>
       <div id="bedroom-player" class="player" aria-label="Little Wing"><div class="pixel-bird" aria-hidden="true"></div></div>
+    </div>
+    <div id="basement-interior" class="basement-interior is-dark" aria-label="Lab Zero basement" hidden>
+      <div class="basement-floor" aria-hidden="true"></div>
+      <div class="basement-vacuum is-off" aria-label="Vacuum"></div>
+      <div class="basement-terrain" aria-hidden="true"></div>
+      <div class="basement-darkness" aria-hidden="true"></div>
+      <div id="basement-target" class="target" aria-hidden="true"></div>
+      <div id="basement-player" class="player" aria-label="Little Wing"><div class="pixel-bird" aria-hidden="true"></div></div>
     </div>
     <div id="dilly-interior" class="dilly-interior" aria-label="Inside Old Dilly and Liz's treehouse" hidden>
       <div class="dilly-floor" aria-hidden="true"></div>
@@ -151,6 +160,8 @@
   <script src="js/pickups.js"></script>
   <script src="js/dialogue.js"></script>
   <script src="js/dialogues/opening.js"></script>
+  <script src="js/dialogues/vacuum.js"></script>
+  <script src="js/vacuum-combat.js"></script>
   <script src="js/dialogues/cricket.js"></script>
   <script src="js/dialogues/candlewick.js"></script>
   <script src="js/dialogues/lab-core.js"></script>

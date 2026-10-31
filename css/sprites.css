@@ -11,14 +11,18 @@
   filter: none;
 }
 
+.player:not(.is-flying):not(.is-taking-off):not(.is-landing) {
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.7));
+}
+
 .player::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -4px;
+  bottom: -2px;
   z-index: 0;
-  width: 30px;
-  height: 8px;
+  width: 32px;
+  height: 7px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.36);
   transform: translateX(-50%);
@@ -51,6 +55,10 @@
   box-shadow: none;
   z-index: 1;
   background-position: center bottom;
+}
+
+.player:not(.is-flying):not(.is-taking-off):not(.is-landing) .pixel-bird {
+  transform: translateY(2px);
 }
 
 .player:not(.is-moving):not(.is-flying):not(.is-taking-off):not(.is-landing) .pixel-bird {

@@ -1,0 +1,238 @@
+.basement-interior {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  transform-origin: 0 0;
+  border: 8px solid #050508;
+  background: #020204;
+  box-shadow: inset 0 0 0 8px rgba(247, 244, 255, 0.04);
+  will-change: transform;
+}
+
+.basement-floor,
+.basement-terrain,
+.basement-darkness {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.basement-floor,
+.basement-terrain {
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+}
+
+.basement-floor {
+  z-index: 1;
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/Basement/Basement.png");
+}
+
+.basement-terrain {
+  z-index: 9;
+  background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/Basement/BasementTerrain.png");
+}
+
+.basement-interior .target {
+  z-index: 5;
+}
+
+.basement-interior .player {
+  z-index: 7;
+}
+
+.basement-vacuum {
+  position: absolute;
+  z-index: 6;
+  pointer-events: none;
+  background-position: 110px 97px;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  transform-origin: 50% 100%;
+}
+
+.basement-vacuum.is-off {
+  background-image: url("../assets/sprites/characters/Vacuum/Idle/Vacuum1.png");
+  filter: brightness(0.12) saturate(0.45);
+}
+
+.basement-vacuum.is-booting {
+  background-image: url("../assets/sprites/characters/Vacuum/Idle/Vacuum1.png");
+  animation: vacuum-boot 720ms steps(1, end) 1 forwards;
+}
+
+.basement-vacuum.is-idle,
+.basement-vacuum.is-recovering {
+  animation: vacuum-idle 760ms steps(1, end) infinite;
+}
+
+.basement-vacuum.is-extending {
+  background-position: 0 0;
+  animation: vacuum-extend 1200ms steps(1, end) 1 forwards;
+}
+
+.basement-vacuum.is-sucking {
+  background-position: 0 0;
+  animation: vacuum-suck 880ms steps(1, end) infinite;
+}
+
+.basement-vacuum.is-grappling {
+  background-position: 0 0;
+  animation: vacuum-grapple 900ms steps(1, end) infinite;
+}
+
+.basement-darkness {
+  z-index: 30;
+  background: #000;
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.basement-interior.is-dark .basement-darkness {
+  opacity: 1;
+}
+
+.basement-interior .player.is-vacuum-caught {
+  z-index: 18;
+  opacity: 1;
+  transition: none;
+}
+
+.basement-interior .player.is-vacuum-caught::after,
+.basement-interior .player.is-vacuum-held::after {
+  opacity: 0;
+}
+
+.basement-interior .player.is-vacuum-caught .pixel-bird {
+  animation: little-wing-vacuum-caught 360ms steps(1, end) infinite;
+  transform: none;
+}
+
+.basement-interior .player.is-vacuum-held {
+  opacity: 0;
+}
+
+.vacuum-blackout {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: #000;
+  opacity: 0;
+  transition: opacity 700ms ease;
+  pointer-events: auto;
+}
+
+.vacuum-blackout[hidden] {
+  display: none;
+}
+
+.vacuum-blackout.is-active {
+  opacity: 1;
+}
+
+.vacuum-escape-button {
+  position: fixed;
+  left: 50%;
+  bottom: 92px;
+  z-index: 110;
+  min-width: 170px;
+  min-height: 58px;
+  border: 3px solid #f8d56b;
+  border-radius: 12px;
+  padding: 10px 18px;
+  background: linear-gradient(180deg, #f7b52c, #d75f16);
+  box-shadow: 0 0 0 3px rgba(7, 5, 3, 0.9), 0 0 26px rgba(248, 213, 107, 0.72), 6px 7px 0 rgba(0, 0, 0, 0.62);
+  color: #130b04;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 1000;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.vacuum-escape-button[hidden] {
+  display: none;
+}
+
+.vacuum-escape-button.is-flapping {
+  animation: vacuum-flap-button 130ms ease-out;
+}
+
+.vacuum-escape-button:focus-visible {
+  outline: 4px solid #fff;
+  outline-offset: 4px;
+}
+
+@keyframes vacuum-boot {
+  0%, 18% {
+    background-image: url("../assets/sprites/characters/Vacuum/Idle/Vacuum1.png");
+    filter: brightness(0.18) saturate(0.5);
+  }
+  19%, 42% {
+    background-image: url("../assets/sprites/characters/Vacuum/Idle/Vacuum2.png");
+    filter: brightness(0.65) saturate(0.8);
+  }
+  43%, 68% {
+    background-image: url("../assets/sprites/characters/Vacuum/Idle/Vacuum3.png");
+    filter: brightness(1.35) saturate(1.25) drop-shadow(0 0 10px rgba(34, 216, 255, 0.7));
+  }
+  69%, 100% {
+    background-image: url("../assets/sprites/characters/Vacuum/Idle/Vacuum4.png");
+    filter: brightness(1) saturate(1);
+  }
+}
+
+@keyframes vacuum-idle {
+  0% { background-image: url("../assets/sprites/characters/Vacuum/Idle/Vacuum1.png"); }
+  25% { background-image: url("../assets/sprites/characters/Vacuum/Idle/Vacuum2.png"); }
+  50% { background-image: url("../assets/sprites/characters/Vacuum/Idle/Vacuum3.png"); }
+  75%, 100% { background-image: url("../assets/sprites/characters/Vacuum/Idle/Vacuum4.png"); }
+}
+
+@keyframes vacuum-extend {
+  0% { background-image: url("../assets/sprites/characters/Vacuum/Extend/VacuumExtend1.png"); }
+  16.66% { background-image: url("../assets/sprites/characters/Vacuum/Extend/VacuumExtend2.png"); }
+  33.33% { background-image: url("../assets/sprites/characters/Vacuum/Extend/VacuumExtend3.png"); }
+  50% { background-image: url("../assets/sprites/characters/Vacuum/Extend/VacuumExtend4.png"); }
+  66.66% { background-image: url("../assets/sprites/characters/Vacuum/Extend/VacuumExtend5.png"); }
+  83.33%, 100% { background-image: url("../assets/sprites/characters/Vacuum/Extend/VacuumExtend6.png"); }
+}
+
+@keyframes vacuum-suck {
+  0% { background-image: url("../assets/sprites/characters/Vacuum/Suck/VacuumSuck1.png"); }
+  25% { background-image: url("../assets/sprites/characters/Vacuum/Suck/VacuumSuck2.png"); }
+  50% { background-image: url("../assets/sprites/characters/Vacuum/Suck/VacuumSuck3.png"); }
+  75%, 100% { background-image: url("../assets/sprites/characters/Vacuum/Suck/VacuumSuck4.png"); }
+}
+
+@keyframes vacuum-grapple {
+  0% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/VacuumGrapple1.png"); }
+  25% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/VacuumGrapple2.png"); }
+  50% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/VacuumGrapple3.png"); }
+  75%, 100% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/VacuumGrapple4.png"); }
+}
+
+@keyframes little-wing-vacuum-caught {
+  0% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/sucked1.png"); }
+  33.33% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/sucked2.png"); }
+  66.66%, 100% { background-image: url("../assets/sprites/characters/Vacuum/Grapple/sucked3.png"); }
+}
+
+@keyframes vacuum-flap-button {
+  0% { transform: translateX(-50%) scale(1); }
+  45% { transform: translateX(-50%) scale(1.12) rotate(-2deg); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .basement-darkness,
+  .vacuum-blackout {
+    transition-duration: 1ms;
+  }
+}

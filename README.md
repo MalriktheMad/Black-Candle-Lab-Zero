@@ -11,9 +11,10 @@ A browser-based Budgie RPG built from scratch for desktop and mobile browsers.
 - `js/progress.js` is the single source of truth for level, current HP, maximum HP, and completed quests.
 - `js/pickups.js` connects world pickups to inventory quantities and removable pickup collisions.
 - `js/dialogue.js` owns the dialogue runner and NPC interaction zones.
-- `js/dialogues/` contains character-specific conversation content and quest decisions.
+- `js/dialogues/` contains character- and boss-specific conversation content and quest decisions, including the vacuum's basement lines.
 - `js/menu-state.js` owns New Game, Continue, saved position, and the cinematic opening.
 - `js/audio.js` owns the shared Web Audio context, decoded sounds, ambience, and voice limits.
+- `js/vacuum-combat.js` owns the Lab Zero basement boss intro, vacuum attack cycle, capture, blackout, and cage reset.
 - `css/areas/` contains exterior-area presentation; the other CSS files cover shared UI and interiors.
 - `assets/sprites/environment/map-layers/` contains visible map layers and hidden planning layers.
 
@@ -34,7 +35,7 @@ The player-health API is ready for combat code:
 - `healPlayer(amount)` restores persistent HP without exceeding maximum HP.
 - `isPlayerDefeated()` reports whether HP has reached zero.
 
-A future `js/combat.js` should load after `js/progress.js`. It should own combat state, attacks, hit cooldowns, enemies, boss phases, victory/defeat, and combat-only animation timing. Movement and camera should remain in `js/game.js`; boss dialogue should remain in `js/dialogues/`.
+Boss-specific controllers such as `js/vacuum-combat.js` own their encounter phases and combat-only animation timing. A future shared `js/combat.js` can own reusable damage, hit cooldown, victory, and defeat rules. Movement and camera remain in `js/game.js`.
 
 Run the regression checks with Node before deploying:
 
@@ -42,6 +43,7 @@ Run the regression checks with Node before deploying:
 node tests/state-smoke.js
 node tests/interiors-smoke.js
 node tests/outside-smoke.js
+node tests/vacuum-combat-smoke.js
 ```
 
 ## Map artwork workflow
