@@ -32,7 +32,7 @@
 }
 
 .basement-terrain {
-  z-index: 9;
+  z-index: 20;
   background-image: url("../assets/sprites/environment/map-layers/Lab%20Zero/Basement/BasementTerrain.png");
 }
 
@@ -67,6 +67,10 @@
 .basement-vacuum.is-idle,
 .basement-vacuum.is-recovering {
   animation: vacuum-idle 760ms steps(1, end) infinite;
+}
+
+.basement-vacuum.is-moving {
+  animation: vacuum-idle 760ms steps(1, end) infinite, vacuum-travel-bob 420ms ease-in-out infinite alternate;
 }
 
 .basement-vacuum.is-extending {
@@ -133,13 +137,55 @@
   opacity: 1;
 }
 
-.vacuum-escape-button {
+.vacuum-struggle-control {
   position: fixed;
   left: 50%;
   bottom: 92px;
   z-index: 110;
+  width: min(360px, calc(100vw - 32px));
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.vacuum-struggle-control[hidden] {
+  display: none;
+}
+
+.vacuum-struggle-labels {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 4px 5px;
+  color: #fff4c8;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-shadow: 2px 2px 0 #000;
+  text-transform: uppercase;
+}
+
+.vacuum-struggle-track {
+  height: 24px;
+  overflow: hidden;
+  border: 3px solid #f8d56b;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #64151c, #29151a 48%, #102b2e);
+  box-shadow: 0 0 0 3px rgba(7, 5, 3, 0.92), 0 0 24px rgba(248, 213, 107, 0.54);
+}
+
+.vacuum-struggle-fill {
+  width: 35%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #e54a25, #f8d56b 58%, #63f2d1);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.46), 4px 0 12px rgba(99, 242, 209, 0.74);
+  transition: width 80ms linear;
+}
+
+.vacuum-escape-button {
+  display: block;
   min-width: 170px;
   min-height: 58px;
+  margin: 14px auto 0;
   border: 3px solid #f8d56b;
   border-radius: 12px;
   padding: 10px 18px;
@@ -151,13 +197,9 @@
   font-weight: 1000;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  transform: translateX(-50%);
   cursor: pointer;
+  pointer-events: auto;
   touch-action: manipulation;
-}
-
-.vacuum-escape-button[hidden] {
-  display: none;
 }
 
 .vacuum-escape-button.is-flapping {
@@ -225,9 +267,14 @@
 }
 
 @keyframes vacuum-flap-button {
-  0% { transform: translateX(-50%) scale(1); }
-  45% { transform: translateX(-50%) scale(1.12) rotate(-2deg); }
-  100% { transform: translateX(-50%) scale(1); }
+  0% { transform: scale(1); }
+  45% { transform: scale(1.12) rotate(-2deg); }
+  100% { transform: scale(1); }
+}
+
+@keyframes vacuum-travel-bob {
+  from { transform: translateY(0) rotate(-0.6deg); }
+  to { transform: translateY(-3px) rotate(0.6deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {

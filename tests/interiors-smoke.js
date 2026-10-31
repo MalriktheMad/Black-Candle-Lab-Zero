@@ -29,6 +29,7 @@ assert.equal(evaluate("INTERIOR_LAYOUTS.lab.transitions[1].to"), "bedroom");
 assert.equal(evaluate("INTERIOR_LAYOUTS.lab.transitions[2].to"), "basement");
 assert.equal(evaluate("INTERIOR_LAYOUTS.bedroom.transitions[0].to"), "lab");
 assert.equal(evaluate("INTERIOR_LAYOUTS.basement.transitions[0].to"), "lab");
+assert.equal(evaluate("INTERIOR_LAYOUTS.basement.blocked.length"), 0, "The moving vacuum must not leave a fixed collision behind");
 assert.equal(
   evaluate("INTERIOR_LAYOUTS.lab.talkZones.candlewick.right < INTERIOR_LAYOUTS.lab.talkZones.labCore.left"),
   true,

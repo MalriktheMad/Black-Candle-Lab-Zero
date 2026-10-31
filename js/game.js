@@ -589,6 +589,10 @@ function isTerrainBlocked(worldX, worldY) {
     return true;
   }
 
+  if (typeof isVacuumBodyBlockingPoint === "function" && isVacuumBodyBlockingPoint(worldX, worldY, radius)) {
+    return true;
+  }
+
   return getActiveArea().blocked.some((rect) => {
     if (rect.pickupId && typeof isPickupCollected === "function" && isPickupCollected(rect.pickupId)) {
       return false;

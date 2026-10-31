@@ -97,9 +97,7 @@ const INTERIOR_LAYOUTS = {
     elements: {
       vacuum: { selector: ".basement-vacuum", left: 598, top: 340, width: 340, height: 258 }
     },
-    blocked: [
-      { name: "vacuum-base", left: 738, top: 520, right: 800, bottom: 603 }
-    ],
+    blocked: [],
     collisionGridSize: 32,
     collisionLayers: [
       { name: "basement-terrain", rows: BASEMENT_TERRAIN_ROWS }

@@ -14,7 +14,7 @@ A browser-based Budgie RPG built from scratch for desktop and mobile browsers.
 - `js/dialogues/` contains character- and boss-specific conversation content and quest decisions, including the vacuum's basement lines.
 - `js/menu-state.js` owns New Game, Continue, saved position, and the cinematic opening.
 - `js/audio.js` owns the shared Web Audio context, decoded sounds, ambience, and voice limits.
-- `js/vacuum-combat.js` owns the Lab Zero basement boss intro, vacuum attack cycle, capture, blackout, and cage reset.
+- `js/vacuum-combat.js` owns the Lab Zero basement boss intro, patrol and attack cycle, struggle-meter capture, blackout, and cage reset.
 - `css/areas/` contains exterior-area presentation; the other CSS files cover shared UI and interiors.
 - `assets/sprites/environment/map-layers/` contains visible map layers and hidden planning layers.
 
