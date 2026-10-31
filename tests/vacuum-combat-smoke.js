@@ -8,7 +8,8 @@ class FakeImage {}
 function makeClassList() {
   return {
     add() {},
-    remove() {}
+    remove() {},
+    toggle() {}
   };
 }
 
@@ -82,6 +83,17 @@ assert.equal(evaluate("vacuumEncounter.phase"), "idle");
 assert.deepEqual(
   JSON.parse(JSON.stringify(evaluate("vacuumEncounter.bossPosition"))),
   { x: 390, y: 410 }
+);
+evaluate("setVacuumEncounterPhase('moving')");
+assert.equal(evaluate("vacuumEncounter.facingRight"), true);
+assert.deepEqual(
+  JSON.parse(JSON.stringify(evaluate("vacuumEncounter.moveTarget"))),
+  { x: 760, y: 410 }
+);
+evaluate("vacuumEncounter.bossPosition = { x: 760, y: 410 }; vacuumEncounter.phase = 'sucking'; vacuumEncounter.elapsed = 0");
+assert.deepEqual(
+  JSON.parse(JSON.stringify(evaluate("getVacuumNozzlePoint()"))),
+  { x: 988, y: 479 }
 );
 assert.equal(evaluate("vacuumLine('Time to clean.', 3).speaker"), "Vacuum");
 assert.equal(evaluate("vacuumLine('Time to clean.', 3).portrait.endsWith('vacuum-portrait3.png')"), true);

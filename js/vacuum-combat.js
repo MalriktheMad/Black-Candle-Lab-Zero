@@ -55,6 +55,7 @@ const vacuumEncounter = {
   moveStart: null,
   moveTarget: null,
   patrolIndex: 0,
+  facingRight: false,
   timers: new Set(),
   generation: 0
 };
@@ -232,9 +233,12 @@ function getVacuumNozzlePoint() {
     ? Math.floor(vacuumEncounter.elapsed / VACUUM_SUCK_FRAME_SECONDS) % VACUUM_NOZZLE_POINTS.length
     : 0;
   const point = VACUUM_NOZZLE_POINTS[frameIndex];
+  const pointX = vacuumEncounter.facingRight
+    ? VACUUM_BOSS_LAYOUT.width - point.x
+    : point.x;
 
   return {
-    x: vacuumEncounter.bossPosition.x + point.x,
+    x: vacuumEncounter.bossPosition.x + pointX,
     y: vacuumEncounter.bossPosition.y + point.y
   };
 }
@@ -243,6 +247,11 @@ function beginVacuumMovement() {
   vacuumEncounter.moveStart = { ...vacuumEncounter.bossPosition };
   vacuumEncounter.patrolIndex = (vacuumEncounter.patrolIndex + 1) % VACUUM_PATROL_POINTS.length;
   vacuumEncounter.moveTarget = VACUUM_PATROL_POINTS[vacuumEncounter.patrolIndex];
+  const horizontalTravel = vacuumEncounter.moveTarget.x - vacuumEncounter.moveStart.x;
+
+  if (Math.abs(horizontalTravel) > 1) {
+    setVacuumFacing(horizontalTravel > 0);
+  }
 }
 
 function updateVacuumMovement(delta) {
@@ -273,11 +282,20 @@ function placeVacuumBoss() {
   vacuumBoss.style.top = `${vacuumEncounter.bossPosition.y}px`;
 }
 
+function setVacuumFacing(facingRight) {
+  vacuumEncounter.facingRight = facingRight;
+
+  if (vacuumBoss) {
+    vacuumBoss.classList.toggle("faces-right", facingRight);
+  }
+}
+
 function resetVacuumBossPosition() {
   vacuumEncounter.bossPosition = { x: VACUUM_BOSS_LAYOUT.left, y: VACUUM_BOSS_LAYOUT.top };
   vacuumEncounter.moveStart = null;
   vacuumEncounter.moveTarget = null;
   vacuumEncounter.patrolIndex = 0;
+  setVacuumFacing(false);
   placeVacuumBoss();
 }
 
@@ -287,8 +305,14 @@ function isVacuumBodyBlockingPoint(worldX, worldY, padding = 0) {
   }
 
   const position = vacuumEncounter.bossPosition;
-  return worldX >= position.x + VACUUM_BODY_RECT.left - padding
-    && worldX <= position.x + VACUUM_BODY_RECT.right + padding
+  const bodyLeft = vacuumEncounter.facingRight
+    ? VACUUM_BOSS_LAYOUT.width - VACUUM_BODY_RECT.right
+    : VACUUM_BODY_RECT.left;
+  const bodyRight = vacuumEncounter.facingRight
+    ? VACUUM_BOSS_LAYOUT.width - VACUUM_BODY_RECT.left
+    : VACUUM_BODY_RECT.right;
+  return worldX >= position.x + bodyLeft - padding
+    && worldX <= position.x + bodyRight + padding
     && worldY >= position.y + VACUUM_BODY_RECT.top - padding
     && worldY <= position.y + VACUUM_BODY_RECT.bottom + padding;
 }

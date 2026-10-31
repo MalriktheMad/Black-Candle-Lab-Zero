@@ -99,6 +99,7 @@ const INTERIOR_LAYOUTS = {
     },
     blocked: [],
     collisionGridSize: 32,
+    collisionPadding: 22,
     collisionLayers: [
       { name: "basement-terrain", rows: BASEMENT_TERRAIN_ROWS }
     ],

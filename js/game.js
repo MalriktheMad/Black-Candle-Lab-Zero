@@ -236,6 +236,7 @@ const AREAS = {
     target: basementTarget,
     blocked: INTERIOR_LAYOUTS.basement.blocked,
     collisionGridSize: INTERIOR_LAYOUTS.basement.collisionGridSize,
+    collisionPadding: INTERIOR_LAYOUTS.basement.collisionPadding,
     collisionLayers: INTERIOR_LAYOUTS.basement.collisionLayers,
     transitions: INTERIOR_LAYOUTS.basement.transitions
   },
@@ -611,15 +612,28 @@ function isAreaCollisionLayerBlocked(worldX, worldY) {
   }
 
   const gridSize = area.collisionGridSize || PATH_GRID_SIZE;
-  const cellX = Math.floor(worldX / gridSize);
-  const cellY = Math.floor(worldY / gridSize);
+  const padding = area.collisionPadding || 0;
+  const diagonalPadding = padding * Math.SQRT1_2;
+  const sampleOffsets = padding > 0
+    ? [
+        [0, 0],
+        [padding, 0], [-padding, 0], [0, padding], [0, -padding],
+        [diagonalPadding, diagonalPadding], [diagonalPadding, -diagonalPadding],
+        [-diagonalPadding, diagonalPadding], [-diagonalPadding, -diagonalPadding]
+      ]
+    : [[0, 0]];
 
   return area.collisionLayers.some((layer) => {
     if (layer.flightPassable && state.flightMode) {
       return false;
     }
-    const ranges = layer.rows.get(cellY);
-    return Boolean(ranges && ranges.some(([left, right]) => cellX >= left && cellX <= right));
+
+    return sampleOffsets.some(([offsetX, offsetY]) => {
+      const cellX = Math.floor((worldX + offsetX) / gridSize);
+      const cellY = Math.floor((worldY + offsetY) / gridSize);
+      const ranges = layer.rows.get(cellY);
+      return Boolean(ranges && ranges.some(([left, right]) => cellX >= left && cellX <= right));
+    });
   });
 }
 

@@ -45,6 +45,7 @@
 }
 
 .basement-vacuum {
+  --vacuum-facing: 1;
   position: absolute;
   z-index: 6;
   pointer-events: none;
@@ -52,6 +53,11 @@
   background-repeat: no-repeat;
   image-rendering: pixelated;
   transform-origin: 50% 100%;
+  transform: scaleX(var(--vacuum-facing));
+}
+
+.basement-vacuum.faces-right {
+  --vacuum-facing: -1;
 }
 
 .basement-vacuum.is-off {
@@ -273,8 +279,8 @@
 }
 
 @keyframes vacuum-travel-bob {
-  from { transform: translateY(0) rotate(-0.6deg); }
-  to { transform: translateY(-3px) rotate(0.6deg); }
+  from { transform: translateY(0) rotate(-0.6deg) scaleX(var(--vacuum-facing)); }
+  to { transform: translateY(-3px) rotate(0.6deg) scaleX(var(--vacuum-facing)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
