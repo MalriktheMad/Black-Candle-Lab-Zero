@@ -61,7 +61,7 @@ const INTERIOR_LAYOUTS = {
     transitions: [
       { left: 789, top: 102, right: 985, bottom: 313, to: "outside", entryX: 800, entryY: 930 },
       { left: 183, top: 66, right: 361, bottom: 277, to: "bedroom", entryX: 1190, entryY: 840 },
-      { left: 52, top: 840, right: 220, bottom: 1037, to: "basement", entryX: 704, entryY: 314 }
+      { left: 52, top: 840, right: 220, bottom: 1037, to: "basement", entryX: 704, entryY: 350 }
     ],
     talkZones: {
       cricket: { left: 686, top: 730, right: 830, bottom: 842 },
@@ -104,7 +104,7 @@ const INTERIOR_LAYOUTS = {
       { name: "basement-terrain", rows: BASEMENT_TERRAIN_ROWS }
     ],
     transitions: [
-      { left: 608, top: 0, right: 800, bottom: 288, to: "lab", entryX: 140, entryY: 820 }
+      { left: 608, top: 0, right: 800, bottom: 340, to: "lab", entryX: 140, entryY: 820 }
     ]
   }
 };

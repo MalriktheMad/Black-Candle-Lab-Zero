@@ -31,6 +31,19 @@ assert.equal(evaluate("INTERIOR_LAYOUTS.bedroom.transitions[0].to"), "lab");
 assert.equal(evaluate("INTERIOR_LAYOUTS.basement.transitions[0].to"), "lab");
 assert.equal(evaluate("INTERIOR_LAYOUTS.basement.blocked.length"), 0, "The moving vacuum must not leave a fixed collision behind");
 assert.equal(evaluate("INTERIOR_LAYOUTS.basement.collisionPadding"), 22, "Basement foreground edges need room for Little Wing's wings");
+assert.equal(evaluate("INTERIOR_LAYOUTS.lab.transitions[2].entryY"), 350, "Basement entry must start beyond the padded stair seam");
+assert.equal(evaluate("INTERIOR_LAYOUTS.basement.transitions[0].bottom >= 336"), true, "Basement stairs must connect to the first open path cell");
+assert.equal(evaluate(`(() => {
+  const padding = INTERIOR_LAYOUTS.basement.collisionPadding;
+  const diagonal = padding * Math.SQRT1_2;
+  const offsets = [[0, 0], [padding, 0], [-padding, 0], [0, padding], [0, -padding], [diagonal, diagonal], [diagonal, -diagonal], [-diagonal, diagonal], [-diagonal, -diagonal]];
+  return offsets.every(([offsetX, offsetY]) => {
+    const cellX = Math.floor((704 + offsetX) / 32);
+    const cellY = Math.floor((350 + offsetY) / 32);
+    const ranges = BASEMENT_TERRAIN_ROWS.get(cellY);
+    return !ranges || !ranges.some(([left, right]) => cellX >= left && cellX <= right);
+  });
+})()`), true, "Basement entry point must remain clear after sprite-padding samples");
 assert.equal(
   evaluate("INTERIOR_LAYOUTS.lab.talkZones.candlewick.right < INTERIOR_LAYOUTS.lab.talkZones.labCore.left"),
   true,
