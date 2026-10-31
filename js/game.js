@@ -8,6 +8,7 @@ const ZOOM_STEP = 0.25;
 const DEFAULT_ZOOM = 0.85;
 const PATH_GRID_SIZE = 32;
 const PATH_SEARCH_LIMIT = 14000;
+const VERTICAL_DIRECTION_BIAS = 1.15;
 const TRANSITION_COOLDOWN = 0.45;
 const FLIGHT_TAKEOFF_MS = 380;
 const FLIGHT_LAND_MS = 320;
@@ -19,6 +20,10 @@ const LITTLE_WING_V25_FRAME_SOURCES = [
   "assets/sprites/characters/LittlewingV2.5/Walk/walk2.png",
   "assets/sprites/characters/LittlewingV2.5/Walk/walk3.png",
   "assets/sprites/characters/LittlewingV2.5/Walk/walk4.png",
+  "assets/sprites/characters/LittlewingV2.5/Walk/Frontwalk1.png",
+  "assets/sprites/characters/LittlewingV2.5/Walk/Frontwalk2.png",
+  "assets/sprites/characters/LittlewingV2.5/Walk/Backwalk1.png",
+  "assets/sprites/characters/LittlewingV2.5/Walk/Backwalk2.png",
   "assets/sprites/characters/LittlewingV2.5/Takeoff/takeoff1.png",
   "assets/sprites/characters/LittlewingV2.5/Takeoff/takeoff2.png",
   "assets/sprites/characters/LittlewingV2.5/Takeoff/takeoff3.png",
@@ -28,6 +33,14 @@ const LITTLE_WING_V25_FRAME_SOURCES = [
   "assets/sprites/characters/LittlewingV2.5/Flight/flight3.png",
   "assets/sprites/characters/LittlewingV2.5/Flight/flight4.png",
   "assets/sprites/characters/LittlewingV2.5/Flight/flight5.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/frontflight1.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/frontflight2.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/frontflight3.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/frontflight4.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/backflight1.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/backflight2.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/backflight3.png",
+  "assets/sprites/characters/LittlewingV2.5/Flight/backflight4.png",
   "assets/sprites/characters/LittlewingV2.5/Landing/landing1.png",
   "assets/sprites/characters/LittlewingV2.5/Landing/landing2.png",
   "assets/sprites/characters/LittlewingV2.5/Landing/landing3.png",
@@ -441,11 +454,27 @@ function followPath(delta) {
     state.targetY = state.y;
     getActiveArea().target.classList.remove("visible");
   } else {
-    getActiveArea().player.classList.toggle("facing-left", dx > 1);
+    updatePlayerMovementDirection(dx, dy);
     state.x = nextX;
     state.y = nextY;
     placePlayer();
     placeCamera();
+  }
+}
+
+function updatePlayerMovementDirection(deltaX, deltaY) {
+  const activePlayer = getActiveArea().player;
+  const isVertical = Math.abs(deltaY) > Math.abs(deltaX) * VERTICAL_DIRECTION_BIAS;
+  const isFacingUp = isVertical && deltaY < 0;
+  const isFacingDown = isVertical && deltaY > 0;
+
+  activePlayer.classList.toggle("facing-up", isFacingUp);
+  activePlayer.classList.toggle("facing-down", isFacingDown);
+
+  if (isVertical) {
+    activePlayer.classList.remove("facing-left");
+  } else if (Math.abs(deltaX) > 1) {
+    activePlayer.classList.toggle("facing-left", deltaX > 0);
   }
 }
 
@@ -625,7 +654,7 @@ function enterArea(areaName, x, y, snapToWalkable = false) {
   const nextArea = getActiveArea();
   nextArea.element.hidden = false;
   Object.values(AREAS).forEach((area) => area.player.classList.remove("is-moving"));
-  nextArea.player.classList.remove("facing-left");
+  nextArea.player.classList.remove("facing-left", "facing-up", "facing-down");
   syncPlayerAnimationState();
   placePlayer();
   placeTarget();

@@ -296,7 +296,7 @@ function movePlayerToStart() {
 
   const area = getActiveArea();
   area.element.hidden = false;
-  area.player.classList.remove("facing-left");
+  area.player.classList.remove("facing-left", "facing-up", "facing-down");
   area.target.classList.remove("visible");
 
   placePlayer();
