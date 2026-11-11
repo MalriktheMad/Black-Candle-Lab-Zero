@@ -3,7 +3,8 @@ const VACUUM_EXTEND_SECONDS = 1.2;
 const VACUUM_SUCK_SECONDS = 2.2;
 const VACUUM_RECOVER_SECONDS = 0.65;
 const VACUUM_SUCK_FRAME_SECONDS = 0.22;
-const VACUUM_CAPTURE_RADIUS = 72;
+const VACUUM_SUCTION_RADIUS = 260;
+const VACUUM_OPENING_RUSH_CAPTURE_RADIUS = 170;
 const VACUUM_CAUGHT_HOLD_SECONDS = 0.65;
 const VACUUM_STRUGGLE_INITIAL = 35;
 const VACUUM_STRUGGLE_TAP_GAIN = 15;
@@ -11,16 +12,20 @@ const VACUUM_STRUGGLE_DRAIN_PER_SECOND = 24;
 const VACUUM_STRUGGLE_ESCAPE = 100;
 const VACUUM_ESCAPE_DISTANCE = 120;
 const VACUUM_GRAPPLE_SECONDS = 1.8;
-const VACUUM_MOVE_SECONDS = 1.25;
+const VACUUM_MOVE_SECONDS = 1.05;
+const VACUUM_OPENING_RUSH_SECONDS = 0.65;
 const VACUUM_LIGHTS_FADE_MS = 900;
 const VACUUM_BLACKOUT_MS = 700;
 const VACUUM_BOSS_LAYOUT = INTERIOR_LAYOUTS.basement.elements.vacuum;
 const VACUUM_BODY_RECT = { left: 140, top: 180, right: 202, bottom: 263 };
-const VACUUM_PATROL_POINTS = [
+const VACUUM_OPENING_RUSH_POINT = { x: 540, y: 260 };
+const VACUUM_CHASE_POINTS = [
   { x: VACUUM_BOSS_LAYOUT.left, y: VACUUM_BOSS_LAYOUT.top },
+  VACUUM_OPENING_RUSH_POINT,
   { x: 390, y: 410 },
   { x: 760, y: 410 },
-  { x: 540, y: 560 }
+  { x: 540, y: 560 },
+  { x: 700, y: 500 }
 ];
 const VACUUM_NOZZLE_POINTS = [
   { x: 112, y: 69 },
@@ -54,7 +59,7 @@ const vacuumEncounter = {
   bossPosition: { x: VACUUM_BOSS_LAYOUT.left, y: VACUUM_BOSS_LAYOUT.top },
   moveStart: null,
   moveTarget: null,
-  patrolIndex: 0,
+  openingRush: false,
   facingRight: false,
   timers: new Set(),
   generation: 0
@@ -134,6 +139,7 @@ function revealVacuumEncounter() {
     }
 
     vacuumEncounter.movementLocked = false;
+    vacuumEncounter.openingRush = true;
     setVacuumEncounterPhase("moving");
   }, VACUUM_LIGHTS_FADE_MS);
 }
@@ -184,7 +190,7 @@ function updateVacuumEncounter(delta) {
   }
 
   if (vacuumEncounter.phase === "sucking") {
-    if (isPlayerInsideVacuumNozzle()) {
+    if (isPlayerInsideVacuumSuctionRange()) {
       beginVacuumCapture();
       return;
     }
@@ -245,8 +251,9 @@ function getVacuumNozzlePoint() {
 
 function beginVacuumMovement() {
   vacuumEncounter.moveStart = { ...vacuumEncounter.bossPosition };
-  vacuumEncounter.patrolIndex = (vacuumEncounter.patrolIndex + 1) % VACUUM_PATROL_POINTS.length;
-  vacuumEncounter.moveTarget = VACUUM_PATROL_POINTS[vacuumEncounter.patrolIndex];
+  vacuumEncounter.moveTarget = vacuumEncounter.openingRush
+    ? VACUUM_OPENING_RUSH_POINT
+    : getVacuumChaseTarget();
   const horizontalTravel = vacuumEncounter.moveTarget.x - vacuumEncounter.moveStart.x;
 
   if (Math.abs(horizontalTravel) > 1) {
@@ -254,9 +261,26 @@ function beginVacuumMovement() {
   }
 }
 
+function getVacuumChaseTarget() {
+  return VACUUM_CHASE_POINTS.reduce((nearest, point) => {
+    const pointCenter = getVacuumBodyCenter(point);
+    const nearestCenter = getVacuumBodyCenter(nearest);
+    const pointDistance = Math.hypot(state.x - pointCenter.x, state.y - pointCenter.y);
+    const nearestDistance = Math.hypot(state.x - nearestCenter.x, state.y - nearestCenter.y);
+    return pointDistance < nearestDistance ? point : nearest;
+  }, VACUUM_CHASE_POINTS[0]);
+}
+
 function updateVacuumMovement(delta) {
   vacuumEncounter.elapsed += delta;
-  const progress = clamp(vacuumEncounter.elapsed / VACUUM_MOVE_SECONDS, 0, 1);
+  const moveDistance = Math.hypot(
+    vacuumEncounter.moveTarget.x - vacuumEncounter.moveStart.x,
+    vacuumEncounter.moveTarget.y - vacuumEncounter.moveStart.y
+  );
+  const moveDuration = vacuumEncounter.openingRush
+    ? VACUUM_OPENING_RUSH_SECONDS
+    : moveDistance < 4 ? 0.18 : VACUUM_MOVE_SECONDS;
+  const progress = clamp(vacuumEncounter.elapsed / moveDuration, 0, 1);
   const easedProgress = progress < 0.5
     ? 2 * progress * progress
     : 1 - Math.pow(-2 * progress + 2, 2) / 2;
@@ -264,12 +288,23 @@ function updateVacuumMovement(delta) {
   vacuumEncounter.bossPosition.y = lerp(vacuumEncounter.moveStart.y, vacuumEncounter.moveTarget.y, easedProgress);
   placeVacuumBoss();
 
+  if (vacuumEncounter.openingRush && isPlayerInsideVacuumRushRange()) {
+    beginVacuumCapture();
+    return;
+  }
+
   if (progress >= 1) {
     vacuumEncounter.bossPosition = { ...vacuumEncounter.moveTarget };
     vacuumEncounter.moveStart = null;
     vacuumEncounter.moveTarget = null;
     placeVacuumBoss();
-    setVacuumEncounterPhase("idle");
+
+    if (vacuumEncounter.openingRush) {
+      vacuumEncounter.openingRush = false;
+      setVacuumEncounterPhase("extending");
+    } else {
+      setVacuumEncounterPhase("idle");
+    }
   }
 }
 
@@ -294,7 +329,7 @@ function resetVacuumBossPosition() {
   vacuumEncounter.bossPosition = { x: VACUUM_BOSS_LAYOUT.left, y: VACUUM_BOSS_LAYOUT.top };
   vacuumEncounter.moveStart = null;
   vacuumEncounter.moveTarget = null;
-  vacuumEncounter.patrolIndex = 0;
+  vacuumEncounter.openingRush = false;
   setVacuumFacing(false);
   placeVacuumBoss();
 }
@@ -317,14 +352,28 @@ function isVacuumBodyBlockingPoint(worldX, worldY, padding = 0) {
     && worldY <= position.y + VACUUM_BODY_RECT.bottom + padding;
 }
 
-function isPlayerInsideVacuumNozzle() {
-  const nozzle = getVacuumNozzlePoint();
-  return Math.hypot(state.x - nozzle.x, state.y - nozzle.y) <= VACUUM_CAPTURE_RADIUS;
+function getVacuumBodyCenter(position = vacuumEncounter.bossPosition) {
+  return {
+    x: position.x + (VACUUM_BODY_RECT.left + VACUUM_BODY_RECT.right) / 2,
+    y: position.y + (VACUUM_BODY_RECT.top + VACUUM_BODY_RECT.bottom) / 2
+  };
+}
+
+function isPlayerInsideVacuumSuctionRange() {
+  const center = getVacuumBodyCenter();
+  return Math.hypot(state.x - center.x, state.y - center.y) <= VACUUM_SUCTION_RADIUS;
+}
+
+function isPlayerInsideVacuumRushRange() {
+  const center = getVacuumBodyCenter();
+  return Math.hypot(state.x - center.x, state.y - center.y) <= VACUUM_OPENING_RUSH_CAPTURE_RADIUS;
 }
 
 function beginVacuumCapture() {
+  const capturedDuringSuction = vacuumEncounter.phase === "sucking";
   const activePlayer = getActiveArea().player;
   vacuumEncounter.phase = "caught";
+  vacuumEncounter.openingRush = false;
   vacuumEncounter.elapsed = 0;
   vacuumEncounter.movementLocked = true;
   vacuumEncounter.captureStart = { x: state.x, y: state.y };
@@ -338,7 +387,13 @@ function beginVacuumCapture() {
   activePlayer.classList.remove("facing-left", "facing-up", "facing-down", "is-moving");
   activePlayer.classList.add("is-vacuum-caught");
   setVacuumCaughtFrame(activePlayer, 0);
+  setVacuumBossVisual("sucking");
   showVacuumStruggleControl();
+
+  if (!capturedDuringSuction) {
+    callOptionalVacuumSound("startVacuumSuctionSound");
+  }
+
   callOptionalVacuumSound("playVacuumCatchSound");
 }
 
@@ -610,6 +665,7 @@ function cancelVacuumEncounter() {
   vacuumEncounter.struggle = VACUUM_STRUGGLE_INITIAL;
   vacuumEncounter.moveStart = null;
   vacuumEncounter.moveTarget = null;
+  vacuumEncounter.openingRush = false;
   callOptionalVacuumSound("stopVacuumSuctionSound");
   clearVacuumPlayerClasses();
   hideVacuumStruggleControl();

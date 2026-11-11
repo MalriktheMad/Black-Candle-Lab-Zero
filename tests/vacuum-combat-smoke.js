@@ -48,7 +48,7 @@ const context = vm.createContext({
     setItem() {},
     removeItem() {}
   },
-  state: { area: "basement" },
+  state: { area: "basement", x: 704, y: 350 },
   tapEvent: {
     preventDefault() {},
     stopPropagation() {}
@@ -68,25 +68,27 @@ function evaluate(source) {
 
 assert.equal(evaluate("VACUUM_FRAME_SOURCES.length"), 24);
 assert.equal(evaluate("VACUUM_NOZZLE_POINTS.length"), 4);
-assert.equal(evaluate("VACUUM_CAPTURE_RADIUS"), 72);
+assert.equal(evaluate("VACUUM_SUCTION_RADIUS"), 260);
+assert.equal(evaluate("VACUUM_OPENING_RUSH_CAPTURE_RADIUS"), 170);
+assert.equal(evaluate("VACUUM_OPENING_RUSH_SECONDS"), 0.65);
 assert.equal(evaluate("VACUUM_CAUGHT_HOLD_SECONDS"), 0.65);
 assert.equal(evaluate("VACUUM_STRUGGLE_INITIAL"), 35);
 assert.equal(evaluate("VACUUM_STRUGGLE_TAP_GAIN"), 15);
 assert.equal(evaluate("VACUUM_STRUGGLE_DRAIN_PER_SECOND"), 24);
 assert.equal(evaluate("VACUUM_STRUGGLE_ESCAPE"), 100);
-assert.equal(evaluate("VACUUM_PATROL_POINTS.length"), 4);
+assert.equal(evaluate("VACUUM_CHASE_POINTS.length"), 6);
 evaluate("resetVacuumBossPosition(); vacuumEncounter.phase = 'idle'; setVacuumEncounterPhase('moving')");
 assert.deepEqual(
   JSON.parse(JSON.stringify(evaluate("vacuumEncounter.moveTarget"))),
-  { x: 390, y: 410 }
+  { x: 540, y: 260 }
 );
 evaluate("updateVacuumMovement(VACUUM_MOVE_SECONDS)");
 assert.equal(evaluate("vacuumEncounter.phase"), "idle");
 assert.deepEqual(
   JSON.parse(JSON.stringify(evaluate("vacuumEncounter.bossPosition"))),
-  { x: 390, y: 410 }
+  { x: 540, y: 260 }
 );
-evaluate("setVacuumEncounterPhase('moving')");
+evaluate("state.x = 1000; state.y = 650; setVacuumEncounterPhase('moving')");
 assert.equal(evaluate("vacuumEncounter.facingRight"), true);
 assert.deepEqual(
   JSON.parse(JSON.stringify(evaluate("vacuumEncounter.moveTarget"))),
@@ -96,6 +98,15 @@ evaluate("vacuumEncounter.bossPosition = { x: 760, y: 410 }; vacuumEncounter.pha
 assert.deepEqual(
   JSON.parse(JSON.stringify(evaluate("getVacuumNozzlePoint()"))),
   { x: 988, y: 479 }
+);
+evaluate("vacuumEncounter.bossPosition = { x: 598, y: 340 }; state.x = 900; state.y = 561");
+assert.equal(evaluate("isPlayerInsideVacuumSuctionRange()"), true, "Suction must catch Little Wing behind the vacuum");
+evaluate("state.x = 1030; state.y = 561");
+assert.equal(evaluate("isPlayerInsideVacuumSuctionRange()"), false);
+evaluate("resetVacuumBossPosition(); vacuumEncounter.openingRush = true; vacuumEncounter.phase = 'idle'; setVacuumEncounterPhase('moving')");
+assert.deepEqual(
+  JSON.parse(JSON.stringify(evaluate("vacuumEncounter.moveTarget"))),
+  { x: 540, y: 260 }
 );
 assert.equal(evaluate("vacuumLine('Time to clean.', 3).speaker"), "Vacuum");
 assert.equal(evaluate("vacuumLine('Time to clean.', 3).portrait.endsWith('vacuum-portrait3.png')"), true);
