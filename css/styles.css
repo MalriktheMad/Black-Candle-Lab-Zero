@@ -505,6 +505,10 @@ a {
 .warm-fire-button {
   justify-self: center;
   min-width: 220px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .start-menu:not(.is-warmed) .start-menu-actions {

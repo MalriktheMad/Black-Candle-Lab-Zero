@@ -36,6 +36,7 @@ let introSlideIndex = 0;
 let introEnding = false;
 let introStarting = false;
 let introSlideTimer = 0;
+let warmFireActivationTime = -Infinity;
 
 restoreGameState();
 prepareStartMenuArtwork();
@@ -100,6 +101,7 @@ function setupStartMenu() {
   startMenu.hidden = false;
   startMenu.classList.remove("is-warmed");
 
+  warmFireButton.addEventListener("pointerdown", warmFireAndShowMenu);
   warmFireButton.addEventListener("click", warmFireAndShowMenu);
   newGameButton.addEventListener("pointerdown", beginNewGameIntro);
   newGameButton.addEventListener("click", beginNewGameIntro);
@@ -117,6 +119,14 @@ function warmFireAndShowMenu(event) {
     event.preventDefault();
     event.stopPropagation();
   }
+
+  const activationTime = performance.now();
+
+  if (activationTime - warmFireActivationTime < 500) {
+    return;
+  }
+
+  warmFireActivationTime = activationTime;
 
   startMenu.classList.add("is-warmed");
   syncMenuCampfireSound();
