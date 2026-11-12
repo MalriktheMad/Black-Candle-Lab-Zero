@@ -59,7 +59,8 @@ const filename = path.join(__dirname, "..", "js", "vacuum-combat.js");
 const dialogueFilename = path.join(__dirname, "..", "js", "dialogues", "vacuum.js");
 const combatCssFilename = path.join(__dirname, "..", "css", "vacuum-combat.css");
 vm.runInContext(fs.readFileSync(dialogueFilename, "utf8"), context, { filename: dialogueFilename });
-vm.runInContext(fs.readFileSync(filename, "utf8"), context, { filename });
+const combatSource = fs.readFileSync(filename, "utf8");
+vm.runInContext(combatSource, context, { filename });
 const combatCss = fs.readFileSync(combatCssFilename, "utf8");
 
 function evaluate(source) {
@@ -68,8 +69,8 @@ function evaluate(source) {
 
 assert.equal(evaluate("VACUUM_FRAME_SOURCES.length"), 24);
 assert.equal(evaluate("VACUUM_NOZZLE_POINTS.length"), 4);
-assert.equal(evaluate("VACUUM_SUCTION_RADIUS"), 260);
-assert.equal(evaluate("VACUUM_OPENING_RUSH_CAPTURE_RADIUS"), 170);
+assert.equal(evaluate("VACUUM_SUCTION_RADIUS"), 170);
+assert.equal(evaluate("VACUUM_OPENING_RUSH_CAPTURE_RADIUS"), 140);
 assert.equal(evaluate("VACUUM_OPENING_RUSH_SECONDS"), 0.65);
 assert.equal(evaluate("VACUUM_CAUGHT_HOLD_SECONDS"), 0.65);
 assert.equal(evaluate("VACUUM_STRUGGLE_INITIAL"), 35);
@@ -101,7 +102,7 @@ assert.deepEqual(
 );
 evaluate("vacuumEncounter.bossPosition = { x: 598, y: 340 }; state.x = 900; state.y = 561");
 assert.equal(evaluate("isPlayerInsideVacuumSuctionRange()"), true, "Suction must catch Little Wing behind the vacuum");
-evaluate("state.x = 1030; state.y = 561");
+evaluate("state.x = 940; state.y = 561");
 assert.equal(evaluate("isPlayerInsideVacuumSuctionRange()"), false);
 evaluate("resetVacuumBossPosition(); vacuumEncounter.openingRush = true; vacuumEncounter.phase = 'idle'; setVacuumEncounterPhase('moving')");
 assert.deepEqual(
@@ -116,6 +117,8 @@ assert.equal(evaluate("getVacuumBootLine().portrait.endsWith('vacuum-portrait2.p
 assert.equal(evaluate("getVacuumCleaningLines()[0].portrait.endsWith('vacuum-portrait3.png')"), true);
 assert.match(combatCss, /is-vacuum-caught\.vacuum-sucked-frame-2[\s\S]*sucked2\.png/);
 assert.match(combatCss, /is-vacuum-caught\.vacuum-sucked-frame-3[\s\S]*sucked3\.png/);
+assert.match(combatSource, /findNearestWalkableCell\(worldToCell\(requestedX\), worldToCell\(requestedY\), false\)/);
+assert.match(combatSource, /state\.transitionCooldown = TRANSITION_COOLDOWN/);
 evaluate("vacuumEncounter.phase = 'caught'; vacuumEncounter.struggle = VACUUM_STRUGGLE_INITIAL");
 for (let tap = 0; tap < 4; tap += 1) {
   evaluate("handleVacuumEscapeTap(tapEvent)");

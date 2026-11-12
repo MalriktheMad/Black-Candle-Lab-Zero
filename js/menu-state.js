@@ -36,7 +36,6 @@ let introSlideIndex = 0;
 let introEnding = false;
 let introStarting = false;
 let introSlideTimer = 0;
-let warmFireActivationTime = -Infinity;
 
 restoreGameState();
 prepareStartMenuArtwork();
@@ -101,17 +100,25 @@ function setupStartMenu() {
   startMenu.hidden = false;
   startMenu.classList.remove("is-warmed");
 
-  warmFireButton.addEventListener("pointerdown", warmFireAndShowMenu);
-  warmFireButton.addEventListener("click", warmFireAndShowMenu);
-  newGameButton.addEventListener("pointerdown", beginNewGameIntro);
-  newGameButton.addEventListener("click", beginNewGameIntro);
+  bindMenuButtonActivation(warmFireButton, warmFireAndShowMenu);
+  bindMenuButtonActivation(newGameButton, beginNewGameIntro);
+  bindMenuButtonActivation(continueGameButton, () => startGame({ playOpening: false }));
+  bindMenuButtonActivation(introStartButton, advanceIntroCard);
+  bindMenuButtonActivation(clearSaveButton, handleClearSave);
+}
 
-  continueGameButton.addEventListener("click", () => startGame({ playOpening: false }));
+function bindMenuButtonActivation(button, handler) {
+  if (!("PointerEvent" in window)) {
+    button.addEventListener("click", handler);
+    return;
+  }
 
-  introStartButton.addEventListener("click", advanceIntroCard);
-
-  clearSaveButton.addEventListener("pointerup", handleClearSave);
-  clearSaveButton.addEventListener("click", handleClearSave);
+  button.addEventListener("pointerup", handler);
+  button.addEventListener("click", (event) => {
+    if (event.detail === 0) {
+      handler(event);
+    }
+  });
 }
 
 function warmFireAndShowMenu(event) {
@@ -119,14 +126,6 @@ function warmFireAndShowMenu(event) {
     event.preventDefault();
     event.stopPropagation();
   }
-
-  const activationTime = performance.now();
-
-  if (activationTime - warmFireActivationTime < 500) {
-    return;
-  }
-
-  warmFireActivationTime = activationTime;
 
   startMenu.classList.add("is-warmed");
   syncMenuCampfireSound();

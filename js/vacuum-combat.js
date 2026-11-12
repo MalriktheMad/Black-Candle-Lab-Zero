@@ -3,8 +3,8 @@ const VACUUM_EXTEND_SECONDS = 1.2;
 const VACUUM_SUCK_SECONDS = 2.2;
 const VACUUM_RECOVER_SECONDS = 0.65;
 const VACUUM_SUCK_FRAME_SECONDS = 0.22;
-const VACUUM_SUCTION_RADIUS = 260;
-const VACUUM_OPENING_RUSH_CAPTURE_RADIUS = 170;
+const VACUUM_SUCTION_RADIUS = 170;
+const VACUUM_OPENING_RUSH_CAPTURE_RADIUS = 140;
 const VACUUM_CAUGHT_HOLD_SECONDS = 0.65;
 const VACUUM_STRUGGLE_INITIAL = 35;
 const VACUUM_STRUGGLE_TAP_GAIN = 15;
@@ -604,7 +604,8 @@ function escapeVacuumCapture() {
   const distance = Math.hypot(awayX, awayY) || 1;
   const requestedX = clamp(nozzle.x + (awayX / distance) * VACUUM_ESCAPE_DISTANCE, 24, getActiveArea().width - 24);
   const requestedY = clamp(nozzle.y + (awayY / distance) * VACUUM_ESCAPE_DISTANCE, 24, getActiveArea().height - 24);
-  const safePoint = findNearestWalkablePoint(requestedX, requestedY) || start;
+  const safeCell = findNearestWalkableCell(worldToCell(requestedX), worldToCell(requestedY), false);
+  const safePoint = safeCell ? cellToWorld(safeCell.x, safeCell.y) : start;
 
   hideVacuumStruggleControl();
   clearVacuumPlayerClasses();
@@ -619,6 +620,7 @@ function escapeVacuumCapture() {
   state.targetX = state.x;
   state.targetY = state.y;
   state.path = [];
+  state.transitionCooldown = TRANSITION_COOLDOWN;
   placePlayer();
   placeTarget();
   placeCamera();

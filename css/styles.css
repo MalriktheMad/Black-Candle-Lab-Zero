@@ -538,6 +538,7 @@ a {
   font-size: 0.82rem;
   font-weight: 900;
   text-transform: uppercase;
+  touch-action: manipulation;
 }
 
 .start-menu button:hover,
